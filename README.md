@@ -65,6 +65,8 @@ text or photo → Claude (structured JSON: transcript, terms, roots, summary)
 - `components/CodexProvider.tsx`, `app/codex/page.tsx`: sign-in (email link) and the Codex of saved roots and abbreviations
 - `app/review/page.tsx`, `lib/quiz.ts`, `lib/review.ts`: daily review quizzes built from the dictionary, scheduled with spaced repetition (a simplified SM-2)
 - `app/dictionary`, `components/DictionaryBrowser.tsx`: a searchable dictionary of every root and abbreviation, with example words and save buttons
+- `app/study`, `lib/decks.ts`, `components/DeckQuiz.tsx`: ready-made study decks by body system (no sign-in needed)
+- `components/WordOfTheDay.tsx`, `components/ReadAloud.tsx`: a daily root on the home page, and read-aloud summaries
 - `lib/words.ts`: real medical words built from dictionary roots, for "decode it yourself" questions
 - `supabase/schema.sql`: the Codex table, with row-level security so each user sees only their own words
 - `app/api/decode/route.ts`: the API endpoint (input limits, error handling, no storage)

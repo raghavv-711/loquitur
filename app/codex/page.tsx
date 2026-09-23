@@ -44,11 +44,21 @@ export default function CodexPage() {
 
   return (
     <main className="mx-auto max-w-5xl px-4 pb-10 pt-4 sm:px-6">
-      <header className="mb-8">
-        <h1 className="font-serif text-4xl font-semibold tracking-tight sm:text-5xl">My Codex</h1>
-        <p className="mt-1 font-serif text-lg italic text-muted">
-          The roots and abbreviations you&apos;ve learned.
-        </p>
+      <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 className="font-serif text-4xl font-semibold tracking-tight sm:text-5xl">My Codex</h1>
+          <p className="mt-1 font-serif text-lg italic text-muted">The roots and abbreviations you&apos;ve learned.</p>
+        </div>
+        {user && (
+          <div className="flex items-center gap-3 text-sm">
+            <span className="text-faint">{user.email}</span>
+            <form action="/auth/signout" method="post">
+              <button className="rounded-full border border-line px-3 py-1 text-muted hover:border-accent hover:text-fg">
+                Sign out
+              </button>
+            </form>
+          </div>
+        )}
       </header>
 
       {!enabled ? (

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { useCodex } from "./CodexProvider";
 import { GoogleButton, googleButtonAvailable } from "./GoogleButton";
@@ -11,39 +11,49 @@ export function AuthBar() {
   const { enabled, user, loading, dueCount } = useCodex();
   const [open, setOpen] = useState(false);
 
-  if (!enabled || loading) return <div className="h-9" />;
+  if (!enabled || loading) return <div className="h-9 w-24" />;
 
   return (
-    <nav className="flex items-center justify-end gap-3">
+    <div className="flex items-center gap-5 sm:gap-6">
       {user ? (
         <>
-          <Link href="/" className="hidden text-muted hover:text-fg sm:inline">
-            Decode
-          </Link>
-          <Link href="/codex" className="text-muted hover:text-fg">
-            <span className="hidden sm:inline">My </span>Codex
-          </Link>
-          <Link href="/review" className="font-medium text-accent hover:underline">
+          <NavLink href="/codex">Codex</NavLink>
+          <NavLink href="/review">
             Review
             {dueCount > 0 && (
-              <span className="ml-1 rounded-full bg-accent-2 px-1.5 py-0.5 text-xs text-bg">{dueCount}</span>
+              <span className="ml-1.5 rounded-full bg-accent-2 px-1.5 py-0.5 text-xs font-medium text-bg">{dueCount}</span>
             )}
-          </Link>
-          <span className="hidden text-faint sm:inline">{user.email}</span>
-          <form action="/auth/signout" method="post">
+          </NavLink>
+          {/* On phones, sign out lives on the Codex page so the bar fits. */}
+          <form action="/auth/signout" method="post" className="hidden border-l border-line pl-5 sm:block sm:pl-6">
             <button className="text-muted hover:text-fg">Sign out</button>
           </form>
         </>
       ) : (
         <button
           onClick={() => setOpen(true)}
-          className="rounded-full border border-line px-3 py-1.5 hover:border-accent"
+          className="rounded-full border border-line px-4 py-1.5 hover:border-accent"
         >
           Sign in<span className="hidden sm:inline"> to save words</span>
         </button>
       )}
       {open && !user && <SignInDialog onClose={() => setOpen(false)} />}
-    </nav>
+    </div>
+  );
+}
+
+// A top-bar link that's highlighted on its own page.
+export function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  const pathname = usePathname();
+  const active = pathname === href || pathname.startsWith(`${href}/`);
+  return (
+    <Link
+      href={href}
+      aria-current={active ? "page" : undefined}
+      className={`flex items-center transition ${active ? "font-medium text-accent" : "text-muted hover:text-fg"}`}
+    >
+      {children}
+    </Link>
   );
 }
 

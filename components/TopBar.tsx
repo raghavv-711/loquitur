@@ -3,9 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AuthBar } from "./AuthBar";
+import { AuthBar, NavLink } from "./AuthBar";
 
 // Brand on the left (hidden on the home page, which shows the full logo), links on the right.
+// About and Privacy live in the footer, to keep this bar uncluttered.
 export function TopBar() {
   const onHome = usePathname() === "/";
 
@@ -19,16 +20,11 @@ export function TopBar() {
           <span className="hidden sm:inline">Loquitur</span>
         </Link>
       )}
-      <div className="flex items-center gap-3 whitespace-nowrap text-sm">
-        <Link href="/dictionary" className="text-muted hover:text-fg">
-          Dictionary
-        </Link>
-        {/* On phones About lives in the footer, to keep the bar from crowding. */}
-        <Link href="/about" className="hidden text-muted hover:text-fg sm:inline">
-          About
-        </Link>
+      <nav className="flex items-center gap-5 whitespace-nowrap text-sm sm:gap-6" aria-label="Main">
+        <NavLink href="/dictionary">Dictionary</NavLink>
+        <NavLink href="/study">Study</NavLink>
         <AuthBar />
-      </div>
+      </nav>
     </div>
   );
 }

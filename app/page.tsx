@@ -3,7 +3,9 @@
 import Image from "next/image";
 import { useState } from "react";
 import { HighlightedText } from "@/components/HighlightedText";
+import { ReadAloud } from "@/components/ReadAloud";
 import { KIND_STYLES, TermCard } from "@/components/TermCard";
+import { WordOfTheDay } from "@/components/WordOfTheDay";
 import { prepareImage, type PreparedImage } from "@/lib/image";
 import type { DecodeResponse } from "@/lib/schema";
 
@@ -176,10 +178,20 @@ export default function Home() {
 
       {error && <p className="mt-6 rounded-xl bg-red-400/10 p-4 text-sm text-red-200">{error}</p>}
 
+      {/* Before anything is decoded, teach one root a day. */}
+      {!result && !loading && (
+        <div className="mt-8">
+          <WordOfTheDay />
+        </div>
+      )}
+
       {result && (
         <section className="mt-8">
           <div className="rounded-2xl border border-line bg-surface-2 p-5 text-fg">
-            <h2 className="text-xs font-semibold uppercase tracking-wide text-accent">What this says</h2>
+            <div className="flex items-center justify-between gap-3">
+              <h2 className="text-xs font-semibold uppercase tracking-wide text-accent">What this says</h2>
+              <ReadAloud text={result.summary} />
+            </div>
             <p className="mt-2 text-lg">{result.summary}</p>
           </div>
 

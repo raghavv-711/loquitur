@@ -57,7 +57,7 @@ function abbrevMeaningQuestion(entry: CodexEntry, rng: Rng): Question {
   return finish(
     {
       type: "abbrev-meaning",
-      prompt: "On a prescription, what does this mean?",
+      prompt: "What does this abbreviation mean?",
       subject: entry.term,
       explanation: `${entry.term} is short for ${d.expansion}${d.literal ? `, "${d.literal}"` : ""}.`,
     },
@@ -97,7 +97,8 @@ function decodeQuestion(entry: CodexEntry, word: Word, knownKeys: Set<string>, r
   return finish(
     {
       type: "decode",
-      prompt: `You know ${list(known.length ? known : [entry.term])}. Decode this word:`,
+      // In the Codex the user has learned these parts; in a study deck they may not have yet.
+      prompt: known.length ? `You know ${list(known)}. Decode this word:` : "Decode this word from its parts:",
       subject: word.word,
       hint: parts.map((p) => p.text).join(" + "),
       explanation: parts.map((p) => `${p.text} = ${p.meaning}`).join(" · "),
