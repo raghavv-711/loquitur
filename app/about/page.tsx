@@ -14,18 +14,16 @@ export default function AboutPage() {
         <section>
           <h2>Why I built it</h2>
           <p className="mt-2">
-            Hi, I&apos;m <strong className="text-fg">Raghav Vijayapal</strong>. I&apos;ve studied Latin for seven years,
-            and I kept noticing that the most confusing parts of medical paperwork are Latin and Greek in disguise.
-            &ldquo;PO BID&rdquo; on a prescription label is <em>per os, bis in die</em>: by mouth, twice a day.
-            &ldquo;Nephrolithiasis&rdquo; on a doctor&apos;s note is just <em>nephr-</em> (kidney) + <em>lith-</em>{" "}
-            (stone): kidney stones.
+            Hi, I&apos;m <strong className="text-fg">Raghav Vijayapal</strong>. I&apos;ve been studying Latin for seven
+            years now, including AP Latin in high school, and I kept noticing that the most confusing parts of medical
+            paperwork are Latin and Greek in disguise. &ldquo;PO BID&rdquo; on a prescription label is{" "}
+            <em>per os, bis in die</em>: by mouth, twice a day. &ldquo;Nephrolithiasis&rdquo; on a doctor&apos;s note is
+            just <em>nephr-</em> (kidney) + <em>lith-</em> (stone): kidney stones.
           </p>
           <p className="mt-3">
-            Many people leave an appointment unsure what their paperwork is telling them to do, and that confusion has
-            real costs, for their health and for the healthcare system. I&apos;m interested in economics and in how
-            organizations communicate with the people they serve, and this felt like a problem where knowing Latin
-            could genuinely help. So I built Loquitur: it translates the jargon into plain English, and it teaches you
-            the roots so the next unfamiliar word is one you can decode yourself.
+            Many people leave an appointment unsure what their paperwork is telling them to do. I wanted to create
+            something that was both helpful and educational: a tool that explains your paperwork in plain English right
+            now, and along the way teaches more people about the Latin language itself.
           </p>
         </section>
 
@@ -38,9 +36,22 @@ export default function AboutPage() {
             FDA&apos;s public drug label database. Anything that can&apos;t be verified is clearly marked, so you know
             when to double-check with your pharmacist.
           </p>
+        </section>
+
+        <section>
+          <h2>Learn it, don&apos;t just look it up</h2>
+          <p className="mt-2">
+            Sign in to save any root or abbreviation to your <strong className="text-fg">Codex</strong>. Loquitur then
+            quizzes you on your saved words: what a root means, what Latin phrase an abbreviation stands for, and
+            &ldquo;decode it yourself&rdquo; questions that combine roots you know into new words (you know{" "}
+            <em>nephr-</em>, so what is a <em>nephrectomy</em>?). Words you get right come back less often; words you
+            miss come back soon, so each one sticks.
+          </p>
           <p className="mt-3">
-            Sign in to save the roots and abbreviations you learn to your Codex, and review them with short daily
-            quizzes that space out each word so it sticks.
+            A few dozen roots unlock thousands of medical words. Knowing them makes you a more confident patient and a
+            better advocate for the people you care for. And if you&apos;re a student thinking about medical school,
+            much of the vocabulary you&apos;ll need to learn is built from these same Latin and Greek parts, so learning
+            them now is a real head start.
           </p>
         </section>
 

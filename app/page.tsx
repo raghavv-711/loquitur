@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import { HighlightedText } from "@/components/HighlightedText";
 import { KIND_STYLES, TermCard } from "@/components/TermCard";
@@ -227,16 +226,9 @@ export default function Home() {
         </section>
       )}
 
-      <footer className="mt-12 border-t border-line pt-4 text-xs text-muted">
-        Loquitur explains words. It is not medical advice. Ask your pharmacist or doctor about your care. ·{" "}
-        <Link href="/about" className="underline underline-offset-2 hover:text-fg">
-          About
-        </Link>{" "}
-        ·{" "}
-        <Link href="/privacy" className="underline underline-offset-2 hover:text-fg">
-          Privacy
-        </Link>
-      </footer>
+      <p className="mt-12 text-xs text-muted">
+        Loquitur explains words. It is not medical advice. Ask your pharmacist or doctor about your care.
+      </p>
     </main>
   );
 }
