@@ -45,7 +45,7 @@ text or photo → Claude (structured JSON: transcript, terms, roots, summary)
 
 - [x] Week 1–2: paste text → highlighted jargon → term cards
 - [x] Week 3: photo upload (Claude vision)
-- [ ] Week 4: grow the dictionary (drafted: 116 abbreviations, 208 roots; review in progress)
+- [x] Week 4: grow the dictionary to 152 abbreviations and 264 roots
 - [ ] Week 5: MedlinePlus + openFDA checks
 - [ ] Week 6: sign-in + Codex (saved roots)
 - [ ] Week 7: spaced-repetition review quizzes
