@@ -39,6 +39,15 @@ Tested on 30 made-up documents (15 prescription labels, 15 after-visit summaries
 
 Half of the AI's abbreviation errors were Latin grammar: it expanded q6h as *"quaque 6 hora"* instead of the ordinal *quaque sexta hora* (8 of 16 misses). The dictionary corrected every one. Average cost is about $0.03 and 9 seconds per document.
 
+## How "Most common" is measured
+
+The dictionary's **Most common** sort ranks entries by how often they appear in real medical writing:
+4,999 sample medical reports from [MTSamples](https://www.kaggle.com/datasets/tboyle10/medicaltranscriptions) (CC0),
+counting only words found in the 98,119-term [glutanimate medical word list](https://github.com/glutanimate/wordlist-medicalterms-en).
+Roots are matched by position (endings must end a word, prefixes must start it, short roots must be followed by another
+real part) with a short list of checked false friends, so "history" doesn't count for *hist-* and "posterior" doesn't
+count for *oste-*. The counts live in `lib/prevalence.ts`; `scripts/prevalence.py` regenerates them and documents every rule.
+
 ## Tests
 
 ```bash

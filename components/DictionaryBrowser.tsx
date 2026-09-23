@@ -5,11 +5,32 @@ import { useMemo, useState } from "react";
 import type { NewCodexEntry } from "@/lib/codex";
 import { ABBREVIATIONS, ROOTS } from "@/lib/dictionary";
 import { abbrevDisplay, exampleWords, rootDisplay } from "@/lib/display";
+import { ABBREV_FREQUENCY, ROOT_FREQUENCY } from "@/lib/prevalence";
 import { SaveButton } from "./SaveButton";
 
 type Tab = "roots" | "abbreviations";
 type RootFilter = "all" | "latin" | "greek";
 type AbbrevFilter = "all" | "latin" | "warnings";
+type Sort = "az" | "common";
+
+// Frequency labels by rank among entries (top 15% very common, next 30% common, next 35% less common).
+function tiersFor(freq: Record<string, number>, keys: string[]): Record<string, string> {
+  const ranked = [...keys].sort((a, b) => (freq[b] ?? 0) - (freq[a] ?? 0));
+  const out: Record<string, string> = {};
+  ranked.forEach((k, i) => {
+    const share = i / Math.max(1, ranked.length - 1);
+    out[k] = !freq[k]
+      ? "Rare in reports"
+      : share < 0.15
+        ? "Very common"
+        : share < 0.45
+          ? "Common"
+          : share < 0.8
+            ? "Less common"
+            : "Rare";
+  });
+  return out;
+}
 
 // Latin phrases like "pro re nata" are translated in `literal`; plain English expansions aren't.
 const isLatinAbbrev = (a: { expansion: string; literal: string }) =>
@@ -22,6 +43,13 @@ const ROOT_LIST = Object.entries(ROOTS)
 const ABBREV_LIST = Object.entries(ABBREVIATIONS)
   .map(([key, a]) => ({ key, display: abbrevDisplay(key), ...a }))
   .sort((a, b) => a.display.localeCompare(b.display, undefined, { sensitivity: "base" }));
+
+const ROOT_TIER = tiersFor(ROOT_FREQUENCY, Object.keys(ROOTS));
+const ABBREV_TIER = tiersFor(ABBREV_FREQUENCY, Object.keys(ABBREVIATIONS));
+
+// Most common first; ties keep A–Z order (Array.sort is stable).
+const byFrequency = <T extends { key: string }>(items: T[], freq: Record<string, number>) =>
+  [...items].sort((a, b) => (freq[b.key] ?? 0) - (freq[a.key] ?? 0));
 
 // Rank a search hit: the entry itself first, then its meaning, then anything else (like a memory hook).
 // Returns -1 for no match.
@@ -63,23 +91,26 @@ export function DictionaryBrowser() {
   const [query, setQuery] = useState(params.get("q") ?? "");
   const [rootFilter, setRootFilter] = useState<RootFilter>("all");
   const [abbrevFilter, setAbbrevFilter] = useState<AbbrevFilter>("all");
+  const [sort, setSort] = useState<Sort>(params.get("sort") === "common" ? "common" : "az");
 
   const q = query.trim().toLowerCase().replace(/^-+|-+$/g, "");
 
   const roots = useMemo(
     () =>
       search(
-        ROOT_LIST.filter((r) => rootFilter === "all" || r.origin.toLowerCase().startsWith(rootFilter)),
+        (sort === "common" ? byFrequency(ROOT_LIST, ROOT_FREQUENCY) : ROOT_LIST).filter(
+          (r) => rootFilter === "all" || r.origin.toLowerCase().startsWith(rootFilter),
+        ),
         q,
         (r) => rank(q, r.key, [r.meaning], [r.origin, r.hook]),
       ),
-    [q, rootFilter],
+    [q, rootFilter, sort],
   );
 
   const abbreviations = useMemo(
     () =>
       search(
-        ABBREV_LIST.filter(
+        (sort === "common" ? byFrequency(ABBREV_LIST, ABBREV_FREQUENCY) : ABBREV_LIST).filter(
           (a) =>
             abbrevFilter === "all" ||
             (abbrevFilter === "latin" && isLatinAbbrev(a)) ||
@@ -89,12 +120,26 @@ export function DictionaryBrowser() {
         // Match either the stored key ("ADLIB") or how it's written ("ad lib").
         (a) => best(rank(q, a.key, [a.plain, a.expansion], [a.literal]), rank(q, a.display, [], [])),
       ),
-    [q, abbrevFilter],
+    [q, abbrevFilter, sort],
   );
+
+  function updateUrl(next: { tab?: Tab; sort?: Sort }) {
+    const t = next.tab ?? tab;
+    const so = next.sort ?? sort;
+    const qs = new URLSearchParams({ tab: t });
+    if (so === "common") qs.set("sort", "common");
+    if (query) qs.set("q", query);
+    router.replace(`/dictionary?${qs}`, { scroll: false });
+  }
 
   function switchTab(next: Tab) {
     setTab(next);
-    router.replace(`/dictionary?tab=${next}${query ? `&q=${encodeURIComponent(query)}` : ""}`, { scroll: false });
+    updateUrl({ tab: next });
+  }
+
+  function switchSort(next: Sort) {
+    setSort(next);
+    updateUrl({ sort: next });
   }
 
   const count = tab === "roots" ? roots.length : abbreviations.length;
@@ -142,7 +187,26 @@ export function DictionaryBrowser() {
         <span className="text-sm text-faint">
           {count} {count === 1 ? "entry" : "entries"}
         </span>
+        <label className="ml-auto flex items-center gap-2 text-sm text-muted">
+          Sort
+          <select
+            value={sort}
+            onChange={(e) => switchSort(e.target.value as Sort)}
+            className="rounded-full border border-line bg-surface px-3 py-1.5 text-fg outline-none focus:border-accent"
+          >
+            <option value="az">A–Z</option>
+            <option value="common">Most common</option>
+          </select>
+        </label>
       </div>
+
+      {sort === "common" && (
+        <p className="-mt-3 mb-5 text-xs text-faint">
+          Ranked by how often each {tab === "roots" ? "root appears in medical words" : "abbreviation appears"} in
+          nearly 5,000 sample medical reports (MTSamples).
+          {tab === "abbreviations" && " Pharmacy-label shorthand like Sig and c̄ is rarer in doctors' reports than on pill bottles."}
+        </p>
+      )}
 
       {count === 0 ? (
         <p className="rounded-2xl border border-dashed border-line p-6 text-muted">
@@ -166,6 +230,7 @@ export function DictionaryBrowser() {
                   <span className="font-serif text-2xl font-semibold">{r.display}</span>
                   <SaveButton entry={entry} />
                 </div>
+                {sort === "common" && <TierBadge tier={ROOT_TIER[r.key]} />}
                 <p className="mt-1 text-sm text-muted">
                   {r.origin} · <strong className="text-fg">{r.meaning}</strong>
                 </p>
@@ -203,6 +268,7 @@ export function DictionaryBrowser() {
                   <span className="font-serif text-2xl font-semibold">{a.display}</span>
                   <SaveButton entry={entry} />
                 </div>
+                {sort === "common" && <TierBadge tier={ABBREV_TIER[a.key]} />}
                 <p className="mt-1 font-serif italic text-accent">
                   {a.expansion}
                   {a.literal !== a.expansion && <span className="not-italic text-muted"> — &ldquo;{a.literal}&rdquo;</span>}
@@ -218,6 +284,16 @@ export function DictionaryBrowser() {
       )}
     </>
   );
+}
+
+function TierBadge({ tier }: { tier: string }) {
+  const style =
+    tier === "Very common"
+      ? "bg-accent/15 text-accent"
+      : tier === "Common"
+        ? "bg-accent-2/15 text-accent-2"
+        : "bg-surface-2 text-faint";
+  return <span className={`mt-1 inline-block w-fit rounded-full px-2 py-0.5 text-[11px] font-medium ${style}`}>{tier}</span>;
 }
 
 function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
