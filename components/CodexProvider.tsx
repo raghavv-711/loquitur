@@ -15,6 +15,7 @@ type CodexContextValue = {
   save: (entry: NewCodexEntry) => Promise<string | null>; // returns an error message, or null
   remove: (kind: CodexKind, key: string) => Promise<string | null>;
   sendSignInLink: (email: string) => Promise<string | null>;
+  signInWithGoogle: () => Promise<string | null>;
 };
 
 const CodexContext = createContext<CodexContextValue | null>(null);
@@ -110,6 +111,17 @@ export function CodexProvider({ children }: { children: React.ReactNode }) {
     [supabase],
   );
 
+  // Sends the browser to Google, which returns to /auth/callback with a code (handled there).
+  // Same callback address as the email links, so one Supabase redirect-URL entry covers both.
+  const signInWithGoogle = useCallback(async () => {
+    if (!supabase) return "Sign-in isn't set up yet.";
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${window.location.origin}/auth/callback` },
+    });
+    return error ? "Couldn't start Google sign-in. Try again." : null;
+  }, [supabase]);
+
   const value = useMemo<CodexContextValue>(
     () => ({
       enabled: supabaseConfigured,
@@ -121,8 +133,9 @@ export function CodexProvider({ children }: { children: React.ReactNode }) {
       save,
       remove,
       sendSignInLink,
+      signInWithGoogle,
     }),
-    [user, loading, saved, dueCount, refreshDue, save, remove, sendSignInLink],
+    [user, loading, saved, dueCount, refreshDue, save, remove, sendSignInLink, signInWithGoogle],
   );
 
   return <CodexContext.Provider value={value}>{children}</CodexContext.Provider>;

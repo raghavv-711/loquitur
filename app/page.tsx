@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { HighlightedText } from "@/components/HighlightedText";
 import { KIND_STYLES, TermCard } from "@/components/TermCard";
@@ -220,7 +221,10 @@ export default function Home() {
       )}
 
       <footer className="mt-12 border-t border-stone pt-4 text-xs text-stone-500">
-        Loquitur explains words. It is not medical advice. Ask your pharmacist or doctor about your care.
+        Loquitur explains words. It is not medical advice. Ask your pharmacist or doctor about your care. ·{" "}
+        <Link href="/privacy" className="underline underline-offset-2 hover:text-ink">
+          Privacy
+        </Link>
       </footer>
     </main>
   );

@@ -46,10 +46,16 @@ export function AuthBar() {
 }
 
 export function SignInDialog({ onClose }: { onClose: () => void }) {
-  const { sendSignInLink } = useCodex();
+  const { sendSignInLink, signInWithGoogle } = useCodex();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [error, setError] = useState<string | null>(null);
+
+  async function google() {
+    setError(null);
+    const problem = await signInWithGoogle(); // on success the page navigates to Google
+    if (problem) setError(problem);
+  }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -81,17 +87,27 @@ export function SignInDialog({ onClose }: { onClose: () => void }) {
           </p>
         ) : (
           <form onSubmit={submit} className="mt-3">
-            <p className="text-sm text-stone-600">
-              Save the roots and abbreviations you learn to your Codex. No password: we&apos;ll email you a link.
-            </p>
+            <p className="text-sm text-stone-600">Save the roots and abbreviations you learn to your Codex.</p>
+            <button
+              type="button"
+              onClick={google}
+              className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-stone py-2.5 text-sm font-medium hover:border-ink"
+            >
+              <GoogleLogo />
+              Continue with Google
+            </button>
+            <div className="my-4 flex items-center gap-3 text-xs text-stone-400">
+              <span className="h-px flex-1 bg-stone" />
+              or get an email link
+              <span className="h-px flex-1 bg-stone" />
+            </div>
             <input
               type="email"
               required
-              autoFocus
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="mt-3 w-full rounded-xl border border-stone bg-parchment p-3 outline-none focus:border-terracotta"
+              className="w-full rounded-xl border border-stone bg-parchment p-3 outline-none focus:border-terracotta"
             />
             {error && <p className="mt-2 text-sm text-red-700">{error}</p>}
             <button
@@ -107,5 +123,16 @@ export function SignInDialog({ onClose }: { onClose: () => void }) {
         </button>
       </div>
     </div>
+  );
+}
+
+function GoogleLogo() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+    </svg>
   );
 }
