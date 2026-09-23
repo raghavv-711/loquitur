@@ -619,7 +619,8 @@ export const ROOTS: Record<string, RootEntry> = {
 };
 
 export function normalizeAbbrev(text: string): string {
-  return text.toUpperCase().replace(/[^A-Z0-9]/g, ""); // "Rx#", "D/C", "q.i.d." all match
+  // Drop accent marks first so "c̄" and "āā" keep their letters; then "Rx#", "D/C", "q.i.d." all match.
+  return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().replace(/[^A-Z0-9]/g, "");
 }
 
 export function normalizeRoot(text: string): string {

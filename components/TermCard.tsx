@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { abbreviationEntry, rootEntry } from "@/lib/codex";
 import type { VerifiedTerm } from "@/lib/schema";
 import { SaveButton } from "./SaveButton";
@@ -107,7 +108,13 @@ export function TermCard({ term, onClose }: { term: VerifiedTerm; onClose: () =>
                       </span>
                     ) : null;
                   })()}
-                  <span className="font-serif text-lg font-semibold">{root.root}</span>
+                  <Link
+                    href={`/dictionary?q=${encodeURIComponent(root.root.replace(/^-+|-+$/g, ""))}`}
+                    className="font-serif text-lg font-semibold hover:text-accent"
+                    title="See this root in the dictionary"
+                  >
+                    {root.root}
+                  </Link>
                   <span className="text-sm text-muted">
                     {root.origin} · <strong>{root.meaning}</strong>
                   </span>

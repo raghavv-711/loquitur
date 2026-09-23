@@ -21,7 +21,7 @@ export function AuthBar() {
             Decode
           </Link>
           <Link href="/codex" className="text-muted hover:text-fg">
-            My Codex
+            <span className="hidden sm:inline">My </span>Codex
           </Link>
           <Link href="/review" className="font-medium text-accent hover:underline">
             Review

@@ -20,7 +20,11 @@ export function TopBar() {
         </Link>
       )}
       <div className="flex items-center gap-3 whitespace-nowrap text-sm">
-        <Link href="/about" className="text-muted hover:text-fg">
+        <Link href="/dictionary" className="text-muted hover:text-fg">
+          Dictionary
+        </Link>
+        {/* On phones About lives in the footer, to keep the bar from crowding. */}
+        <Link href="/about" className="hidden text-muted hover:text-fg sm:inline">
           About
         </Link>
         <AuthBar />
