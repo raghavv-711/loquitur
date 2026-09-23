@@ -70,6 +70,7 @@ text or photo → Claude (structured JSON: transcript, terms, roots, summary)
 
 - Document text and photos are sent to the Claude API for decoding and never stored or logged by Loquitur.
 - Loquitur explains words. It does not give medical advice.
+- Each visitor gets 25 decodes a day (`lib/rate-limit.ts`), counted by a salted hash of their IP address; raw IPs are never stored.
 - The Codex stores only the words a user saves, never their documents or photos.
 - Only use made-up or public sample documents for testing.
 

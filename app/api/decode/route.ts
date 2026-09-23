@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 import { decodeDocument, DecodeRefusedError } from "@/lib/decode";
+import { allowDecode, DAILY_LIMIT } from "@/lib/rate-limit";
 import { IMAGE_TYPES, type DecodeInput, type ImageType } from "@/lib/schema";
 
 const MAX_CHARS = 8000;
@@ -43,6 +44,13 @@ export async function POST(request: Request) {
     return NextResponse.json(
       { error: "No Claude API key yet. Add ANTHROPIC_API_KEY to .env.local, then restart the server." },
       { status: 500 },
+    );
+  }
+
+  if (!(await allowDecode(request))) {
+    return NextResponse.json(
+      { error: `You've reached today's limit of ${DAILY_LIMIT} decodes. Come back tomorrow!` },
+      { status: 429 },
     );
   }
 

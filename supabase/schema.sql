@@ -40,3 +40,40 @@ create policy "update own entries" on public.codex_entries
 drop policy if exists "delete own entries" on public.codex_entries;
 create policy "delete own entries" on public.codex_entries
   for delete to authenticated using ((select auth.uid()) = user_id);
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Daily decode limit (protects the Claude API bill once the site is public).
+-- Visitors are identified by a salted hash of their IP address, never the raw IP.
+
+create table if not exists public.decode_usage (
+  visitor text not null,
+  day date not null default current_date,
+  count integer not null default 0,
+  primary key (visitor, day)
+);
+
+-- No policies: nobody can read or change this table directly, only through the function below.
+alter table public.decode_usage enable row level security;
+
+-- Adds one decode for this visitor today and returns true if they're still within the limit.
+create or replace function public.use_decode(p_visitor text, p_limit integer)
+returns boolean
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  used integer;
+begin
+  insert into decode_usage (visitor, day, count)
+  values (p_visitor, current_date, 1)
+  on conflict (visitor, day) do update set count = decode_usage.count + 1
+  returning count into used;
+
+  delete from decode_usage where day < current_date - 7; -- keep only a week of counts
+  return used <= p_limit;
+end;
+$$;
+
+revoke all on function public.use_decode(text, integer) from public;
+grant execute on function public.use_decode(text, integer) to anon, authenticated;
