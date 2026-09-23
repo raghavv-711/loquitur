@@ -30,8 +30,8 @@ export default function PrivacyPage() {
         <section>
           <h2>If you sign in</h2>
           <p className="mt-2">
-            Signing in (by email link or Google) creates an account with Supabase, which stores your email address and,
-            for Google sign-in, the name and profile picture Google shares. Loquitur stores the words you choose to save
+            Signing in with Google creates an account with Supabase, which stores your email address and the name and
+            profile picture Google shares. Loquitur stores the words you choose to save
             to your Codex and your review schedule. Nobody else can see your Codex. Loquitur does not use your Google
             account for anything except signing you in.
           </p>

@@ -47,6 +47,10 @@ export function AuthBar() {
   );
 }
 
+// Email sign-in links only reach Supabase team members until a custom email service is connected,
+// so the option is hidden unless NEXT_PUBLIC_EMAIL_SIGNIN=true.
+const EMAIL_SIGNIN = process.env.NEXT_PUBLIC_EMAIL_SIGNIN === "true";
+
 export function SignInDialog({ onClose }: { onClose: () => void }) {
   const { sendSignInLink, signInWithGoogle } = useCodex();
   const router = useRouter();
@@ -108,26 +112,30 @@ export function SignInDialog({ onClose }: { onClose: () => void }) {
                 Continue with Google
               </button>
             )}
-            <div className="my-4 flex items-center gap-3 text-xs text-stone-400">
-              <span className="h-px flex-1 bg-stone" />
-              or get an email link
-              <span className="h-px flex-1 bg-stone" />
-            </div>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              className="w-full rounded-xl border border-stone bg-parchment p-3 outline-none focus:border-terracotta"
-            />
+            {EMAIL_SIGNIN && (
+              <>
+                <div className="my-4 flex items-center gap-3 text-xs text-stone-400">
+                  <span className="h-px flex-1 bg-stone" />
+                  or get an email link
+                  <span className="h-px flex-1 bg-stone" />
+                </div>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="w-full rounded-xl border border-stone bg-parchment p-3 outline-none focus:border-terracotta"
+                />
+                <button
+                  disabled={status === "sending"}
+                  className="mt-3 w-full rounded-full bg-ink py-2.5 text-sm font-medium text-white hover:bg-terracotta disabled:opacity-40"
+                >
+                  {status === "sending" ? "Sending…" : "Email me a sign-in link"}
+                </button>
+              </>
+            )}
             {error && <p className="mt-2 text-sm text-red-700">{error}</p>}
-            <button
-              disabled={status === "sending"}
-              className="mt-3 w-full rounded-full bg-ink py-2.5 text-sm font-medium text-white hover:bg-terracotta disabled:opacity-40"
-            >
-              {status === "sending" ? "Sending…" : "Email me a sign-in link"}
-            </button>
           </form>
         )}
         <button onClick={onClose} className="mt-3 w-full text-sm text-stone-500 hover:text-ink">
