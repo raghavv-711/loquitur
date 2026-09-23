@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { FdaInfo } from "./openfda";
 
 // What Claude must return. Kept flat and explicit so the output is easy to verify.
 export const RootSchema = z.object({
@@ -50,6 +51,7 @@ export type VerifiedTerm = Omit<Term, "roots"> & {
   status: Verification;
   warning?: string; // set when the abbreviation is on the ISMP error-prone list
   literal?: string; // word-for-word translation of the Latin expansion
+  fda?: FdaInfo; // set when a drug name was confirmed in the FDA label database
 };
 
 export type DecodeResponse = {

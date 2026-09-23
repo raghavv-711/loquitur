@@ -21,9 +21,17 @@ const STATUS = {
   },
 } as const;
 
+// Drugs are checked against the FDA database rather than Loquitur's dictionary.
+function drugStatus(term: VerifiedTerm) {
+  if (term.kind !== "drug") return null;
+  return term.fda
+    ? { ...STATUS.verified, note: "Found in the FDA's drug label database (openFDA)." }
+    : { ...STATUS.unverified, note: "Not found in the FDA database. Ask your pharmacist if you're unsure." };
+}
+
 export function TermCard({ term, onClose }: { term: VerifiedTerm; onClose: () => void }) {
   const kind = KIND_STYLES[term.kind];
-  const status = STATUS[term.status];
+  const status = drugStatus(term) ?? STATUS[term.status];
 
   return (
     <article className="rounded-2xl border border-stone bg-white p-5 shadow-sm">
@@ -52,6 +60,34 @@ export function TermCard({ term, onClose }: { term: VerifiedTerm; onClose: () =>
 
       {term.warning && (
         <p className="mt-3 rounded-lg bg-amber-50 p-3 text-sm text-amber-900">⚠️ {term.warning}</p>
+      )}
+
+      {term.fda && (
+        <div className="mt-4 rounded-lg bg-parchment p-3 text-sm">
+          <h4 className="text-xs font-semibold uppercase tracking-wide text-stone-500">FDA drug label</h4>
+          <p className="mt-1">
+            <strong className="capitalize">{term.fda.genericName.toLowerCase()}</strong>
+            {term.fda.brandName && <span className="text-stone-600"> · brand: {term.fda.brandName}</span>}
+          </p>
+          {term.fda.usedFor && (
+            <>
+              <p className="mt-1 text-stone-700">“{term.fda.usedFor}”</p>
+              <p className="mt-1 text-xs text-stone-500">
+                This is the officially approved use. Doctors sometimes prescribe a medicine for other reasons too.
+              </p>
+            </>
+          )}
+          {term.fda.labelUrl && (
+            <a
+              href={term.fda.labelUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-block text-terracotta underline underline-offset-2"
+            >
+              Read the full label on DailyMed ↗
+            </a>
+          )}
+        </div>
       )}
 
       {term.roots.length > 0 && (

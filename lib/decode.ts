@@ -10,6 +10,7 @@ import {
   type VerifiedTerm,
 } from "./schema";
 import { lookupAbbreviation, lookupRoot } from "./dictionary";
+import { lookupDrug } from "./openfda";
 
 export const MODEL = "claude-opus-5";
 
@@ -52,7 +53,7 @@ export async function decodeDocument(input: DecodeInput): Promise<DecodeResponse
       messages: [{ role: "user", content: `<document>\n${input.text}\n</document>` }],
       output_config: { effort: "low", format: betaZodOutputFormat(DecodeSchema) },
     });
-    return verify(checkParsed(response.stop_reason, response.parsed_output));
+    return checkDrugs(verify(checkParsed(response.stop_reason, response.parsed_output)));
   }
 
   const response = await client.beta.messages.parse({
@@ -70,7 +71,20 @@ export async function decodeDocument(input: DecodeInput): Promise<DecodeResponse
     output_config: { effort: "medium", format: betaZodOutputFormat(PhotoDecodeSchema) },
   });
   const parsed = checkParsed(response.stop_reason, response.parsed_output);
-  return { ...verify(parsed), transcript: parsed.transcript };
+  return checkDrugs({ ...verify(parsed), transcript: parsed.transcript });
+}
+
+// Drug names can't be checked against our dictionary, so confirm them in the FDA label database.
+// Lookups run in parallel; if openFDA is slow or down, the drug simply stays unverified.
+async function checkDrugs(result: DecodeResponse): Promise<DecodeResponse> {
+  const terms = await Promise.all(
+    result.terms.map(async (term) => {
+      if (term.kind !== "drug") return term;
+      const fda = await lookupDrug(term.text);
+      return fda ? { ...term, fda, status: "verified" as const } : term;
+    }),
+  );
+  return { ...result, terms };
 }
 
 function checkParsed<T>(stopReason: string | null, parsed: T | null): T {

@@ -25,6 +25,7 @@ Paste text or upload a photo. Loquitur finds the jargon in prescription labels a
 ```
 text or photo → Claude (structured JSON: transcript, terms, roots, summary)
      → verify against lib/dictionary.ts (dictionary wording wins)
+     → confirm drug names in the FDA label database (openFDA)
      → highlighted document + term cards
 ```
 
@@ -32,6 +33,7 @@ text or photo → Claude (structured JSON: transcript, terms, roots, summary)
 - `lib/dictionary.ts`: reviewed abbreviations (with ISMP error-prone warnings) and Latin/Greek roots
 - `lib/dictionary-drafts.ts`: new entries awaiting review; the app labels them "Draft entry". Run `npm run review` for counts.
 - `lib/highlight.ts`: finds each term in the original text for highlighting
+- `lib/openfda.ts`: looks up drug names in the FDA's public drug label database, with a link to the full label on DailyMed
 - `lib/image.ts`: shrinks photos in the browser before upload (faster and cheaper)
 - `app/api/decode/route.ts`: the API endpoint (input limits, error handling, no storage)
 
@@ -46,7 +48,7 @@ text or photo → Claude (structured JSON: transcript, terms, roots, summary)
 - [x] Week 1–2: paste text → highlighted jargon → term cards
 - [x] Week 3: photo upload (Claude vision)
 - [x] Week 4: grow the dictionary to 152 abbreviations and 264 roots
-- [ ] Week 5: MedlinePlus + openFDA checks
+- [x] Week 5: confirm drug names with openFDA
 - [ ] Week 6: sign-in + Codex (saved roots)
 - [ ] Week 7: spaced-repetition review quizzes
 - [ ] Week 8: accuracy evaluation + launch
