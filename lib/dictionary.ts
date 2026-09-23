@@ -1,7 +1,7 @@
 // Loquitur's hand-checked reference data.
 // The AI suggests explanations; these entries are what we trust to confirm them.
-// This is a starter set. Growing it to about 60 abbreviations and 150 roots is the
-// week-4 milestone, and it's where the Latin expertise in this project lives.
+// New entries start in dictionary-drafts.ts and move here once they've been reviewed.
+import { DRAFT_ABBREVIATIONS, DRAFT_ROOTS } from "./dictionary-drafts";
 
 export type AbbreviationEntry = {
   expansion: string; // the original Latin (or English) phrase
@@ -218,7 +218,10 @@ const ORDINAL_HOURS: Record<string, [latin: string, english: string]> = {
   "24": ["vicesima quarta", "twenty-fourth"],
 };
 
-export function lookupAbbreviation(text: string): AbbreviationEntry | undefined {
+// "draft" is true when the match came from dictionary-drafts.ts (not yet reviewed).
+export type Found<T> = T & { draft: boolean };
+
+export function lookupAbbreviation(text: string): Found<AbbreviationEntry> | undefined {
   const key = normalizeAbbrev(text);
   const match = key.match(EVERY_N_HOURS);
   if (match) {
@@ -230,13 +233,20 @@ export function lookupAbbreviation(text: string): AbbreviationEntry | undefined 
       expansion: `quaque ${latin} hora`,
       literal: n === "1" ? "at every hour" : `at every ${english} hour`,
       plain: n === "1" ? "every hour" : `every ${n} hours`,
+      draft: false,
     };
   }
-  return ABBREVIATIONS[key];
+  return find(key, ABBREVIATIONS, DRAFT_ABBREVIATIONS);
 }
 
 // Medical words join roots with a connecting "o" (nephr-o-lith-iasis), so "hydro-" should match "hydr".
-export function lookupRoot(text: string): RootEntry | undefined {
+export function lookupRoot(text: string): Found<RootEntry> | undefined {
   const key = normalizeRoot(text);
-  return ROOTS[key] ?? (key.endsWith("o") ? ROOTS[key.slice(0, -1)] : undefined);
+  return find(key, ROOTS, DRAFT_ROOTS) ?? (key.endsWith("o") ? find(key.slice(0, -1), ROOTS, DRAFT_ROOTS) : undefined);
+}
+
+function find<T>(key: string, reviewed: Record<string, T>, drafts: Record<string, T>): Found<T> | undefined {
+  if (key in reviewed) return { ...reviewed[key], draft: false };
+  if (key in drafts) return { ...drafts[key], draft: true };
+  return undefined;
 }

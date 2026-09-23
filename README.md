@@ -29,7 +29,8 @@ text or photo → Claude (structured JSON: transcript, terms, roots, summary)
 ```
 
 - `lib/decode.ts`: the Claude call and the verification step
-- `lib/dictionary.ts`: hand-checked abbreviations (with ISMP error-prone warnings) and Latin/Greek roots
+- `lib/dictionary.ts`: reviewed abbreviations (with ISMP error-prone warnings) and Latin/Greek roots
+- `lib/dictionary-drafts.ts`: new entries awaiting review; the app labels them "Draft entry". Run `npm run review` for counts.
 - `lib/highlight.ts`: finds each term in the original text for highlighting
 - `lib/image.ts`: shrinks photos in the browser before upload (faster and cheaper)
 - `app/api/decode/route.ts`: the API endpoint (input limits, error handling, no storage)
@@ -44,7 +45,7 @@ text or photo → Claude (structured JSON: transcript, terms, roots, summary)
 
 - [x] Week 1–2: paste text → highlighted jargon → term cards
 - [x] Week 3: photo upload (Claude vision)
-- [ ] Week 4: grow the dictionary to ~60 abbreviations and ~150 roots
+- [ ] Week 4: grow the dictionary (drafted: 116 abbreviations, 208 roots; review in progress)
 - [ ] Week 5: MedlinePlus + openFDA checks
 - [ ] Week 6: sign-in + Codex (saved roots)
 - [ ] Week 7: spaced-repetition review quizzes

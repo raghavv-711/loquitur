@@ -8,6 +8,11 @@ export const KIND_STYLES = {
 
 const STATUS = {
   verified: { label: "✓ Verified", className: "text-emerald-700", note: "Checked against Loquitur's dictionary." },
+  draft: {
+    label: "◌ Draft entry",
+    className: "text-sky-700",
+    note: "From Loquitur's dictionary, still awaiting expert review.",
+  },
   partial: { label: "◐ Partly verified", className: "text-amber-700", note: "Some word parts are in Loquitur's dictionary." },
   unverified: {
     label: "? Unverified",
@@ -60,7 +65,11 @@ export function TermCard({ term, onClose }: { term: VerifiedTerm; onClose: () =>
                   <span className="text-sm text-stone-600">
                     {root.origin} · <strong>{root.meaning}</strong>
                   </span>
-                  {!root.verified && <span className="text-xs text-stone-400">(unverified)</span>}
+                  {root.draft ? (
+                    <span className="text-xs text-sky-600">(draft)</span>
+                  ) : (
+                    !root.verified && <span className="text-xs text-stone-400">(unverified)</span>
+                  )}
                 </div>
                 {root.hook && <p className="mt-1 text-sm text-stone-600">💡 {root.hook}</p>}
               </li>

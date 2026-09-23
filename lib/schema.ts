@@ -39,9 +39,11 @@ export type Term = z.infer<typeof TermSchema>;
 export type Decoded = z.infer<typeof DecodeSchema>;
 
 // After our own dictionary checks the AI's answer.
-export type Verification = "verified" | "partial" | "unverified";
+// verified: every part matched a reviewed dictionary entry
+// draft: every part matched, but at least one entry is still awaiting review
+export type Verification = "verified" | "draft" | "partial" | "unverified";
 
-export type VerifiedRoot = Root & { verified: boolean; hook?: string };
+export type VerifiedRoot = Root & { verified: boolean; draft?: boolean; hook?: string };
 
 export type VerifiedTerm = Omit<Term, "roots"> & {
   roots: VerifiedRoot[];

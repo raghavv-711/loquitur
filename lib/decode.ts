@@ -6,6 +6,7 @@ import {
   type Decoded,
   type DecodeInput,
   type DecodeResponse,
+  type VerifiedRoot,
   type VerifiedTerm,
 } from "./schema";
 import { lookupAbbreviation, lookupRoot } from "./dictionary";
@@ -96,21 +97,23 @@ export function verify(decoded: Decoded): DecodeResponse {
         plain: entry.plain,
         literal: entry.literal,
         warning: entry.warning,
-        status: "verified",
+        status: entry.draft ? "draft" : "verified",
       };
     }
 
-    const roots = term.roots.map((root) => {
+    const roots: VerifiedRoot[] = term.roots.map((root) => {
       const entry = lookupRoot(root.root);
       return entry
-        ? { ...root, origin: entry.origin, meaning: entry.meaning, hook: entry.hook, verified: true }
+        ? { ...root, origin: entry.origin, meaning: entry.meaning, hook: entry.hook, verified: !entry.draft, draft: entry.draft }
         : { ...root, verified: false };
     });
-    const verifiedCount = roots.filter((r) => r.verified).length;
-    const status =
-      roots.length > 0 && verifiedCount === roots.length
-        ? "verified"
-        : verifiedCount > 0
+    const found = roots.filter((r) => r.verified || r.draft).length;
+    const status: VerifiedTerm["status"] =
+      roots.length > 0 && found === roots.length
+        ? roots.every((r) => r.verified)
+          ? "verified"
+          : "draft"
+        : found > 0
           ? "partial"
           : "unverified";
 
