@@ -6,39 +6,42 @@ import { useCallback, useState } from "react";
 import { useCodex } from "./CodexProvider";
 import { GoogleButton, googleButtonAvailable } from "./GoogleButton";
 
-// Top bar: "Sign in" (email link) when signed out; Codex link and sign-out when signed in.
-export function AuthBar() {
-  const { enabled, user, loading, dueCount } = useCodex();
+// Codex and Review tabs, shown only when signed in.
+export function UserLinks() {
+  const { enabled, user, dueCount } = useCodex();
+  if (!enabled || !user) return null;
+  return (
+    <>
+      <NavLink href="/codex">Codex</NavLink>
+      <NavLink href="/review">
+        Review
+        {dueCount > 0 && (
+          <span className="ml-1.5 rounded-full bg-accent-2 px-1.5 py-0.5 text-xs font-medium text-bg">{dueCount}</span>
+        )}
+      </NavLink>
+    </>
+  );
+}
+
+// "Sign in" when signed out; "Sign out" when signed in (on phones that one lives on the Codex page).
+export function AccountButton() {
+  const { enabled, user, loading } = useCodex();
   const [open, setOpen] = useState(false);
 
-  if (!enabled || loading) return <div className="h-9 w-24" />;
+  if (!enabled) return null;
+  if (loading) return <div className="h-9 w-20" />;
 
-  return (
-    <div className="flex items-center gap-5 sm:gap-6">
-      {user ? (
-        <>
-          <NavLink href="/codex">Codex</NavLink>
-          <NavLink href="/review">
-            Review
-            {dueCount > 0 && (
-              <span className="ml-1.5 rounded-full bg-accent-2 px-1.5 py-0.5 text-xs font-medium text-bg">{dueCount}</span>
-            )}
-          </NavLink>
-          {/* On phones, sign out lives on the Codex page so the bar fits. */}
-          <form action="/auth/signout" method="post" className="hidden border-l border-line pl-5 sm:block sm:pl-6">
-            <button className="text-muted hover:text-fg">Sign out</button>
-          </form>
-        </>
-      ) : (
-        <button
-          onClick={() => setOpen(true)}
-          className="rounded-full border border-line px-4 py-1.5 hover:border-accent"
-        >
-          Sign in<span className="hidden sm:inline"> to save words</span>
-        </button>
-      )}
-      {open && !user && <SignInDialog onClose={() => setOpen(false)} />}
-    </div>
+  return user ? (
+    <form action="/auth/signout" method="post" className="hidden sm:block">
+      <button className="text-muted hover:text-fg">Sign out</button>
+    </form>
+  ) : (
+    <>
+      <button onClick={() => setOpen(true)} className="rounded-full border border-line px-4 py-1.5 hover:border-accent">
+        Sign in<span className="hidden sm:inline"> to save words</span>
+      </button>
+      {open && <SignInDialog onClose={() => setOpen(false)} />}
+    </>
   );
 }
 
