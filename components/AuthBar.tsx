@@ -6,7 +6,7 @@ import { useCodex } from "./CodexProvider";
 
 // Top bar: "Sign in" (email link) when signed out; Codex link and sign-out when signed in.
 export function AuthBar() {
-  const { enabled, user, loading } = useCodex();
+  const { enabled, user, loading, dueCount } = useCodex();
   const [open, setOpen] = useState(false);
 
   if (!enabled || loading) return <div className="h-9" />;
@@ -18,8 +18,14 @@ export function AuthBar() {
           <Link href="/" className="text-stone-600 hover:text-ink">
             Decode
           </Link>
-          <Link href="/codex" className="font-medium text-terracotta hover:underline">
+          <Link href="/codex" className="text-stone-600 hover:text-ink">
             My Codex
+          </Link>
+          <Link href="/review" className="font-medium text-terracotta hover:underline">
+            Review
+            {dueCount > 0 && (
+              <span className="ml-1 rounded-full bg-terracotta px-1.5 py-0.5 text-xs text-white">{dueCount}</span>
+            )}
           </Link>
           <span className="hidden text-stone-400 sm:inline">{user.email}</span>
           <form action="/auth/signout" method="post">

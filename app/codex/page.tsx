@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { SignInDialog } from "@/components/AuthBar";
 import { useCodex } from "@/components/CodexProvider";
 import type { AbbreviationDetails, CodexEntry, RootDetails } from "@/lib/codex";
+import { describeDue } from "@/lib/review";
 import { createClient } from "@/lib/supabase/client";
 
 export default function CodexPage() {
@@ -124,9 +125,10 @@ function Section({
             </div>
             {entry.kind === "root" ? <RootBody details={entry.details as RootDetails} /> : null}
             {entry.kind === "abbreviation" ? <AbbrevBody details={entry.details as AbbreviationDetails} /> : null}
-            {entry.source_word && (
-              <p className="mt-auto pt-3 text-xs text-stone-400">from “{entry.source_word}”</p>
-            )}
+            <p className="mt-auto pt-3 text-xs text-stone-400">
+              {entry.source_word && <>from “{entry.source_word}” · </>}
+              review {describeDue(entry.due_at)}
+            </p>
           </li>
         ))}
       </ul>

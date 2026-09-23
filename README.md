@@ -23,6 +23,14 @@ Paste text or upload a photo. Loquitur finds the jargon in prescription labels a
    npm run dev
    ```
 
+## Tests
+
+```bash
+npm test
+```
+
+Covers the quiz builder (valid options, no near-duplicate answers, Latin-only distractors for Latin abbreviations, word list uses real dictionary roots) and the review scheduler.
+
 ## How it works
 
 ```
@@ -39,6 +47,8 @@ text or photo → Claude (structured JSON: transcript, terms, roots, summary)
 - `lib/openfda.ts`: looks up drug names in the FDA's public drug label database, with a link to the full label on DailyMed
 - `lib/image.ts`: shrinks photos in the browser before upload (faster and cheaper)
 - `components/CodexProvider.tsx`, `app/codex/page.tsx`: sign-in (email link) and the Codex of saved roots and abbreviations
+- `app/review/page.tsx`, `lib/quiz.ts`, `lib/review.ts`: daily review quizzes built from the dictionary, scheduled with spaced repetition (a simplified SM-2)
+- `lib/words.ts`: real medical words built from dictionary roots, for "decode it yourself" questions
 - `supabase/schema.sql`: the Codex table, with row-level security so each user sees only their own words
 - `app/api/decode/route.ts`: the API endpoint (input limits, error handling, no storage)
 
@@ -56,5 +66,5 @@ text or photo → Claude (structured JSON: transcript, terms, roots, summary)
 - [x] Week 4: grow the dictionary to 152 abbreviations and 264 roots
 - [x] Week 5: confirm drug names with openFDA
 - [x] Week 6: email sign-in + Codex (saved roots and abbreviations)
-- [ ] Week 7: spaced-repetition review quizzes
+- [x] Week 7: spaced-repetition review quizzes
 - [ ] Week 8: accuracy evaluation + launch

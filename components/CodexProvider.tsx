@@ -10,6 +10,8 @@ type CodexContextValue = {
   user: User | null;
   loading: boolean;
   isSaved: (kind: CodexKind, key: string) => boolean;
+  dueCount: number; // saved words due for review now
+  refreshDue: () => void;
   save: (entry: NewCodexEntry) => Promise<string | null>; // returns an error message, or null
   remove: (kind: CodexKind, key: string) => Promise<string | null>;
   sendSignInLink: (email: string) => Promise<string | null>;
@@ -28,6 +30,16 @@ export function CodexProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(supabaseConfigured);
   const [saved, setSaved] = useState<Set<string>>(new Set());
+  const [dueCount, setDueCount] = useState(0);
+
+  const refreshDue = useCallback(() => {
+    if (!supabase || !user) return setDueCount(0);
+    supabase
+      .from("codex_entries")
+      .select("id", { count: "exact", head: true })
+      .lte("due_at", new Date().toISOString())
+      .then(({ count }) => setDueCount(count ?? 0));
+  }, [supabase, user]);
 
   // Track sign-in state.
   useEffect(() => {
@@ -50,7 +62,8 @@ export function CodexProvider({ children }: { children: React.ReactNode }) {
       .from("codex_entries")
       .select("kind, key")
       .then(({ data }) => setSaved(new Set((data ?? []).map((row) => entryId(row.kind, row.key)))));
-  }, [supabase, user]);
+    refreshDue();
+  }, [supabase, user, refreshDue]);
 
   const save = useCallback(
     async (entry: NewCodexEntry) => {
@@ -60,9 +73,10 @@ export function CodexProvider({ children }: { children: React.ReactNode }) {
         .upsert(entry, { onConflict: "user_id,kind,key", ignoreDuplicates: true });
       if (error) return "Couldn't save that. Try again.";
       setSaved((prev) => new Set(prev).add(entryId(entry.kind, entry.key)));
+      refreshDue(); // new words are due right away
       return null;
     },
-    [supabase, user],
+    [supabase, user, refreshDue],
   );
 
   const remove = useCallback(
@@ -75,9 +89,10 @@ export function CodexProvider({ children }: { children: React.ReactNode }) {
         next.delete(entryId(kind, key));
         return next;
       });
+      refreshDue();
       return null;
     },
-    [supabase, user],
+    [supabase, user, refreshDue],
   );
 
   const sendSignInLink = useCallback(
@@ -101,11 +116,13 @@ export function CodexProvider({ children }: { children: React.ReactNode }) {
       user,
       loading,
       isSaved: (kind, key) => saved.has(entryId(kind, key)),
+      dueCount,
+      refreshDue,
       save,
       remove,
       sendSignInLink,
     }),
-    [user, loading, saved, save, remove, sendSignInLink],
+    [user, loading, saved, dueCount, refreshDue, save, remove, sendSignInLink],
   );
 
   return <CodexContext.Provider value={value}>{children}</CodexContext.Provider>;
