@@ -1,0 +1,2092 @@
+[
+  {
+    "id": "rx-01",
+    "seconds": 8.546,
+    "cost": 0.02495,
+    "abbreviations": [
+      {
+        "name": "Rx",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "recipe (take thou) number → recipe",
+        "want": "recipe"
+      },
+      {
+        "name": "Sig",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "signa (mark, write) → signa",
+        "want": "signa"
+      },
+      {
+        "name": "tab",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "tablet → tabella",
+        "want": "tabella"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "QD",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "quaque die → quaque die",
+        "want": "quaque die"
+      },
+      {
+        "name": "HTN",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "hypertension → hypertension",
+        "want": "hypertension"
+      }
+    ],
+    "terms": [],
+    "drugs": [
+      {
+        "name": "lisinopril",
+        "found": true,
+        "verified": true,
+        "got": "LISINOPRIL"
+      }
+    ],
+    "totalTerms": 10,
+    "verifiedTerms": 9,
+    "extraTerms": [
+      "MG",
+      "Qty",
+      "Refills"
+    ]
+  },
+  {
+    "id": "rx-02",
+    "seconds": 7.458,
+    "cost": 0.02187,
+    "abbreviations": [
+      {
+        "name": "Sig",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "signa (write, label) → signa",
+        "want": "signa"
+      },
+      {
+        "name": "tab",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "tabletta (tablet) → tabella",
+        "want": "tabella"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "BID",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "bis in die → bis in die",
+        "want": "bis in die"
+      },
+      {
+        "name": "pc",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "post cibum → post cibum",
+        "want": "post cibum"
+      }
+    ],
+    "terms": [],
+    "drugs": [
+      {
+        "name": "amoxicillin",
+        "found": true,
+        "verified": true,
+        "got": "AMOXICILLIN"
+      }
+    ],
+    "totalTerms": 9,
+    "verifiedTerms": 8,
+    "extraTerms": [
+      "MG",
+      "Disp",
+      "#20"
+    ]
+  },
+  {
+    "id": "rx-03",
+    "seconds": 7.8,
+    "cost": 0.022775,
+    "abbreviations": [
+      {
+        "name": "Sig",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "signa (Latin for \"write\" or \"label\") → signa",
+        "want": "signa"
+      },
+      {
+        "name": "tab",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "tablet → tabella",
+        "want": "tabella"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "q6h",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "quaque 6 hora → quaque sexta hora",
+        "want": "quaque sexta hora"
+      },
+      {
+        "name": "prn",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "pro re nata → pro re nata",
+        "want": "pro re nata"
+      },
+      {
+        "name": "c",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "cum → cum",
+        "want": "cum"
+      }
+    ],
+    "terms": [],
+    "drugs": [
+      {
+        "name": "ibuprofen",
+        "found": true,
+        "verified": true,
+        "got": "IBUPROFEN"
+      }
+    ],
+    "totalTerms": 9,
+    "verifiedTerms": 9,
+    "extraTerms": [
+      "MG"
+    ]
+  },
+  {
+    "id": "rx-04",
+    "seconds": 5.98,
+    "cost": 0.018115,
+    "abbreviations": [
+      {
+        "name": "Sig",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "signa (Latin for \"write\" or \"label\") → signa",
+        "want": "signa"
+      },
+      {
+        "name": "cap",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "capsule → capsula",
+        "want": "capsula"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "QHS",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "quaque hora somni → quaque hora somni",
+        "want": "quaque hora somni"
+      }
+    ],
+    "terms": [],
+    "drugs": [
+      {
+        "name": "tamsulosin",
+        "found": true,
+        "verified": true,
+        "got": "TAMSULOSIN HYDROCHLORIDE"
+      }
+    ],
+    "totalTerms": 6,
+    "verifiedTerms": 6,
+    "extraTerms": [
+      "MG"
+    ]
+  },
+  {
+    "id": "rx-05",
+    "seconds": 8.482,
+    "cost": 0.022155,
+    "abbreviations": [
+      {
+        "name": "ER",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "extended release → extended release",
+        "want": "extended release"
+      },
+      {
+        "name": "Sig",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "signa (Latin for \"label\" or \"write\") → signa",
+        "want": "signa"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "qAM",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "quaque ante meridiem → quaque ante meridiem",
+        "want": "quaque ante meridiem"
+      },
+      {
+        "name": "c",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "cum → cum",
+        "want": "cum"
+      }
+    ],
+    "terms": [],
+    "drugs": [
+      {
+        "name": "metformin",
+        "found": true,
+        "verified": true,
+        "got": "METFORMIN"
+      }
+    ],
+    "totalTerms": 9,
+    "verifiedTerms": 8,
+    "extraTerms": [
+      "MG",
+      "TAB",
+      "tabs"
+    ]
+  },
+  {
+    "id": "rx-06",
+    "seconds": 6.264,
+    "cost": 0.02103,
+    "abbreviations": [
+      {
+        "name": "Sig",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "signa (Latin for \"write\" or \"label\") → signa",
+        "want": "signa"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "QD",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "quaque die → quaque die",
+        "want": "quaque die"
+      },
+      {
+        "name": "D/C",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "discontinue → discharge / discontinue",
+        "want": "discontinue"
+      }
+    ],
+    "terms": [],
+    "drugs": [
+      {
+        "name": "prednisone",
+        "found": true,
+        "verified": true,
+        "got": "PREDNISONE"
+      }
+    ],
+    "totalTerms": 8,
+    "verifiedTerms": 8,
+    "extraTerms": [
+      "MG",
+      "TAB",
+      "x"
+    ]
+  },
+  {
+    "id": "rx-07",
+    "seconds": 9.226,
+    "cost": 0.02603,
+    "abbreviations": [
+      {
+        "name": "Sig",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "signa (Latin for \"write\" or \"label\") → signa",
+        "want": "signa"
+      },
+      {
+        "name": "INH",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "inhale / per inhalationem → inhalation",
+        "want": "inhalation"
+      },
+      {
+        "name": "q4h",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "quaque 4 hora → quaque quarta hora",
+        "want": "quaque quarta hora"
+      },
+      {
+        "name": "PRN",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "pro re nata → pro re nata",
+        "want": "pro re nata"
+      },
+      {
+        "name": "SOB",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "shortness of breath → shortness of breath",
+        "want": "shortness of breath"
+      }
+    ],
+    "terms": [],
+    "drugs": [
+      {
+        "name": "albuterol",
+        "found": true,
+        "verified": true,
+        "got": "ALBUTEROL"
+      }
+    ],
+    "totalTerms": 9,
+    "verifiedTerms": 6,
+    "extraTerms": [
+      "HFA",
+      "MCG/ACT",
+      "INHALER"
+    ]
+  },
+  {
+    "id": "rx-08",
+    "seconds": 7.311,
+    "cost": 0.021645,
+    "abbreviations": [
+      {
+        "name": "OPHTH",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "ophthalmic → ophthalmic",
+        "want": "ophthalmic"
+      },
+      {
+        "name": "SOLN",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "solution → solution",
+        "want": "solutio"
+      },
+      {
+        "name": "Sig",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "signa (Latin for \"write\" or \"label\") → signa",
+        "want": "signa"
+      },
+      {
+        "name": "gtt",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "gutta (Latin for \"drop\") → guttae",
+        "want": "gutta"
+      },
+      {
+        "name": "OU",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "oculus uterque (Latin for \"each eye\") → oculus uterque",
+        "want": "oculus uterque"
+      },
+      {
+        "name": "QID",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "quater in die → quater in die",
+        "want": "quater in die"
+      }
+    ],
+    "terms": [],
+    "drugs": [
+      {
+        "name": "ciprofloxacin",
+        "found": true,
+        "verified": true,
+        "got": "CIPROFLOXACIN"
+      }
+    ],
+    "totalTerms": 7,
+    "verifiedTerms": 5,
+    "extraTerms": []
+  },
+  {
+    "id": "rx-09",
+    "seconds": 7.468,
+    "cost": 0.02235,
+    "abbreviations": [
+      {
+        "name": "SOLN",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "solution → solution",
+        "want": "solutio"
+      },
+      {
+        "name": "Sig",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "signa (Latin for \"write\" or \"label\") → signa",
+        "want": "signa"
+      },
+      {
+        "name": "gtts",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "guttae → guttae",
+        "want": "gutta"
+      },
+      {
+        "name": "AS",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "auris sinistra → auris sinistra",
+        "want": "auris sinistra"
+      },
+      {
+        "name": "BID",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "bis in die → bis in die",
+        "want": "bis in die"
+      }
+    ],
+    "terms": [
+      {
+        "name": "OTIC",
+        "found": true,
+        "raw": true,
+        "got": "ot- + -ic",
+        "want": "ot + ic"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "ofloxacin",
+        "found": true,
+        "verified": true,
+        "got": "OFLOXACIN"
+      }
+    ],
+    "totalTerms": 8,
+    "verifiedTerms": 6,
+    "extraTerms": [
+      "0.3%"
+    ]
+  },
+  {
+    "id": "rx-10",
+    "seconds": 7.35,
+    "cost": 0.021635,
+    "abbreviations": [
+      {
+        "name": "SL",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "sub lingua → sub lingua",
+        "want": "sub lingua"
+      },
+      {
+        "name": "Sig",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "signa → signa",
+        "want": "signa"
+      },
+      {
+        "name": "tab",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "tablet → tabella",
+        "want": "tabella"
+      },
+      {
+        "name": "PRN",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "pro re nata → pro re nata",
+        "want": "pro re nata"
+      }
+    ],
+    "terms": [],
+    "drugs": [
+      {
+        "name": "nitroglycerin",
+        "found": true,
+        "verified": true,
+        "got": "NITROGLYCERIN"
+      }
+    ],
+    "totalTerms": 8,
+    "verifiedTerms": 6,
+    "extraTerms": [
+      "MG",
+      "q5min",
+      "max"
+    ]
+  },
+  {
+    "id": "rx-11",
+    "seconds": 6.493,
+    "cost": 0.01819,
+    "abbreviations": [
+      {
+        "name": "Sig",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "signa (Latin for \"write\" or \"label\") → signa",
+        "want": "signa"
+      },
+      {
+        "name": "TOP",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "topical → topical (Greek topos, place)",
+        "want": "topical"
+      },
+      {
+        "name": "BID",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "bis in die → bis in die",
+        "want": "bis in die"
+      },
+      {
+        "name": "ut dict.",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "ut dictum (as directed) → ut dictum",
+        "want": "ut dictum"
+      }
+    ],
+    "terms": [],
+    "drugs": [
+      {
+        "name": "hydrocortisone",
+        "found": true,
+        "verified": true,
+        "got": "HYDROCORTISONE CREAM"
+      }
+    ],
+    "totalTerms": 5,
+    "verifiedTerms": 5,
+    "extraTerms": []
+  },
+  {
+    "id": "rx-12",
+    "seconds": 6.433,
+    "cost": 0.01936,
+    "abbreviations": [
+      {
+        "name": "cap",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "capsule → capsula",
+        "want": "capsula"
+      },
+      {
+        "name": "Sig",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "signa (Latin for \"write\" or \"label\") → signa",
+        "want": "signa"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "QD",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "quaque die → quaque die",
+        "want": "quaque die"
+      },
+      {
+        "name": "ac",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "ante cibum → ante cibum",
+        "want": "ante cibum"
+      }
+    ],
+    "terms": [],
+    "drugs": [
+      {
+        "name": "omeprazole",
+        "found": true,
+        "verified": true,
+        "got": "OMEPRAZOLE"
+      }
+    ],
+    "totalTerms": 7,
+    "verifiedTerms": 7,
+    "extraTerms": [
+      "MG"
+    ]
+  },
+  {
+    "id": "rx-13",
+    "seconds": 7.722,
+    "cost": 0.024085,
+    "abbreviations": [
+      {
+        "name": "Sig",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "signa (Latin for \"write\" or \"label\") → signa",
+        "want": "signa"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "q6h",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "quaque 6 hora → quaque sexta hora",
+        "want": "quaque sexta hora"
+      },
+      {
+        "name": "PRN",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "pro re nata → pro re nata",
+        "want": "pro re nata"
+      },
+      {
+        "name": "NR",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "no refills → non repetatur",
+        "want": "non repetatur"
+      }
+    ],
+    "terms": [],
+    "drugs": [
+      {
+        "name": "acetaminophen",
+        "found": true,
+        "verified": true,
+        "got": "ACETAMINOPHEN"
+      }
+    ],
+    "totalTerms": 9,
+    "verifiedTerms": 8,
+    "extraTerms": [
+      "MG",
+      "TAB",
+      "Max"
+    ]
+  },
+  {
+    "id": "rx-14",
+    "seconds": 5.801,
+    "cost": 0.017145,
+    "abbreviations": [
+      {
+        "name": "Sig",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "signa (Latin for \"write\" or \"label\") → signa",
+        "want": "signa"
+      },
+      {
+        "name": "SC",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "subcutaneous (Latin sub cutis, \"under the skin\") → subcutaneous (sub cutem)",
+        "want": "subcutaneous"
+      },
+      {
+        "name": "QHS",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "quaque hora somni → quaque hora somni",
+        "want": "quaque hora somni"
+      }
+    ],
+    "terms": [],
+    "drugs": [
+      {
+        "name": "insulin glargine",
+        "found": true,
+        "verified": true,
+        "got": "INSULIN GLARGINE"
+      }
+    ],
+    "totalTerms": 5,
+    "verifiedTerms": 4,
+    "extraTerms": [
+      "100 U/ML"
+    ]
+  },
+  {
+    "id": "rx-15",
+    "seconds": 6.348,
+    "cost": 0.02076,
+    "abbreviations": [
+      {
+        "name": "SUSP",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "suspension → suspensio",
+        "want": "suspension"
+      },
+      {
+        "name": "Sig",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "signa (Latin for \"write\" or \"label\") → signa",
+        "want": "signa"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "TID",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "ter in die → ter in die",
+        "want": "ter in die"
+      }
+    ],
+    "terms": [],
+    "drugs": [
+      {
+        "name": "amoxicillin",
+        "found": true,
+        "verified": true,
+        "got": "AMOXICILLIN"
+      }
+    ],
+    "totalTerms": 7,
+    "verifiedTerms": 7,
+    "extraTerms": [
+      "MG",
+      "ML"
+    ]
+  },
+  {
+    "id": "avs-01",
+    "seconds": 10.906,
+    "cost": 0.03047,
+    "abbreviations": [
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "q4h",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "quaque 4 hora → quaque quarta hora",
+        "want": "quaque quarta hora"
+      },
+      {
+        "name": "PRN",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "pro re nata → pro re nata",
+        "want": "pro re nata"
+      },
+      {
+        "name": "SOB",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "shortness of breath → shortness of breath",
+        "want": "shortness of breath"
+      },
+      {
+        "name": "F/U",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "follow-up → follow-up",
+        "want": "follow-up"
+      },
+      {
+        "name": "PCP",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "primary care provider → primary care provider",
+        "want": "primary care provider"
+      }
+    ],
+    "terms": [
+      {
+        "name": "bronchitis",
+        "found": true,
+        "raw": true,
+        "got": "acut- + bronch- + -itis (in \"Acute bronchitis\")",
+        "want": "bronch + itis"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "guaifenesin",
+        "found": true,
+        "verified": true,
+        "got": "GUAIFENESIN"
+      },
+      {
+        "name": "albuterol",
+        "found": true,
+        "verified": true,
+        "got": "ALBUTEROL"
+      }
+    ],
+    "totalTerms": 11,
+    "verifiedTerms": 9,
+    "extraTerms": [
+      "Acute bronchitis",
+      "mg",
+      "inhaler"
+    ]
+  },
+  {
+    "id": "avs-02",
+    "seconds": 11.303,
+    "cost": 0.03532,
+    "abbreviations": [
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "QHS",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "quaque hora somni → quaque hora somni",
+        "want": "quaque hora somni"
+      },
+      {
+        "name": "q8h",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "quaque 8 hora → quaque octava hora",
+        "want": "quaque octava hora"
+      },
+      {
+        "name": "PRN",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "pro re nata → pro re nata",
+        "want": "pro re nata"
+      },
+      {
+        "name": "STAT",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "statim → statim",
+        "want": "statim"
+      }
+    ],
+    "terms": [
+      {
+        "name": "Bilateral",
+        "found": true,
+        "raw": true,
+        "got": "bi- + later- + -al",
+        "want": "bi + later + al"
+      },
+      {
+        "name": "nephrolithiasis",
+        "found": true,
+        "raw": true,
+        "got": "nephr- + lith- + -iasis",
+        "want": "nephr + lith + iasis"
+      },
+      {
+        "name": "hydronephrosis",
+        "found": true,
+        "raw": true,
+        "got": "hydro- + nephr- + -osis",
+        "want": "hydr + nephr + osis"
+      },
+      {
+        "name": "hematuria",
+        "found": true,
+        "raw": true,
+        "got": "hemat- + -uria",
+        "want": "hemat + uria"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "tamsulosin",
+        "found": true,
+        "verified": true,
+        "got": "TAMSULOSIN HYDROCHLORIDE"
+      },
+      {
+        "name": "ibuprofen",
+        "found": true,
+        "verified": true,
+        "got": "IBUPROFEN"
+      }
+    ],
+    "totalTerms": 12,
+    "verifiedTerms": 11,
+    "extraTerms": [
+      "Strain urine"
+    ]
+  },
+  {
+    "id": "avs-03",
+    "seconds": 11.268,
+    "cost": 0.033335,
+    "abbreviations": [
+      {
+        "name": "Dx",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "diagnosis → diagnosis (Greek dia + gnosis, knowing through)",
+        "want": "diagnosis"
+      },
+      {
+        "name": "Hx",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "history → history (Greek historia, inquiry)",
+        "want": "history"
+      },
+      {
+        "name": "COPD",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "chronic obstructive pulmonary disease → chronic obstructive pulmonary disease",
+        "want": "chronic obstructive pulmonary disease"
+      },
+      {
+        "name": "HTN",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "hypertension → hypertension",
+        "want": "hypertension"
+      },
+      {
+        "name": "Rx",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "recipe (Latin, \"take\") → recipe",
+        "want": "recipe"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "QD",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "quaque die → quaque die",
+        "want": "quaque die"
+      }
+    ],
+    "terms": [
+      {
+        "name": "pneumonia",
+        "found": true,
+        "raw": true,
+        "got": "pneumon- + -ia (in \"Community-acquired pneumonia\")",
+        "want": "pneumon + ia"
+      },
+      {
+        "name": "dyspnea",
+        "found": true,
+        "raw": true,
+        "got": "dys- + -pnea",
+        "want": "dys + pnea"
+      },
+      {
+        "name": "cyanosis",
+        "found": true,
+        "raw": true,
+        "got": "cyan- + -osis",
+        "want": "cyan + osis"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "azithromycin",
+        "found": true,
+        "verified": true,
+        "got": "AZITHROMYCIN"
+      }
+    ],
+    "totalTerms": 12,
+    "verifiedTerms": 12,
+    "extraTerms": [
+      "Community-acquired pneumonia",
+      "mg"
+    ]
+  },
+  {
+    "id": "avs-04",
+    "seconds": 11.872,
+    "cost": 0.03331,
+    "abbreviations": [
+      {
+        "name": "ODT",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "orally disintegrating tablet → orally disintegrating tablet",
+        "want": "orally disintegrating tablet"
+      },
+      {
+        "name": "q8h",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "quaque 8 hora → quaque octava hora",
+        "want": "quaque octava hora"
+      },
+      {
+        "name": "PRN",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "pro re nata → pro re nata",
+        "want": "pro re nata"
+      }
+    ],
+    "terms": [
+      {
+        "name": "gastroenteritis",
+        "found": true,
+        "raw": true,
+        "got": "gastr- + enter- + -itis",
+        "want": "gastr + enter + itis"
+      },
+      {
+        "name": "antiemetic",
+        "found": true,
+        "raw": false,
+        "got": "anti- + -emetic",
+        "want": "anti + emet + ic"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "ondansetron",
+        "found": true,
+        "verified": true,
+        "got": "ONDANSETRON"
+      }
+    ],
+    "totalTerms": 10,
+    "verifiedTerms": 6,
+    "extraTerms": [
+      "Acute",
+      "dehydration",
+      "mg",
+      "nausea"
+    ]
+  },
+  {
+    "id": "avs-05",
+    "seconds": 10.545,
+    "cost": 0.033875,
+    "abbreviations": [
+      {
+        "name": "DM",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "Type 2 diabetes mellitus → Type 2 diabetes mellitus",
+        "want": "diabetes mellitus"
+      },
+      {
+        "name": "A1c",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "hemoglobin A1c (glycated hemoglobin) → hemoglobin A1c",
+        "want": "hemoglobin a1c"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "BID",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "bis in die → bis in die",
+        "want": "bis in die"
+      },
+      {
+        "name": "c",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "cum → cum",
+        "want": "cum"
+      },
+      {
+        "name": "AC",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "ante cibum → ante cibum",
+        "want": "ante cibum"
+      },
+      {
+        "name": "HS",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "hora somni → hora somni",
+        "want": "hora somni"
+      }
+    ],
+    "terms": [
+      {
+        "name": "hyperglycemia",
+        "found": true,
+        "raw": true,
+        "got": "hyper- + glyc- + -emia",
+        "want": "hyper + glyc + emia"
+      },
+      {
+        "name": "hypoglycemia",
+        "found": true,
+        "raw": true,
+        "got": "hypo- + glyc- + -emia",
+        "want": "hypo + glyc + emia"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "metformin",
+        "found": true,
+        "verified": true,
+        "got": "METFORMIN"
+      }
+    ],
+    "totalTerms": 12,
+    "verifiedTerms": 10,
+    "extraTerms": [
+      "Type 2 DM",
+      "mg",
+      "glucose"
+    ]
+  },
+  {
+    "id": "avs-06",
+    "seconds": 7.064,
+    "cost": 0.0225,
+    "abbreviations": [
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "TID",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "ter in die → ter in die",
+        "want": "ter in die"
+      },
+      {
+        "name": "PRN",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "pro re nata → pro re nata",
+        "want": "pro re nata"
+      }
+    ],
+    "terms": [
+      {
+        "name": "Otitis",
+        "found": true,
+        "raw": true,
+        "got": "ot- + -itis + medi- (in \"Otitis media\")",
+        "want": "ot + itis"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "amoxicillin",
+        "found": true,
+        "verified": true,
+        "got": "AMOXICILLIN"
+      },
+      {
+        "name": "acetaminophen",
+        "found": true,
+        "verified": true,
+        "got": "ACETAMINOPHEN"
+      }
+    ],
+    "totalTerms": 7,
+    "verifiedTerms": 6,
+    "extraTerms": [
+      "Otitis media",
+      "mg"
+    ]
+  },
+  {
+    "id": "avs-07",
+    "seconds": 12.73,
+    "cost": 0.03532,
+    "abbreviations": [
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "QHS",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "quaque hora somni → quaque hora somni",
+        "want": "quaque hora somni"
+      },
+      {
+        "name": "PRN",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "pro re nata → pro re nata",
+        "want": "pro re nata"
+      },
+      {
+        "name": "BID",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "bis in die → bis in die",
+        "want": "bis in die"
+      },
+      {
+        "name": "c",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "cum → cum",
+        "want": "cum"
+      },
+      {
+        "name": "NSAID",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "non-steroidal anti-inflammatory drug → nonsteroidal anti-inflammatory drug",
+        "want": "nonsteroidal anti-inflammatory drug"
+      },
+      {
+        "name": "GI",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "gastrointestinal → gastrointestinal (Greek gaster + Latin intestinum)",
+        "want": "gastrointestinal"
+      }
+    ],
+    "terms": [
+      {
+        "name": "Lumbar",
+        "found": true,
+        "raw": true,
+        "got": "lumb- + -ar",
+        "want": "lumb + ar"
+      },
+      {
+        "name": "myalgia",
+        "found": true,
+        "raw": true,
+        "got": "my- + -algia",
+        "want": "my + algia"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "cyclobenzaprine",
+        "found": true,
+        "verified": true,
+        "got": "CYCLOBENZAPRINE"
+      },
+      {
+        "name": "naproxen",
+        "found": true,
+        "verified": true,
+        "got": "NAPROXEN"
+      }
+    ],
+    "totalTerms": 15,
+    "verifiedTerms": 12,
+    "extraTerms": [
+      "strain",
+      "mg",
+      "spasm",
+      "x 7 days"
+    ]
+  },
+  {
+    "id": "avs-08",
+    "seconds": 9.663,
+    "cost": 0.03039,
+    "abbreviations": [
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "BID",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "bis in die → bis in die",
+        "want": "bis in die"
+      },
+      {
+        "name": "STAT",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "statim → statim",
+        "want": "statim"
+      },
+      {
+        "name": "PE",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "pulmonary embolism → pulmonary embolism / physical exam",
+        "want": "pulmonary embolism"
+      }
+    ],
+    "terms": [
+      {
+        "name": "thrombosis",
+        "found": true,
+        "raw": true,
+        "got": "thromb- + -osis + vena (in \"Deep vein thrombosis\")",
+        "want": "thromb + osis"
+      },
+      {
+        "name": "anticoagulant",
+        "found": true,
+        "raw": true,
+        "got": "anti- + coagul- + -ant",
+        "want": "anti + coagul + ant"
+      },
+      {
+        "name": "dyspnea",
+        "found": true,
+        "raw": true,
+        "got": "dys- + -pnea",
+        "want": "dys + pnea"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "apixaban",
+        "found": true,
+        "verified": true,
+        "got": "APIXABAN"
+      }
+    ],
+    "totalTerms": 9,
+    "verifiedTerms": 7,
+    "extraTerms": [
+      "Deep vein thrombosis",
+      "mg"
+    ]
+  },
+  {
+    "id": "avs-09",
+    "seconds": 8.927,
+    "cost": 0.025185,
+    "abbreviations": [
+      {
+        "name": "mcg",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "microgram → microgram (Greek mikros, small)",
+        "want": "microgram"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "QD",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "quaque die → quaque die",
+        "want": "quaque die"
+      },
+      {
+        "name": "ac",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "ante cibum → ante cibum",
+        "want": "ante cibum"
+      },
+      {
+        "name": "TSH",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "thyroid-stimulating hormone → thyroid-stimulating hormone",
+        "want": "thyroid-stimulating hormone"
+      }
+    ],
+    "terms": [
+      {
+        "name": "Hypothyroidism",
+        "found": true,
+        "raw": true,
+        "got": "hypo- + thyr- + -oid + -ism",
+        "want": "hypo + thyr + oid + ism"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "levothyroxine",
+        "found": true,
+        "verified": true,
+        "got": "LEVOTHYROXINE SODIUM"
+      }
+    ],
+    "totalTerms": 7,
+    "verifiedTerms": 6,
+    "extraTerms": []
+  },
+  {
+    "id": "avs-10",
+    "seconds": 10.474,
+    "cost": 0.0301,
+    "abbreviations": [
+      {
+        "name": "UTI",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "urinary tract infection → urinary tract infection",
+        "want": "urinary tract infection"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "BID",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "bis in die → bis in die",
+        "want": "bis in die"
+      },
+      {
+        "name": "TID",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "ter in die → ter in die",
+        "want": "ter in die"
+      },
+      {
+        "name": "PRN",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "pro re nata → pro re nata",
+        "want": "pro re nata"
+      }
+    ],
+    "terms": [
+      {
+        "name": "cystitis",
+        "found": true,
+        "raw": true,
+        "got": "cyst- + -itis",
+        "want": "cyst + itis"
+      },
+      {
+        "name": "dysuria",
+        "found": true,
+        "raw": true,
+        "got": "dys- + -uria",
+        "want": "dys + uria"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "nitrofurantoin",
+        "found": true,
+        "verified": true,
+        "got": "NITROFURANTOIN"
+      },
+      {
+        "name": "phenazopyridine",
+        "found": true,
+        "verified": true,
+        "got": "PHENAZOPYRIDINE"
+      }
+    ],
+    "totalTerms": 11,
+    "verifiedTerms": 10,
+    "extraTerms": [
+      "Acute",
+      "mg"
+    ]
+  },
+  {
+    "id": "avs-11",
+    "seconds": 12.621,
+    "cost": 0.03713,
+    "abbreviations": [
+      {
+        "name": "S/P",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "status post → status post",
+        "want": "status post"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "q6h",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "quaque 6 hora → quaque sexta hora",
+        "want": "quaque sexta hora"
+      },
+      {
+        "name": "PRN",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "pro re nata → pro re nata",
+        "want": "pro re nata"
+      },
+      {
+        "name": "q8h",
+        "found": true,
+        "raw": false,
+        "verified": true,
+        "got": "quaque 8 hora → quaque octava hora",
+        "want": "quaque octava hora"
+      },
+      {
+        "name": "NPO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "nil per os → nil per os",
+        "want": "nil per os"
+      }
+    ],
+    "terms": [
+      {
+        "name": "laparoscopic",
+        "found": true,
+        "raw": true,
+        "got": "lapar- + -scopic + chol- + cyst- + -ectomy (in \"laparoscopic cholecystectomy\")",
+        "want": "lapar + scop + ic or lapar + scopic"
+      },
+      {
+        "name": "cholecystectomy",
+        "found": true,
+        "raw": false,
+        "got": "lapar- + -scopic + chol- + cyst- + -ectomy (in \"laparoscopic cholecystectomy\")",
+        "want": "cholecyst + ectomy"
+      },
+      {
+        "name": "erythema",
+        "found": true,
+        "raw": true,
+        "got": "erythr- + -ema",
+        "want": "erythr + ema"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "oxycodone",
+        "found": true,
+        "verified": true,
+        "got": "OXYCODONE"
+      },
+      {
+        "name": "acetaminophen",
+        "found": true,
+        "verified": true,
+        "got": "ACETAMINOPHEN"
+      }
+    ],
+    "totalTerms": 13,
+    "verifiedTerms": 10,
+    "extraTerms": [
+      "laparoscopic cholecystectomy",
+      "mg",
+      "g",
+      "incisions"
+    ]
+  },
+  {
+    "id": "avs-12",
+    "seconds": 11.317,
+    "cost": 0.03318,
+    "abbreviations": [
+      {
+        "name": "ECG",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "electrocardiogram → electrocardiogram",
+        "want": "electrocardiogram"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "BID",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "bis in die → bis in die",
+        "want": "bis in die"
+      },
+      {
+        "name": "F/U",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "follow-up → follow-up",
+        "want": "follow-up"
+      }
+    ],
+    "terms": [
+      {
+        "name": "Tachycardia",
+        "found": true,
+        "raw": true,
+        "got": "tachy- + -cardia",
+        "want": "tachy + cardi + ia or tachy + cardia"
+      },
+      {
+        "name": "cardiology",
+        "found": true,
+        "raw": true,
+        "got": "cardi- + -ology",
+        "want": "cardi + logy or cardi + ology"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "metoprolol",
+        "found": true,
+        "verified": true,
+        "got": "METOPROLOL"
+      }
+    ],
+    "totalTerms": 10,
+    "verifiedTerms": 6,
+    "extraTerms": [
+      "palpitations",
+      "sinus rhythm",
+      "mg"
+    ]
+  },
+  {
+    "id": "avs-13",
+    "seconds": 8.808,
+    "cost": 0.02659,
+    "abbreviations": [
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "QD",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "quaque die → quaque die",
+        "want": "quaque die"
+      },
+      {
+        "name": "QAM",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "quaque ante meridiem → quaque ante meridiem",
+        "want": "quaque ante meridiem"
+      }
+    ],
+    "terms": [
+      {
+        "name": "rhinitis",
+        "found": true,
+        "raw": true,
+        "got": "all- + -ergy + rhin- + -itis (in \"Allergic rhinitis\")",
+        "want": "rhin + itis"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "cetirizine",
+        "found": true,
+        "verified": true,
+        "got": "CETIRIZINE"
+      },
+      {
+        "name": "fluticasone",
+        "found": true,
+        "verified": true,
+        "got": "FLUTICASONE PROPIONATE"
+      }
+    ],
+    "totalTerms": 8,
+    "verifiedTerms": 7,
+    "extraTerms": [
+      "Allergic rhinitis",
+      "mg",
+      "nasal"
+    ]
+  },
+  {
+    "id": "avs-14",
+    "seconds": 7.365,
+    "cost": 0.02128,
+    "abbreviations": [
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "QID",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "quater in die → quater in die",
+        "want": "quater in die"
+      }
+    ],
+    "terms": [
+      {
+        "name": "Cellulitis",
+        "found": true,
+        "raw": true,
+        "got": "cellul- + -itis",
+        "want": "cellul + itis"
+      },
+      {
+        "name": "erythema",
+        "found": true,
+        "raw": true,
+        "got": "erythr- + -ema",
+        "want": "erythr + ema"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "cephalexin",
+        "found": true,
+        "verified": true,
+        "got": "CEPHALEXIN"
+      }
+    ],
+    "totalTerms": 5,
+    "verifiedTerms": 3,
+    "extraTerms": []
+  },
+  {
+    "id": "avs-15",
+    "seconds": 11.748,
+    "cost": 0.03312,
+    "abbreviations": [
+      {
+        "name": "Hx",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "history → history (Greek historia, inquiry)",
+        "want": "history"
+      },
+      {
+        "name": "CKD",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "chronic kidney disease → chronic kidney disease",
+        "want": "chronic kidney disease"
+      },
+      {
+        "name": "PO",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "per os → per os",
+        "want": "per os"
+      },
+      {
+        "name": "QD",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "quaque die → quaque die",
+        "want": "quaque die"
+      },
+      {
+        "name": "BMP",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "basic metabolic panel → basic metabolic panel",
+        "want": "basic metabolic panel"
+      },
+      {
+        "name": "BP",
+        "found": true,
+        "raw": true,
+        "verified": true,
+        "got": "blood pressure → blood pressure",
+        "want": "blood pressure"
+      }
+    ],
+    "terms": [
+      {
+        "name": "Hypertension",
+        "found": true,
+        "raw": true,
+        "got": "hyper- + -tension",
+        "want": "hyper + tension"
+      }
+    ],
+    "drugs": [
+      {
+        "name": "amlodipine",
+        "found": true,
+        "verified": true,
+        "got": "AMLODIPINE"
+      }
+    ],
+    "totalTerms": 14,
+    "verifiedTerms": 9,
+    "extraTerms": [
+      "uncontrolled",
+      "stage 3",
+      "mg",
+      "Low-sodium diet",
+      "Labs",
+      "130/80"
+    ]
+  }
+]

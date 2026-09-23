@@ -23,6 +23,20 @@ Paste text or upload a photo. Loquitur finds the jargon in prescription labels a
    npm run dev
    ```
 
+## Accuracy
+
+Tested on 30 made-up documents (15 prescription labels, 15 after-visit summaries) with an expert answer key covering 144 abbreviations, 31 medical terms and 37 drugs. Run it with `npm run eval` (about $0.80 in API credits); the full report is in [eval/results/REPORT.md](eval/results/REPORT.md).
+
+| Metric | Score |
+|---|---|
+| Jargon found | 100% (175/175) |
+| Abbreviation expansions correct, AI alone | 89% (128/144) |
+| Abbreviation expansions correct, AI + dictionary verification | **100%** (144/144) |
+| Root breakdowns match the answer key | 94% (29/31) |
+| Drug names confirmed in the FDA database | 100% (37/37) |
+
+Half of the AI's abbreviation errors were Latin grammar: it expanded q6h as *"quaque 6 hora"* instead of the ordinal *quaque sexta hora* (8 of 16 misses). The dictionary corrected every one. Average cost is about $0.03 and 9 seconds per document.
+
 ## Tests
 
 ```bash
@@ -67,4 +81,5 @@ text or photo → Claude (structured JSON: transcript, terms, roots, summary)
 - [x] Week 5: confirm drug names with openFDA
 - [x] Week 6: email sign-in + Codex (saved roots and abbreviations)
 - [x] Week 7: spaced-repetition review quizzes
-- [ ] Week 8: accuracy evaluation + launch
+- [x] Week 8a: accuracy evaluation
+- [ ] Week 8b: launch on Vercel

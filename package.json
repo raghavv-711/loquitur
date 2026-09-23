@@ -8,7 +8,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "review": "tsx scripts/review.ts",
-    "test": "tsx --test lib/*.test.ts"
+    "test": "tsx --test lib/*.test.ts eval/*.test.ts",
+    "eval": "tsx --env-file=.env.local eval/run.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.128.0",

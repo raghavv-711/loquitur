@@ -88,6 +88,10 @@ async function fetchDrug(name: string): Promise<FdaInfo | null> {
 const SALT =
   /^(HCL|HYDROCHLORIDE|HBR|HYDROBROMIDE|SODIUM|POTASSIUM|CALCIUM|MAGNESIUM|SULFATE|CITRATE|MALEATE|TARTRATE|SUCCINATE|FUMARATE|MESYLATE|BESYLATE|ACETATE|PHOSPHATE|BROMIDE|CHLORIDE)( |$)/;
 
+// Salts and esters: the listed ones, or any single word ending in -ATE/-IDE (FLUTICASONE PROPIONATE).
+// "ADVIL PM" isn't a salt, so brand variants don't sneak through.
+const isSalt = (rest: string) => SALT.test(rest) || /^[A-Z]+(ATE|IDE)$/.test(rest);
+
 // Prefer single-ingredient products: the exact name, then its salt form,
 // then the most common single ingredient (for brands: ADVIL → IBUPROFEN).
 export function pickGeneric(name: string, counts: { term: string; count: number }[] | null): string | null {
@@ -95,7 +99,7 @@ export function pickGeneric(name: string, counts: { term: string; count: number 
   const single = counts.filter((c) => !/ AND |,/.test(c.term));
   return (
     single.find((c) => c.term === name)?.term ??
-    single.find((c) => c.term.startsWith(name + " ") && SALT.test(c.term.slice(name.length + 1)))?.term ??
+    single.find((c) => c.term.startsWith(name + " ") && isSalt(c.term.slice(name.length + 1)))?.term ??
     single.find((c) => !c.term.startsWith(name + " "))?.term ??
     null
   );

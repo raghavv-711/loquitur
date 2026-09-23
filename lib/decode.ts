@@ -47,13 +47,23 @@ const BASE_REQUEST = {
 };
 
 export async function decodeDocument(input: DecodeInput): Promise<DecodeResponse> {
+  const { decoded, transcript } = await askClaude(input);
+  const verified = verify(decoded);
+  return checkDrugs(transcript === undefined ? verified : { ...verified, transcript });
+}
+
+// Claude's raw answer, before any dictionary or FDA checks. The accuracy eval (eval/run.ts)
+// scores this and the verified result separately.
+export async function askClaude(
+  input: DecodeInput,
+): Promise<{ decoded: Decoded; transcript?: string; usage: { input_tokens: number; output_tokens: number } }> {
   if (input.kind === "text") {
     const response = await client.beta.messages.parse({
       ...BASE_REQUEST,
       messages: [{ role: "user", content: `<document>\n${input.text}\n</document>` }],
       output_config: { effort: "low", format: betaZodOutputFormat(DecodeSchema) },
     });
-    return checkDrugs(verify(checkParsed(response.stop_reason, response.parsed_output)));
+    return { decoded: checkParsed(response.stop_reason, response.parsed_output), usage: response.usage };
   }
 
   const response = await client.beta.messages.parse({
@@ -70,13 +80,13 @@ export async function decodeDocument(input: DecodeInput): Promise<DecodeResponse
     // Reading a photo is harder than reading pasted text, so give it a bit more effort.
     output_config: { effort: "medium", format: betaZodOutputFormat(PhotoDecodeSchema) },
   });
-  const parsed = checkParsed(response.stop_reason, response.parsed_output);
-  return checkDrugs({ ...verify(parsed), transcript: parsed.transcript });
+  const { transcript, ...decoded } = checkParsed(response.stop_reason, response.parsed_output);
+  return { decoded, transcript, usage: response.usage };
 }
 
 // Drug names can't be checked against our dictionary, so confirm them in the FDA label database.
 // Lookups run in parallel; if openFDA is slow or down, the drug simply stays unverified.
-async function checkDrugs(result: DecodeResponse): Promise<DecodeResponse> {
+export async function checkDrugs(result: DecodeResponse): Promise<DecodeResponse> {
   const terms = await Promise.all(
     result.terms.map(async (term) => {
       if (term.kind !== "drug") return term;
