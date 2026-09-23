@@ -14,32 +14,32 @@ export function AuthBar() {
   if (!enabled || loading) return <div className="h-9" />;
 
   return (
-    <nav className="flex items-center justify-end gap-3 text-sm">
+    <nav className="flex items-center justify-end gap-3">
       {user ? (
         <>
-          <Link href="/" className="text-stone-600 hover:text-ink">
+          <Link href="/" className="hidden text-muted hover:text-fg sm:inline">
             Decode
           </Link>
-          <Link href="/codex" className="text-stone-600 hover:text-ink">
+          <Link href="/codex" className="text-muted hover:text-fg">
             My Codex
           </Link>
-          <Link href="/review" className="font-medium text-terracotta hover:underline">
+          <Link href="/review" className="font-medium text-accent hover:underline">
             Review
             {dueCount > 0 && (
-              <span className="ml-1 rounded-full bg-terracotta px-1.5 py-0.5 text-xs text-white">{dueCount}</span>
+              <span className="ml-1 rounded-full bg-accent-2 px-1.5 py-0.5 text-xs text-bg">{dueCount}</span>
             )}
           </Link>
-          <span className="hidden text-stone-400 sm:inline">{user.email}</span>
+          <span className="hidden text-faint sm:inline">{user.email}</span>
           <form action="/auth/signout" method="post">
-            <button className="text-stone-600 hover:text-ink">Sign out</button>
+            <button className="text-muted hover:text-fg">Sign out</button>
           </form>
         </>
       ) : (
         <button
           onClick={() => setOpen(true)}
-          className="rounded-full border border-stone px-3 py-1.5 hover:border-terracotta"
+          className="rounded-full border border-line px-3 py-1.5 hover:border-accent"
         >
-          Sign in to save words
+          Sign in<span className="hidden sm:inline"> to save words</span>
         </button>
       )}
       {open && !user && <SignInDialog onClose={() => setOpen(false)} />}
@@ -82,9 +82,9 @@ export function SignInDialog({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={onClose}>
       <div
-        className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl"
+        className="w-full max-w-sm rounded-2xl bg-surface p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-labelledby="signin-title"
@@ -93,12 +93,12 @@ export function SignInDialog({ onClose }: { onClose: () => void }) {
           Sign in
         </h2>
         {status === "sent" ? (
-          <p className="mt-3 text-stone-700">
+          <p className="mt-3 text-fg/85">
             Check <strong>{email}</strong> for a sign-in link. Open it in this browser.
           </p>
         ) : (
           <form onSubmit={submit} className="mt-3">
-            <p className="text-sm text-stone-600">Save the roots and abbreviations you learn to your Codex.</p>
+            <p className="text-sm text-muted">Save the roots and abbreviations you learn to your Codex.</p>
             {googleButtonAvailable ? (
               <GoogleButton onSignedIn={onGoogleSignedIn} />
             ) : (
@@ -106,7 +106,7 @@ export function SignInDialog({ onClose }: { onClose: () => void }) {
               <button
                 type="button"
                 onClick={google}
-                className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-stone py-2.5 text-sm font-medium hover:border-ink"
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-line py-2.5 text-sm font-medium hover:border-accent"
               >
                 <GoogleLogo />
                 Continue with Google
@@ -114,10 +114,10 @@ export function SignInDialog({ onClose }: { onClose: () => void }) {
             )}
             {EMAIL_SIGNIN && (
               <>
-                <div className="my-4 flex items-center gap-3 text-xs text-stone-400">
-                  <span className="h-px flex-1 bg-stone" />
+                <div className="my-4 flex items-center gap-3 text-xs text-faint">
+                  <span className="h-px flex-1 bg-line" />
                   or get an email link
-                  <span className="h-px flex-1 bg-stone" />
+                  <span className="h-px flex-1 bg-line" />
                 </div>
                 <input
                   type="email"
@@ -125,20 +125,20 @@ export function SignInDialog({ onClose }: { onClose: () => void }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="w-full rounded-xl border border-stone bg-parchment p-3 outline-none focus:border-terracotta"
+                  className="w-full rounded-xl border border-line bg-surface-2 p-3 outline-none focus:border-accent"
                 />
                 <button
                   disabled={status === "sending"}
-                  className="mt-3 w-full rounded-full bg-ink py-2.5 text-sm font-medium text-white hover:bg-terracotta disabled:opacity-40"
+                  className="mt-3 w-full rounded-full bg-linear-to-r from-accent to-accent-2 py-2.5 text-sm font-medium text-bg hover:brightness-110 disabled:opacity-40"
                 >
                   {status === "sending" ? "Sending…" : "Email me a sign-in link"}
                 </button>
               </>
             )}
-            {error && <p className="mt-2 text-sm text-red-700">{error}</p>}
+            {error && <p className="mt-2 text-sm text-red-300">{error}</p>}
           </form>
         )}
-        <button onClick={onClose} className="mt-3 w-full text-sm text-stone-500 hover:text-ink">
+        <button onClick={onClose} className="mt-3 w-full text-sm text-muted hover:text-fg">
           Close
         </button>
       </div>

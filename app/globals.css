@@ -1,14 +1,29 @@
 @import "tailwindcss";
 
+/* Colors taken from the Loquitur logo: deep navy with a sky-blue → lavender gradient. */
 @theme {
   --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --color-ink: #1f1b16;
-  --color-parchment: #faf7f2;
-  --color-stone: #e9e3d8;
-  --color-terracotta: #b4532a;
+  --color-bg: #040c20; /* page background, matches the logo */
+  --color-surface: #0a1530; /* cards */
+  --color-surface-2: #0f1c3d; /* inputs, nested panels */
+  --color-line: #1e2c52; /* borders and dividers */
+  --color-fg: #eef3ff; /* main text */
+  --color-muted: #a3aecb; /* secondary text */
+  --color-faint: #707ca2; /* hints */
+  --color-accent: #92caeb; /* sky blue from the logo ring */
+  --color-accent-2: #aaaaef; /* lavender from the logo ring */
+  --color-accent-deep: #6381c7; /* the blue "o" in the wordmark */
+}
+
+:root {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--color-parchment);
-  color: var(--color-ink);
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent-2) 40%, transparent);
 }

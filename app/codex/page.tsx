@@ -46,7 +46,7 @@ export default function CodexPage() {
     <main className="mx-auto max-w-5xl px-4 pb-10 pt-4 sm:px-6">
       <header className="mb-8">
         <h1 className="font-serif text-4xl font-semibold tracking-tight sm:text-5xl">My Codex</h1>
-        <p className="mt-1 font-serif text-lg italic text-stone-600">
+        <p className="mt-1 font-serif text-lg italic text-muted">
           The roots and abbreviations you&apos;ve learned.
         </p>
       </header>
@@ -57,7 +57,7 @@ export default function CodexPage() {
         <Notice>Loading…</Notice>
       ) : !user ? (
         <Notice>
-          <button onClick={() => setSigningIn(true)} className="font-medium text-terracotta underline">
+          <button onClick={() => setSigningIn(true)} className="font-medium text-accent underline">
             Sign in
           </button>{" "}
           to see your Codex.
@@ -70,7 +70,7 @@ export default function CodexPage() {
       ) : entries.length === 0 ? (
         <Notice>
           Nothing saved yet.{" "}
-          <Link href="/" className="font-medium text-terracotta underline">
+          <Link href="/" className="font-medium text-accent underline">
             Decode a document
           </Link>{" "}
           and tap <strong>+ Save</strong> on any root or abbreviation.
@@ -82,9 +82,9 @@ export default function CodexPage() {
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
               placeholder="Search your Codex"
-              className="w-full max-w-xs rounded-full border border-stone bg-white px-4 py-2 text-sm outline-none focus:border-terracotta"
+              className="w-full max-w-xs rounded-full border border-line bg-surface px-4 py-2 text-sm outline-none focus:border-accent"
             />
-            <span className="text-sm text-stone-500">
+            <span className="text-sm text-muted">
               {roots.length} root{roots.length === 1 ? "" : "s"} · {abbreviations.length} abbreviation
               {abbreviations.length === 1 ? "" : "s"}
             </span>
@@ -109,15 +109,15 @@ function Section({
   if (entries.length === 0) return null;
   return (
     <section className="mb-8">
-      <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-stone-500">{title}</h2>
+      <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted">{title}</h2>
       <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {entries.map((entry) => (
-          <li key={entry.id} className="flex flex-col rounded-2xl border border-stone bg-white p-4">
+          <li key={entry.id} className="flex flex-col rounded-2xl border border-line bg-surface p-4">
             <div className="flex items-start justify-between gap-2">
               <span className="font-serif text-2xl font-semibold">{entry.term}</span>
               <button
                 onClick={() => onRemove(entry)}
-                className="text-xs text-stone-400 hover:text-red-700"
+                className="text-xs text-faint hover:text-red-300"
                 aria-label={`Remove ${entry.term}`}
               >
                 Remove
@@ -125,7 +125,7 @@ function Section({
             </div>
             {entry.kind === "root" ? <RootBody details={entry.details as RootDetails} /> : null}
             {entry.kind === "abbreviation" ? <AbbrevBody details={entry.details as AbbreviationDetails} /> : null}
-            <p className="mt-auto pt-3 text-xs text-stone-400">
+            <p className="mt-auto pt-3 text-xs text-faint">
               {entry.source_word && <>from “{entry.source_word}” · </>}
               review {describeDue(entry.due_at)}
             </p>
@@ -139,10 +139,10 @@ function Section({
 function RootBody({ details }: { details: RootDetails }) {
   return (
     <>
-      <p className="mt-1 text-sm text-stone-600">
-        {details.origin} · <strong className="text-ink">{details.meaning}</strong>
+      <p className="mt-1 text-sm text-muted">
+        {details.origin} · <strong className="text-fg">{details.meaning}</strong>
       </p>
-      {details.hook && <p className="mt-2 text-sm text-stone-600">💡 {details.hook}</p>}
+      {details.hook && <p className="mt-2 text-sm text-muted">💡 {details.hook}</p>}
     </>
   );
 }
@@ -150,9 +150,9 @@ function RootBody({ details }: { details: RootDetails }) {
 function AbbrevBody({ details }: { details: AbbreviationDetails }) {
   return (
     <>
-      <p className="mt-1 font-serif italic text-terracotta">
+      <p className="mt-1 font-serif italic text-accent">
         {details.expansion}
-        {details.literal && <span className="not-italic text-stone-500"> — “{details.literal}”</span>}
+        {details.literal && <span className="not-italic text-muted"> — “{details.literal}”</span>}
       </p>
       <p className="mt-2 text-sm">{details.plain}</p>
     </>
@@ -160,5 +160,5 @@ function AbbrevBody({ details }: { details: AbbreviationDetails }) {
 }
 
 function Notice({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-2xl border border-dashed border-stone p-6 text-stone-600">{children}</div>;
+  return <div className="rounded-2xl border border-dashed border-line p-6 text-muted">{children}</div>;
 }

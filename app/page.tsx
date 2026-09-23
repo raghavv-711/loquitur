@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { HighlightedText } from "@/components/HighlightedText";
@@ -81,14 +82,20 @@ export default function Home() {
 
   return (
     <main className="mx-auto max-w-5xl px-4 pb-10 pt-4 sm:px-6">
-      <header className="mb-8">
-        <h1 className="font-serif text-4xl font-semibold tracking-tight sm:text-5xl">Loquitur</h1>
-        <p className="mt-1 font-serif text-lg italic text-stone-600">
-          Your medical paperwork, in plain English.
-        </p>
+      <header className="mb-8 text-center">
+        <h1 className="sr-only">Loquitur</h1>
+        <Image
+          src="/brand/logo.png"
+          alt="Loquitur"
+          width={720}
+          height={587}
+          priority
+          className="mx-auto w-56 sm:w-72"
+        />
+        <p className="mt-2 font-serif text-lg italic text-muted">Your medical paperwork, in plain English.</p>
       </header>
 
-      <section className="rounded-2xl border border-stone bg-white p-5 shadow-sm">
+      <section className="rounded-2xl border border-line bg-surface p-5 shadow-sm">
         {photo ? (
           <div>
             <p className="text-sm font-medium">Your photo</p>
@@ -96,11 +103,11 @@ export default function Home() {
             <img
               src={photo.previewUrl}
               alt="Uploaded document"
-              className="mt-2 max-h-72 w-auto rounded-xl border border-stone"
+              className="mt-2 max-h-72 w-auto rounded-xl border border-line"
             />
             <button
               onClick={() => setPhoto(null)}
-              className="mt-2 text-sm text-stone-500 underline underline-offset-2 hover:text-ink"
+              className="mt-2 text-sm text-muted underline underline-offset-2 hover:text-fg"
             >
               Remove photo and paste text instead
             </button>
@@ -116,7 +123,7 @@ export default function Home() {
               onChange={(e) => setInput(e.target.value)}
               rows={6}
               placeholder="e.g. Take 1 tab PO BID pc x 7 days"
-              className="mt-2 w-full resize-y rounded-xl border border-stone bg-parchment p-3 font-mono text-[15px] outline-none focus:border-terracotta"
+              className="mt-2 w-full resize-y rounded-xl border border-line bg-surface-2 p-3 font-mono text-[15px] outline-none focus:border-accent"
             />
           </>
         )}
@@ -125,12 +132,12 @@ export default function Home() {
           <button
             onClick={decode}
             disabled={!canDecode}
-            className="rounded-full bg-ink px-5 py-2 text-sm font-medium text-white transition hover:bg-terracotta disabled:opacity-40"
+            className="rounded-full bg-linear-to-r from-accent to-accent-2 px-5 py-2 text-sm font-medium text-bg transition hover:brightness-110 disabled:opacity-40"
           >
             {loading ? (photo ? "Reading photo…" : "Decoding…") : "Decode"}
           </button>
           {/* On phones this offers the camera or photo library. */}
-          <label className="cursor-pointer rounded-full border border-ink px-4 py-1.5 text-sm font-medium hover:border-terracotta hover:text-terracotta">
+          <label className="cursor-pointer rounded-full border border-accent px-4 py-1.5 text-sm font-medium hover:border-accent hover:text-accent">
             📷 {photo ? "Choose another photo" : "Upload a photo"}
             <input
               type="file"
@@ -143,7 +150,7 @@ export default function Home() {
               }}
             />
           </label>
-          <span className="text-sm text-stone-500">or try:</span>
+          <span className="text-sm text-muted">or try:</span>
           {SAMPLES.map((sample) => (
             <button
               key={sample.name}
@@ -151,29 +158,29 @@ export default function Home() {
                 setPhoto(null);
                 setInput(sample.text);
               }}
-              className="rounded-full border border-stone px-3 py-1.5 text-sm hover:border-terracotta"
+              className="rounded-full border border-line px-3 py-1.5 text-sm hover:border-accent"
             >
               {sample.name}
             </button>
           ))}
           <button
             onClick={loadSamplePhoto}
-            className="rounded-full border border-stone px-3 py-1.5 text-sm hover:border-terracotta"
+            className="rounded-full border border-line px-3 py-1.5 text-sm hover:border-accent"
           >
             Sample photo
           </button>
         </div>
-        <p className="mt-3 text-xs text-stone-500">
+        <p className="mt-3 text-xs text-muted">
           Your text or photo is sent to the AI to be decoded and is never stored.
         </p>
       </section>
 
-      {error && <p className="mt-6 rounded-xl bg-red-50 p-4 text-sm text-red-800">{error}</p>}
+      {error && <p className="mt-6 rounded-xl bg-red-400/10 p-4 text-sm text-red-200">{error}</p>}
 
       {result && (
         <section className="mt-8">
-          <div className="rounded-2xl bg-ink p-5 text-parchment">
-            <h2 className="text-xs font-semibold uppercase tracking-wide text-stone-300">What this says</h2>
+          <div className="rounded-2xl border border-line bg-surface-2 p-5 text-fg">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-accent">What this says</h2>
             <p className="mt-2 text-lg">{result.summary}</p>
           </div>
 
@@ -183,13 +190,13 @@ export default function Home() {
                 {kind.label}
               </span>
             ))}
-            <span className="text-stone-500">Tap a highlighted word to decode it.</span>
+            <span className="text-muted">Tap a highlighted word to decode it.</span>
           </div>
 
           <div className="mt-3 grid gap-6 md:grid-cols-[1fr_minmax(0,380px)]">
             <div>
               {result.transcript !== undefined && (
-                <p className="mb-2 text-xs text-stone-500">
+                <p className="mb-2 text-xs text-muted">
                   What Loquitur read from your photo. Check it against the label: photos can be misread.
                 </p>
               )}
@@ -201,7 +208,7 @@ export default function Home() {
                   onSelect={setSelected}
                 />
               ) : (
-                <p className="rounded-2xl border border-stone bg-white p-5 text-sm text-stone-600">
+                <p className="rounded-2xl border border-line bg-surface p-5 text-sm text-muted">
                   No readable text found. Try a sharper, well-lit photo taken straight on.
                 </p>
               )}
@@ -210,7 +217,7 @@ export default function Home() {
               {selectedTerm ? (
                 <TermCard term={selectedTerm} onClose={() => setSelected(null)} />
               ) : (
-                <div className="rounded-2xl border border-dashed border-stone p-5 text-sm text-stone-500">
+                <div className="rounded-2xl border border-dashed border-line p-5 text-sm text-muted">
                   Found {result.terms.length} term{result.terms.length === 1 ? "" : "s"}. Tap one to see what it
                   means and where the word comes from.
                 </div>
@@ -220,9 +227,13 @@ export default function Home() {
         </section>
       )}
 
-      <footer className="mt-12 border-t border-stone pt-4 text-xs text-stone-500">
+      <footer className="mt-12 border-t border-line pt-4 text-xs text-muted">
         Loquitur explains words. It is not medical advice. Ask your pharmacist or doctor about your care. ·{" "}
-        <Link href="/privacy" className="underline underline-offset-2 hover:text-ink">
+        <Link href="/about" className="underline underline-offset-2 hover:text-fg">
+          About
+        </Link>{" "}
+        ·{" "}
+        <Link href="/privacy" className="underline underline-offset-2 hover:text-fg">
           Privacy
         </Link>
       </footer>

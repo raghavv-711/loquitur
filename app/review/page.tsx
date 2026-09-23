@@ -80,7 +80,7 @@ export default function ReviewPage() {
     <main className="mx-auto max-w-2xl px-4 pb-10 pt-4 sm:px-6">
       <header className="mb-8">
         <h1 className="font-serif text-4xl font-semibold tracking-tight sm:text-5xl">Review</h1>
-        <p className="mt-1 font-serif text-lg italic text-stone-600">
+        <p className="mt-1 font-serif text-lg italic text-muted">
           {mode === "practice" ? "Practice round: this won't change your schedule." : "A few minutes a day keeps the Latin fresh."}
         </p>
       </header>
@@ -91,7 +91,7 @@ export default function ReviewPage() {
         <Notice>Loading…</Notice>
       ) : !user ? (
         <Notice>
-          <button onClick={() => setSigningIn(true)} className="font-medium text-terracotta underline">
+          <button onClick={() => setSigningIn(true)} className="font-medium text-accent underline">
             Sign in
           </button>{" "}
           to review your Codex.
@@ -142,23 +142,23 @@ function QuestionCard({
   const correct = chosen === q.answer;
 
   return (
-    <section className="rounded-2xl border border-stone bg-white p-6 shadow-sm">
-      <p className="text-xs font-medium uppercase tracking-wide text-stone-500">
+    <section className="rounded-2xl border border-line bg-surface p-6 shadow-sm">
+      <p className="text-xs font-medium uppercase tracking-wide text-muted">
         {position} · {q.type === "decode" ? "Decode it yourself" : card.entry.kind === "root" ? "Word root" : "Abbreviation"}
       </p>
-      <p className="mt-4 text-stone-700">{q.prompt}</p>
+      <p className="mt-4 text-fg/85">{q.prompt}</p>
       <h2 className="mt-1 font-serif text-4xl font-semibold">{q.subject}</h2>
-      {q.hint && <p className="mt-1 font-serif text-lg italic text-terracotta">{q.hint}</p>}
+      {q.hint && <p className="mt-1 font-serif text-lg italic text-accent">{q.hint}</p>}
 
       <div className="mt-6 grid gap-2">
         {q.options.map((option, i) => {
           const style = !answered
-            ? "border-stone hover:border-terracotta"
+            ? "border-line hover:border-accent"
             : i === q.answer
-              ? "border-emerald-500 bg-emerald-50"
+              ? "border-emerald-400 bg-emerald-400/10"
               : i === chosen
-                ? "border-red-400 bg-red-50"
-                : "border-stone opacity-50";
+                ? "border-red-400 bg-red-400/10"
+                : "border-line opacity-50";
           return (
             <button
               key={i}
@@ -174,15 +174,15 @@ function QuestionCard({
 
       {answered && (
         <div className="mt-5">
-          <p className={`font-medium ${correct ? "text-emerald-700" : "text-red-700"}`}>
+          <p className={`font-medium ${correct ? "text-emerald-300" : "text-red-300"}`}>
             {correct ? "✓ Right!" : practice ? "Not quite." : "Not quite. It'll come back in a few minutes."}
           </p>
-          <p className="mt-1 text-sm text-stone-600">{q.explanation}</p>
-          {error && <p className="mt-2 text-sm text-red-700">{error}</p>}
+          <p className="mt-1 text-sm text-muted">{q.explanation}</p>
+          {error && <p className="mt-2 text-sm text-red-300">{error}</p>}
           <button
             onClick={onNext}
             autoFocus
-            className="mt-4 rounded-full bg-ink px-5 py-2 text-sm font-medium text-white hover:bg-terracotta"
+            className="mt-4 rounded-full bg-linear-to-r from-accent to-accent-2 px-5 py-2 text-sm font-medium text-bg hover:brightness-110"
           >
             Next →
           </button>
@@ -204,19 +204,19 @@ function Summary({
   onPractice: () => void;
 }) {
   return (
-    <section className="rounded-2xl border border-stone bg-white p-6 text-center shadow-sm">
+    <section className="rounded-2xl border border-line bg-surface p-6 text-center shadow-sm">
       <p className="font-serif text-5xl font-semibold">
         {score}/{total}
       </p>
-      <p className="mt-2 text-stone-600">
+      <p className="mt-2 text-muted">
         {score === total ? "Optime! A perfect round." : score >= total / 2 ? "Bene! Nice work." : "Keep going. Misses come back soon."}
       </p>
-      {mode === "due" && <p className="mt-1 text-sm text-stone-500">Words you got right come back later, spaced further apart each time.</p>}
+      {mode === "due" && <p className="mt-1 text-sm text-muted">Words you got right come back later, spaced further apart each time.</p>}
       <div className="mt-5 flex justify-center gap-3">
-        <button onClick={onPractice} className="rounded-full border border-stone px-4 py-2 text-sm hover:border-terracotta">
+        <button onClick={onPractice} className="rounded-full border border-line px-4 py-2 text-sm hover:border-accent">
           Practice more
         </button>
-        <Link href="/" className="rounded-full bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-terracotta">
+        <Link href="/" className="rounded-full bg-linear-to-r from-accent to-accent-2 px-4 py-2 text-sm font-medium text-bg hover:brightness-110">
           Decode a document
         </Link>
       </div>
@@ -229,7 +229,7 @@ function EmptyState({ nextDue, hasWords, onPractice }: { nextDue: string | null;
     return (
       <Notice>
         Your Codex is empty.{" "}
-        <Link href="/" className="font-medium text-terracotta underline">
+        <Link href="/" className="font-medium text-accent underline">
           Decode a document
         </Link>{" "}
         and save some roots or abbreviations to start reviewing.
@@ -241,7 +241,7 @@ function EmptyState({ nextDue, hasWords, onPractice }: { nextDue: string | null;
       <p>
         All caught up! Your next review is <strong>{nextDue ? describeDue(nextDue) : "soon"}</strong>.
       </p>
-      <button onClick={onPractice} className="mt-3 rounded-full border border-stone px-4 py-2 text-sm hover:border-terracotta">
+      <button onClick={onPractice} className="mt-3 rounded-full border border-line px-4 py-2 text-sm hover:border-accent">
         Practice anyway
       </button>
     </Notice>
@@ -249,5 +249,5 @@ function EmptyState({ nextDue, hasWords, onPractice }: { nextDue: string | null;
 }
 
 function Notice({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-2xl border border-dashed border-stone p-6 text-stone-600">{children}</div>;
+  return <div className="rounded-2xl border border-dashed border-line p-6 text-muted">{children}</div>;
 }

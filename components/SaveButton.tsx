@@ -27,13 +27,13 @@ export function SaveButton({ entry, label = "Save" }: { entry: NewCodexEntry; la
         onClick={onClick}
         disabled={saved || busy}
         className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-medium transition ${
-          saved ? "bg-emerald-100 text-emerald-800" : "border border-terracotta text-terracotta hover:bg-terracotta hover:text-white"
+          saved ? "bg-emerald-400/15 text-emerald-200" : "border border-accent text-accent hover:bg-accent hover:text-bg"
         }`}
         title={error ?? undefined}
       >
         {saved ? "✓ In Codex" : busy ? "Saving…" : `+ ${label}`}
       </button>
-      {error && <span className="text-xs text-red-700">{error}</span>}
+      {error && <span className="text-xs text-red-300">{error}</span>}
       {signingIn && <SignInDialog onClose={() => setSigningIn(false)} />}
     </>
   );

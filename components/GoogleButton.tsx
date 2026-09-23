@@ -80,7 +80,7 @@ export function GoogleButton({ onSignedIn }: { onSignedIn: () => void }) {
   return (
     <div className="mt-4">
       <div ref={container} className="flex min-h-10 justify-center" />
-      {error && <p className="mt-2 text-center text-sm text-red-700">{error}</p>}
+      {error && <p className="mt-2 text-center text-sm text-red-300">{error}</p>}
     </div>
   );
 }

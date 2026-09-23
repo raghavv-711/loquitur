@@ -9,12 +9,12 @@ export default function PrivacyPage() {
   return (
     <main className="mx-auto max-w-2xl px-4 pb-16 pt-4 sm:px-6">
       <h1 className="font-serif text-4xl font-semibold tracking-tight">Privacy</h1>
-      <p className="mt-1 text-sm text-stone-500">Last updated September 23, 2026</p>
+      <p className="mt-1 text-sm text-muted">Last updated September 23, 2026</p>
 
-      <div className="mt-8 space-y-6 leading-relaxed text-stone-700 [&_h2]:font-serif [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-ink">
+      <div className="mt-8 space-y-6 leading-relaxed text-fg/85 [&_h2]:font-serif [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-fg">
         <p>
-          Loquitur is a student project that explains medical words. It is not a medical service and does not give
-          medical advice. This page explains exactly what happens to your information.
+          Loquitur explains the words in medical paperwork. It is not a medical service and does not give medical
+          advice. This page explains exactly what happens to your information.
         </p>
 
         <section>
@@ -55,7 +55,7 @@ export default function PrivacyPage() {
           <h2>Deleting your data</h2>
           <p className="mt-2">
             You can remove saved words from your Codex at any time. To delete your account entirely, email{" "}
-            <a href={`mailto:${CONTACT}`} className="text-terracotta underline">
+            <a href={`mailto:${CONTACT}`} className="text-accent underline">
               {CONTACT}
             </a>
             .
@@ -63,7 +63,7 @@ export default function PrivacyPage() {
         </section>
 
         <p>
-          <Link href="/" className="text-terracotta underline">
+          <Link href="/" className="text-accent underline">
             ← Back to Loquitur
           </Link>
         </p>
