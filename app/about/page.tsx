@@ -14,9 +14,10 @@ export default function AboutPage() {
         <section>
           <h2>Why I built it</h2>
           <p className="mt-2">
-            Hi, I&apos;m <strong className="text-fg">Raghav Vijayapal</strong>. I&apos;ve been studying Latin for seven
-            years now, including AP Latin in high school, and I kept noticing that the most confusing parts of medical
-            paperwork are Latin and Greek in disguise. &ldquo;PO BID&rdquo; on a prescription label is{" "}
+            Hi, I&apos;m <strong className="text-fg">Raghav Vijayapal</strong>. I&apos;ve been passionate about the Latin
+            language and the classics in general for several years now, and I&apos;ve taken rigorous Latin courses in high
+            school and now at the collegiate level at Vanderbilt University. Along the way, I kept noticing that the most
+            confusing parts of medical paperwork are Latin and Greek in disguise. &ldquo;PO BID&rdquo; on a prescription label is{" "}
             <em>per os, bis in die</em>: by mouth, twice a day. &ldquo;Nephrolithiasis&rdquo; on a doctor&apos;s note is
             just <em>nephr-</em> (kidney) + <em>lith-</em> (stone): kidney stones.
           </p>
