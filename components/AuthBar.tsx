@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useCallback, useState } from "react";
 import { useCodex } from "./CodexProvider";
+import { GoogleButton, googleButtonAvailable } from "./GoogleButton";
 
 // Top bar: "Sign in" (email link) when signed out; Codex link and sign-out when signed in.
 export function AuthBar() {
@@ -47,6 +49,11 @@ export function AuthBar() {
 
 export function SignInDialog({ onClose }: { onClose: () => void }) {
   const { sendSignInLink, signInWithGoogle } = useCodex();
+  const router = useRouter();
+  const onGoogleSignedIn = useCallback(() => {
+    onClose();
+    router.push("/codex");
+  }, [onClose, router]);
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [error, setError] = useState<string | null>(null);
@@ -88,14 +95,19 @@ export function SignInDialog({ onClose }: { onClose: () => void }) {
         ) : (
           <form onSubmit={submit} className="mt-3">
             <p className="text-sm text-stone-600">Save the roots and abbreviations you learn to your Codex.</p>
-            <button
-              type="button"
-              onClick={google}
-              className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-stone py-2.5 text-sm font-medium hover:border-ink"
-            >
-              <GoogleLogo />
-              Continue with Google
-            </button>
+            {googleButtonAvailable ? (
+              <GoogleButton onSignedIn={onGoogleSignedIn} />
+            ) : (
+              // Fallback when NEXT_PUBLIC_GOOGLE_CLIENT_ID isn't set: redirect flow through Supabase.
+              <button
+                type="button"
+                onClick={google}
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-stone py-2.5 text-sm font-medium hover:border-ink"
+              >
+                <GoogleLogo />
+                Continue with Google
+              </button>
+            )}
             <div className="my-4 flex items-center gap-3 text-xs text-stone-400">
               <span className="h-px flex-1 bg-stone" />
               or get an email link
