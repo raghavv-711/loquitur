@@ -1,4 +1,6 @@
+import { abbreviationEntry, rootEntry } from "@/lib/codex";
 import type { VerifiedTerm } from "@/lib/schema";
+import { SaveButton } from "./SaveButton";
 
 export const KIND_STYLES = {
   abbreviation: { label: "Abbreviation", mark: "bg-sky-100 decoration-sky-500", chip: "bg-sky-100 text-sky-800" },
@@ -97,6 +99,14 @@ export function TermCard({ term, onClose }: { term: VerifiedTerm; onClose: () =>
             {term.roots.map((root, i) => (
               <li key={i} className="rounded-lg bg-parchment p-3">
                 <div className="flex flex-wrap items-baseline gap-x-2">
+                  {(() => {
+                    const entry = rootEntry(root, term.text);
+                    return entry ? (
+                      <span className="order-last ml-auto">
+                        <SaveButton entry={entry} />
+                      </span>
+                    ) : null;
+                  })()}
                   <span className="font-serif text-lg font-semibold">{root.root}</span>
                   <span className="text-sm text-stone-600">
                     {root.origin} · <strong>{root.meaning}</strong>
@@ -113,6 +123,15 @@ export function TermCard({ term, onClose }: { term: VerifiedTerm; onClose: () =>
           </ul>
         </div>
       )}
+
+      {(() => {
+        const entry = abbreviationEntry(term);
+        return entry ? (
+          <div className="mt-4">
+            <SaveButton entry={entry} label="Save to Codex" />
+          </div>
+        ) : null;
+      })()}
 
       <p className={`mt-4 text-xs ${status.className}`}>
         {status.label} <span className="text-stone-500">· {status.note}</span>

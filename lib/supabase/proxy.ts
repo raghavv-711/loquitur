@@ -1,0 +1,34 @@
+import { createServerClient } from "@supabase/ssr";
+import { NextResponse, type NextRequest } from "next/server";
+
+// Keeps the sign-in session fresh on every request (Supabase's recommended pattern for Next.js).
+// Loquitur works signed out, so this never redirects; it only refreshes cookies.
+export async function updateSession(request: NextRequest) {
+  let supabaseResponse = NextResponse.next({ request });
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY) {
+    return supabaseResponse;
+  }
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet, headers) {
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+          supabaseResponse = NextResponse.next({ request });
+          cookiesToSet.forEach(({ name, value, options }) => supabaseResponse.cookies.set(name, value, options));
+          Object.entries(headers).forEach(([key, value]) => supabaseResponse.headers.set(key, value));
+        },
+      },
+    },
+  );
+
+  // Don't add code between creating the client and getClaims(): it refreshes the session.
+  await supabase.auth.getClaims();
+
+  return supabaseResponse;
+}

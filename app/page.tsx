@@ -79,7 +79,7 @@ export default function Home() {
   const canDecode = !loading && (photo !== null || input.trim().length > 0);
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+    <main className="mx-auto max-w-5xl px-4 pb-10 pt-4 sm:px-6">
       <header className="mb-8">
         <h1 className="font-serif text-4xl font-semibold tracking-tight sm:text-5xl">Loquitur</h1>
         <p className="mt-1 font-serif text-lg italic text-stone-600">

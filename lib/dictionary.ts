@@ -663,8 +663,17 @@ export function lookupAbbreviation(text: string): Found<AbbreviationEntry> | und
 
 // Medical words join roots with a connecting "o" (nephr-o-lith-iasis), so "hydro-" should match "hydr".
 export function lookupRoot(text: string): Found<RootEntry> | undefined {
+  const key = rootKey(text);
+  return key ? find(key, ROOTS, DRAFT_ROOTS) : undefined;
+}
+
+// The dictionary key a root matches ("hydro-" → "hydr"), or undefined if it isn't in the dictionary.
+export function rootKey(text: string): string | undefined {
   const key = normalizeRoot(text);
-  return find(key, ROOTS, DRAFT_ROOTS) ?? (key.endsWith("o") ? find(key.slice(0, -1), ROOTS, DRAFT_ROOTS) : undefined);
+  const known = (k: string) => k in ROOTS || k in DRAFT_ROOTS;
+  if (known(key)) return key;
+  if (key.endsWith("o") && known(key.slice(0, -1))) return key.slice(0, -1);
+  return undefined;
 }
 
 function find<T>(key: string, reviewed: Record<string, T>, drafts: Record<string, T>): Found<T> | undefined {
