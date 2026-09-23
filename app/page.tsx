@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { HighlightedText } from "@/components/HighlightedText";
 import { KIND_STYLES, TermCard } from "@/components/TermCard";
+import { prepareImage, type PreparedImage } from "@/lib/image";
 import type { DecodeResponse } from "@/lib/schema";
 
 // Made-up examples. Never use real patient documents for demos or testing.
@@ -24,13 +25,30 @@ Return STAT if fever or hematuria.`,
   },
 ];
 
+const SAMPLE_PHOTO = "/samples/rx-label.svg";
+
 export default function Home() {
   const [input, setInput] = useState("");
+  const [photo, setPhoto] = useState<PreparedImage | null>(null);
   const [decodedText, setDecodedText] = useState("");
   const [result, setResult] = useState<DecodeResponse | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  async function handlePhoto(source: Blob) {
+    setError(null);
+    try {
+      setPhoto(await prepareImage(source));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Couldn't open that photo.");
+    }
+  }
+
+  async function loadSamplePhoto() {
+    const res = await fetch(SAMPLE_PHOTO);
+    await handlePhoto(await res.blob());
+  }
 
   async function decode() {
     setLoading(true);
@@ -38,14 +56,17 @@ export default function Home() {
     setResult(null);
     setSelected(null);
     try {
+      const body = photo
+        ? { image: { data: photo.data, mediaType: photo.mediaType } }
+        : { text: input };
       const res = await fetch("/api/decode", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: input }),
+        body: JSON.stringify(body),
       });
-      const data = await res.json();
+      const data: DecodeResponse & { error?: string } = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Something went wrong.");
-      setDecodedText(input);
+      setDecodedText(photo ? (data.transcript ?? "") : input);
       setResult(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
@@ -55,6 +76,7 @@ export default function Home() {
   }
 
   const selectedTerm = result && selected !== null ? result.terms[selected] : null;
+  const canDecode = !loading && (photo !== null || input.trim().length > 0);
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
@@ -66,38 +88,82 @@ export default function Home() {
       </header>
 
       <section className="rounded-2xl border border-stone bg-white p-5 shadow-sm">
-        <label htmlFor="doc" className="text-sm font-medium">
-          Paste text from a prescription label or after-visit summary
-        </label>
-        <textarea
-          id="doc"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          rows={6}
-          placeholder="e.g. Take 1 tab PO BID pc x 7 days"
-          className="mt-2 w-full resize-y rounded-xl border border-stone bg-parchment p-3 font-mono text-[15px] outline-none focus:border-terracotta"
-        />
+        {photo ? (
+          <div>
+            <p className="text-sm font-medium">Your photo</p>
+            {/* eslint-disable-next-line @next/next/no-img-element -- local data URL preview */}
+            <img
+              src={photo.previewUrl}
+              alt="Uploaded document"
+              className="mt-2 max-h-72 w-auto rounded-xl border border-stone"
+            />
+            <button
+              onClick={() => setPhoto(null)}
+              className="mt-2 text-sm text-stone-500 underline underline-offset-2 hover:text-ink"
+            >
+              Remove photo and paste text instead
+            </button>
+          </div>
+        ) : (
+          <>
+            <label htmlFor="doc" className="text-sm font-medium">
+              Paste text from a prescription label or after-visit summary, or upload a photo
+            </label>
+            <textarea
+              id="doc"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              rows={6}
+              placeholder="e.g. Take 1 tab PO BID pc x 7 days"
+              className="mt-2 w-full resize-y rounded-xl border border-stone bg-parchment p-3 font-mono text-[15px] outline-none focus:border-terracotta"
+            />
+          </>
+        )}
+
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <button
             onClick={decode}
-            disabled={loading || !input.trim()}
+            disabled={!canDecode}
             className="rounded-full bg-ink px-5 py-2 text-sm font-medium text-white transition hover:bg-terracotta disabled:opacity-40"
           >
-            {loading ? "Decoding…" : "Decode"}
+            {loading ? (photo ? "Reading photo…" : "Decoding…") : "Decode"}
           </button>
+          {/* On phones this offers the camera or photo library. */}
+          <label className="cursor-pointer rounded-full border border-ink px-4 py-1.5 text-sm font-medium hover:border-terracotta hover:text-terracotta">
+            📷 {photo ? "Choose another photo" : "Upload a photo"}
+            <input
+              type="file"
+              accept="image/*"
+              className="sr-only"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) handlePhoto(file);
+                e.target.value = ""; // allow picking the same file again
+              }}
+            />
+          </label>
           <span className="text-sm text-stone-500">or try:</span>
           {SAMPLES.map((sample) => (
             <button
               key={sample.name}
-              onClick={() => setInput(sample.text)}
+              onClick={() => {
+                setPhoto(null);
+                setInput(sample.text);
+              }}
               className="rounded-full border border-stone px-3 py-1.5 text-sm hover:border-terracotta"
             >
               {sample.name}
             </button>
           ))}
+          <button
+            onClick={loadSamplePhoto}
+            className="rounded-full border border-stone px-3 py-1.5 text-sm hover:border-terracotta"
+          >
+            Sample photo
+          </button>
         </div>
         <p className="mt-3 text-xs text-stone-500">
-          Your text is sent to the AI to be decoded and is never stored.
+          Your text or photo is sent to the AI to be decoded and is never stored.
         </p>
       </section>
 
@@ -120,12 +186,25 @@ export default function Home() {
           </div>
 
           <div className="mt-3 grid gap-6 md:grid-cols-[1fr_minmax(0,380px)]">
-            <HighlightedText
-              text={decodedText}
-              terms={result.terms}
-              selected={selected}
-              onSelect={setSelected}
-            />
+            <div>
+              {result.transcript !== undefined && (
+                <p className="mb-2 text-xs text-stone-500">
+                  What Loquitur read from your photo. Check it against the label: photos can be misread.
+                </p>
+              )}
+              {decodedText ? (
+                <HighlightedText
+                  text={decodedText}
+                  terms={result.terms}
+                  selected={selected}
+                  onSelect={setSelected}
+                />
+              ) : (
+                <p className="rounded-2xl border border-stone bg-white p-5 text-sm text-stone-600">
+                  No readable text found. Try a sharper, well-lit photo taken straight on.
+                </p>
+              )}
+            </div>
             <div className="md:sticky md:top-6 md:self-start">
               {selectedTerm ? (
                 <TermCard term={selectedTerm} onClose={() => setSelected(null)} />

@@ -25,6 +25,15 @@ export const DecodeSchema = z.object({
   terms: z.array(TermSchema),
 });
 
+// Photos need one extra field: the text Claude read from the image, so it can be highlighted.
+export const PhotoDecodeSchema = DecodeSchema.extend({
+  transcript: z
+    .string()
+    .describe(
+      "All text in the photo, copied exactly as printed, keeping line breaks. Empty string if there is no readable text.",
+    ),
+});
+
 export type Root = z.infer<typeof RootSchema>;
 export type Term = z.infer<typeof TermSchema>;
 export type Decoded = z.infer<typeof DecodeSchema>;
@@ -44,4 +53,13 @@ export type VerifiedTerm = Omit<Term, "roots"> & {
 export type DecodeResponse = {
   summary: string;
   terms: VerifiedTerm[];
+  transcript?: string; // only for photos
 };
+
+// Image formats the Claude API accepts.
+export const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"] as const;
+export type ImageType = (typeof IMAGE_TYPES)[number];
+
+export type DecodeInput =
+  | { kind: "text"; text: string }
+  | { kind: "image"; data: string; mediaType: ImageType }; // data is base64 without the data: prefix

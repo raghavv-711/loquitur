@@ -2,7 +2,7 @@
 
 *Your medical paperwork, in plain English.*
 
-Loquitur finds the jargon in prescription labels and after-visit summaries, explains each term in plain English, and breaks medical words into their Latin and Greek roots. Every AI explanation is checked against a hand-built dictionary of prescription abbreviations and word roots before it's shown.
+Paste text or upload a photo. Loquitur finds the jargon in prescription labels and after-visit summaries, explains each term in plain English, and breaks medical words into their Latin and Greek roots. Every AI explanation is checked against a hand-built dictionary of prescription abbreviations and word roots before it's shown.
 
 ## Run it locally
 
@@ -23,7 +23,7 @@ Loquitur finds the jargon in prescription labels and after-visit summaries, expl
 ## How it works
 
 ```
-text → Claude (structured JSON: terms, roots, summary)
+text or photo → Claude (structured JSON: transcript, terms, roots, summary)
      → verify against lib/dictionary.ts (dictionary wording wins)
      → highlighted document + term cards
 ```
@@ -31,18 +31,19 @@ text → Claude (structured JSON: terms, roots, summary)
 - `lib/decode.ts`: the Claude call and the verification step
 - `lib/dictionary.ts`: hand-checked abbreviations (with ISMP error-prone warnings) and Latin/Greek roots
 - `lib/highlight.ts`: finds each term in the original text for highlighting
+- `lib/image.ts`: shrinks photos in the browser before upload (faster and cheaper)
 - `app/api/decode/route.ts`: the API endpoint (input limits, error handling, no storage)
 
 ## Privacy and safety
 
-- Document text is sent to the Claude API for decoding and never stored or logged by Loquitur.
+- Document text and photos are sent to the Claude API for decoding and never stored or logged by Loquitur.
 - Loquitur explains words. It does not give medical advice.
 - Only use made-up or public sample documents for testing.
 
 ## Roadmap
 
 - [x] Week 1–2: paste text → highlighted jargon → term cards
-- [ ] Week 3: photo upload (Claude vision)
+- [x] Week 3: photo upload (Claude vision)
 - [ ] Week 4: grow the dictionary to ~60 abbreviations and ~150 roots
 - [ ] Week 5: MedlinePlus + openFDA checks
 - [ ] Week 6: sign-in + Codex (saved roots)

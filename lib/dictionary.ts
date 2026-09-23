@@ -16,7 +16,7 @@ export type RootEntry = {
   hook: string; // a memory aid from an everyday English word
 };
 
-// Keys are uppercase with periods, slashes and spaces removed (see normalizeAbbrev).
+// Keys are uppercase letters and digits only (see normalizeAbbrev).
 export const ABBREVIATIONS: Record<string, AbbreviationEntry> = {
   PO: { expansion: "per os", literal: "through the mouth", plain: "by mouth" },
   BID: { expansion: "bis in die", literal: "twice in a day", plain: "two times a day" },
@@ -47,6 +47,7 @@ export const ABBREVIATIONS: Record<string, AbbreviationEntry> = {
     plain: "every night at bedtime",
     warning: 'Error-prone: "QHS" can be misread as "every hour". Safer to write "nightly at bedtime".',
   },
+  C: { expansion: "cum", literal: "with", plain: "with (often written as a c with a bar over it: c̄)" },
   AC: { expansion: "ante cibum", literal: "before food", plain: "before meals" },
   PC: { expansion: "post cibum", literal: "after food", plain: "after meals" },
   STAT: { expansion: "statim", literal: "immediately", plain: "right away" },
@@ -196,7 +197,7 @@ export const ROOTS: Record<string, RootEntry> = {
 };
 
 export function normalizeAbbrev(text: string): string {
-  return text.toUpperCase().replace(/[.\s/]/g, "");
+  return text.toUpperCase().replace(/[^A-Z0-9]/g, ""); // "Rx#", "D/C", "q.i.d." all match
 }
 
 export function normalizeRoot(text: string): string {
