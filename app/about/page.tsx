@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { DECKS } from "@/lib/decks";
+import { ABBREVIATIONS, ROOTS } from "@/lib/dictionary";
+
+// Counts come from the data, so this page stays accurate as the dictionary grows.
+const ROOT_COUNT = Object.keys(ROOTS).length;
+const ABBREV_COUNT = Object.keys(ABBREVIATIONS).length;
+const DECK_COUNT = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"][DECKS.length] ?? String(DECKS.length);
 
 export const metadata: Metadata = { title: "About" };
 
@@ -36,6 +43,37 @@ export default function AboutPage() {
             than 400 prescription abbreviations and Latin and Greek word roots. Drug names are confirmed in the
             FDA&apos;s public drug label database. Anything that can&apos;t be verified is clearly marked, so you know
             when to double-check with your pharmacist.
+          </p>
+        </section>
+
+        <section>
+          <h2>The dictionary</h2>
+          <p className="mt-2">
+            At the heart of Loquitur is a hand-built{" "}
+            <Link href="/dictionary" className="text-accent underline underline-offset-2">
+              dictionary
+            </Link>{" "}
+            of {ROOT_COUNT} Latin and Greek word roots and {ABBREV_COUNT} medical abbreviations. Each root lists where it
+            comes from, what it means, a memory hook from an everyday English word, and real medical words that use it:{" "}
+            <em>nephr-</em>, from Greek <em>nephros</em>, &ldquo;kidney,&rdquo; shows up in nephritis and nephrectomy.
+            Each abbreviation gives the original Latin, a word-for-word translation and its plain meaning, and flags the
+            ones that are easy to misread, like QD and QID. Search it in plain English: &ldquo;kidney&rdquo; finds{" "}
+            <em>nephr-</em> and <em>ren-</em>, and &ldquo;twice a day&rdquo; finds BID.
+          </p>
+        </section>
+
+        <section>
+          <h2>Study decks</h2>
+          <p className="mt-2">
+            The{" "}
+            <Link href="/study" className="text-accent underline underline-offset-2">
+              Study
+            </Link>{" "}
+            page has {DECK_COUNT} ready-made decks drawn from the dictionary, organized the way medicine is: the heart,
+            the kidneys, the lungs, digestion, the brain, and bones and muscles, plus Prescription Latin for the
+            shorthand on pill bottles and a Pre-med starter with the prefixes and suffixes that build thousands of words.
+            Each round is ten quick questions, and no account is needed. Missed a word? Save it to your Codex to keep
+            practicing it.
           </p>
         </section>
 
