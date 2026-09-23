@@ -75,14 +75,6 @@ export default function AboutPage() {
           <Link href="/privacy" className="text-accent underline underline-offset-2">
             Privacy
           </Link>
-          <a
-            href="https://github.com/raghavv-711/loquitur"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent underline underline-offset-2"
-          >
-            Source code
-          </a>
         </p>
       </div>
     </main>

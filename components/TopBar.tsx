@@ -1,26 +1,19 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AccountButton, NavLink, UserLinks } from "./AuthBar";
+import { BrandMenu } from "./BrandMenu";
 
-// Brand and account on the first row; tabs beside them on wide screens, or on their own row on phones.
-// About and Privacy live in the footer, to keep this bar uncluttered.
+// Logo menu (About, Privacy) and account on the first row; tabs beside them on wide screens,
+// or on their own row on phones.
 export function TopBar() {
   const pathname = usePathname();
   const onHome = pathname === "/";
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 text-sm">
-      {onHome ? (
-        <span className="sm:hidden" />
-      ) : (
-        <Link href="/" className="flex shrink-0 items-center gap-2 font-serif text-xl font-semibold tracking-tight">
-          <Image src="/brand/emblem.png" alt="" width={36} height={36} priority />
-          <span className="hidden sm:inline">Loquitur</span>
-        </Link>
-      )}
+      <BrandMenu />
 
       <div className="flex items-center gap-6 sm:order-3">
         <AccountButton />
