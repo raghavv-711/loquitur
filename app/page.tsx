@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { HighlightedText } from "@/components/HighlightedText";
+import { InstallPrompt } from "@/components/InstallPrompt";
 import { ReadAloud } from "@/components/ReadAloud";
 import { KIND_STYLES, TermCard } from "@/components/TermCard";
 import { WordOfTheDay } from "@/components/WordOfTheDay";
@@ -237,6 +238,10 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      <div className="mt-8">
+        <InstallPrompt />
+      </div>
 
       <p className="mt-12 text-xs text-muted">
         Loquitur explains words. It is not medical advice. Ask your pharmacist or doctor about your care.

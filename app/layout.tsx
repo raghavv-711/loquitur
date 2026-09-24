@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { CodexProvider } from "@/components/CodexProvider";
 import { TopBar } from "@/components/TopBar";
@@ -9,6 +9,13 @@ export const metadata: Metadata = {
   title: { default: "Loquitur", template: "%s · Loquitur" },
   description: "Your medical paperwork, in plain English. Loquitur decodes prescription labels and doctor's notes through their Latin and Greek roots.",
   openGraph: { title: "Loquitur", description: "Your medical paperwork, in plain English.", url: "/", siteName: "Loquitur" },
+  // When added to an iPhone home screen: open full-screen, titled "Loquitur", with a dark status bar.
+  appleWebApp: { capable: true, title: "Loquitur", statusBarStyle: "black-translucent" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#040c20", // colors the browser bar and the installed app's title bar
+  viewportFit: "cover", // lets the navy background fill the iPhone notch area
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
