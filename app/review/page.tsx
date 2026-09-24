@@ -39,7 +39,7 @@ export default function ReviewPage() {
       setMode(m);
 
       const all = await supabase.from("codex_entries").select("*");
-      if (all.error) return setError("Couldn't load your words. Refresh to try again.");
+      if (all.error) return setError("Your words didn't load. Refresh the page to try again.");
       const entries = all.data as CodexEntry[];
       const now = Date.now();
       const due = entries
@@ -82,7 +82,7 @@ export default function ReviewPage() {
       <header className="mb-8">
         <h1 className="font-serif text-5xl font-medium sm:text-6xl">Review</h1>
         <p className="mt-1 font-serif text-lg italic text-muted">
-          {mode === "practice" ? "Practice round: this won't change your schedule." : "A few minutes a day keeps the Latin fresh."}
+          {mode === "practice" ? "Practice round: this won't change your schedule." : "Five minutes a day keeps the Latin fresh."}
         </p>
       </header>
 
@@ -168,7 +168,7 @@ function EmptyState({ nextDue, hasWords, onPractice }: { nextDue: string | null;
   return (
     <Notice>
       <p>
-        All caught up! Your next review is <strong>{nextDue ? describeDue(nextDue) : "soon"}</strong>.
+        That&apos;s everything for now. Come back <strong>{nextDue ? describeDue(nextDue) : "soon"}</strong> and a few will be ready.
       </p>
       <button onClick={onPractice} className="mt-3 rounded-sm border border-line px-4 py-2 text-sm hover:border-accent">
         Practice anyway

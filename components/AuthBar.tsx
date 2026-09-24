@@ -111,7 +111,7 @@ export function SignInDialog({ onClose }: { onClose: () => void }) {
           </p>
         ) : (
           <form onSubmit={submit} className="mt-3">
-            <p className="text-sm text-muted">Save the roots and abbreviations you learn to My Words.</p>
+            <p className="text-sm text-muted">Sign in to keep the words you learn, and Loquitur will quiz you on them.</p>
             {googleButtonAvailable ? (
               <GoogleButton onSignedIn={onGoogleSignedIn} />
             ) : (

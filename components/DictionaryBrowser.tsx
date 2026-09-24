@@ -182,7 +182,7 @@ export function DictionaryBrowser() {
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder={tab === "roots" ? "Look up a root or a meaning, like “kidney”" : "Look up PRN, or a meaning like “bedtime”"}
+          placeholder={tab === "roots" ? "Look up a root, or just type what you mean, like “kidney”" : "Look up PRN, or a meaning like “bedtime”"}
           className="w-full max-w-md border-b border-line-strong bg-transparent pb-2 text-lg outline-none placeholder:italic placeholder:text-faint focus:border-accent"
           aria-label="Search the dictionary"
         />
@@ -232,7 +232,7 @@ export function DictionaryBrowser() {
 
       {count === 0 ? (
         <p className="mt-10 -rotate-1 font-hand text-[26px] text-accent">
-          Nothing matches &ldquo;{query}&rdquo;. Try a meaning in plain English, like &ldquo;heart&rdquo; or &ldquo;twice
+          I don&apos;t have &ldquo;{query}&rdquo; yet. Try what it means instead, like &ldquo;heart&rdquo; or &ldquo;twice
           a day&rdquo;.
         </p>
       ) : (

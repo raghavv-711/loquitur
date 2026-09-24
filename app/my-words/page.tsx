@@ -22,7 +22,7 @@ export default function MyWordsPage() {
       .select("*")
       .order("created_at", { ascending: false })
       .then(({ data, error }) => {
-        if (error) setError("Couldn't load your words. Refresh to try again.");
+        if (error) setError("Your words didn't load. Refresh the page to try again.");
         else setEntries(data as CodexEntry[]);
       });
   }, [enabled, user]);
@@ -47,7 +47,7 @@ export default function MyWordsPage() {
       <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="font-serif text-5xl font-medium sm:text-6xl">My Words</h1>
-          <p className="mt-1 font-serif text-lg italic text-muted">The roots and abbreviations you&apos;ve learned.</p>
+          <p className="mt-1 font-serif text-lg italic text-muted">Every word you&apos;ve saved, in one place.</p>
         </div>
         {user && (
           <div className="flex items-center gap-3 text-sm">

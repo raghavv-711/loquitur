@@ -60,7 +60,7 @@ export function BrandMenu() {
           role="menu"
           className="absolute left-0 top-full z-40 mt-2 w-64 rounded-md border border-line bg-surface-2 p-2 shadow-xl shadow-black/40"
         >
-          <MenuLink href="/about" title="About Loquitur" hint="Who built it and why" />
+          <MenuLink href="/about" title="About Loquitur" hint="Who I am and why I built it" />
           <MenuLink href="/privacy" title="Privacy" hint="What happens to your information" />
         </div>
       )}

@@ -75,7 +75,7 @@ export function InstallPrompt() {
             <span aria-hidden="true">(□↑)</span>, then <strong className="text-fg">Add to Home Screen</strong>.
           </p>
         ) : (
-          <p className="mt-1 text-muted">Install it for one-tap access, full-screen, like any other app.</p>
+          <p className="mt-1 text-muted">Add it to your home screen and it opens like an app, no App Store needed.</p>
         )}
         {mode === "button" && (
           <button

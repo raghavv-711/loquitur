@@ -122,7 +122,7 @@ export default function Home() {
               <label htmlFor="doc" className="text-lg font-medium">
                 What did the pharmacy or doctor give you?
               </label>
-              <span className="-rotate-2 font-hand text-2xl text-accent">no paperwork handy? try a sample below</span>
+              <span className="-rotate-2 font-hand text-2xl text-accent">nothing handy? borrow one of my samples below</span>
             </div>
             <textarea
               id="doc"
@@ -162,7 +162,7 @@ export default function Home() {
             />
           </label>
           <span className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
-            <span className="text-faint">Samples:</span>
+            <span className="text-faint">Or try one of mine:</span>
             {SAMPLES.map((sample) => (
               <button
                 key={sample.name}
@@ -180,7 +180,7 @@ export default function Home() {
             </button>
           </span>
         </div>
-        <p className="text-sm text-faint">Your text or photo is sent to the AI to be decoded and is never stored.</p>
+        <p className="text-sm text-faint">Your label goes to the AI to be read, then it&apos;s forgotten. Loquitur never saves it.</p>
       </section>
 
       {error && <p className="mt-8 border-l-2 border-red-300 bg-red-400/10 p-4 text-red-200">{error}</p>}
@@ -197,7 +197,7 @@ export default function Home() {
           <div className="flex flex-col gap-6 md:col-span-7">
             <div>
               <div className="flex items-center justify-between gap-3">
-                <h2 className="text-xs uppercase tracking-[0.14em] text-accent">What this says</h2>
+                <h2 className="text-xs uppercase tracking-[0.14em] text-accent">In plain English</h2>
                 <ReadAloud text={result.summary} />
               </div>
               <p className="mt-3 font-serif text-[28px] leading-snug sm:text-[34px]">{result.summary}</p>
@@ -206,7 +206,7 @@ export default function Home() {
             <div>
               {result.transcript !== undefined && (
                 <p className="mb-2 text-sm text-faint">
-                  What Loquitur read from your photo. Check it against the label: photos can be misread.
+                  Here&apos;s what I read from your photo. Double-check it against the label, since photos can fool me.
                 </p>
               )}
               {decodedText ? (
@@ -218,7 +218,7 @@ export default function Home() {
                 />
               ) : (
                 <p className="border-l-2 border-line bg-surface p-5 text-muted">
-                  No readable text found. Try a sharper, well-lit photo taken straight on.
+                  I couldn&apos;t read that one. Try again in good light, holding the phone straight over the label.
                 </p>
               )}
             </div>
@@ -230,7 +230,7 @@ export default function Home() {
                   {" ·"}
                 </span>
               ))}
-              <span>tap one to read its card</span>
+              <span>tap an underlined word to see where it comes from</span>
             </p>
           </div>
 
@@ -239,8 +239,8 @@ export default function Home() {
               <TermCard term={selectedTerm} onClose={() => setSelected(null)} />
             ) : (
               <p className="-rotate-1 font-hand text-[26px] leading-snug text-accent">
-                Found {result.terms.length} word{result.terms.length === 1 ? "" : "s"} worth explaining. Tap an
-                underlined one to see what it means and where it comes from.
+                {result.terms.length} word{result.terms.length === 1 ? "" : "s"} worth knowing here. start with the
+                underlined ones
               </p>
             )}
           </div>

@@ -78,7 +78,7 @@ export function DeckQuiz({ deckId }: { deckId: string }) {
       </header>
 
       {!cards ? (
-        <p className="font-hand text-2xl text-accent">shuffling the cards…</p>
+        <p className="font-hand text-2xl text-accent">shuffling…</p>
       ) : index < cards.length ? (
         <QuestionCard
           card={cards[index]}

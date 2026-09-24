@@ -68,7 +68,7 @@ export function QuestionCard({
       {answered && (
         <div className="mt-6">
           <p className={`font-hand text-[28px] leading-none ${correct ? "text-[#3f6a4f]" : "text-[#7a3317]"}`}>
-            {correct ? "Recte! That's right." : practice ? "Not quite." : "Not quite. It'll come back in a few minutes."}
+            {correct ? 'Recte! (that means "correctly")' : practice ? "Not quite." : "Not quite. It'll come back in a few minutes."}
           </p>
           <p className="mt-2 text-[17px] leading-relaxed text-[#3d3a33]">{q.explanation}</p>
           {error && <p className="mt-2 text-sm text-[#7a3317]">{error}</p>}
