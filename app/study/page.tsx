@@ -31,6 +31,10 @@ export default function StudyPage() {
         <p className="mt-2 font-serif text-lg italic text-muted">
           {COUNT_WORD} small books drawn from Loquitur&apos;s dictionary. Ten questions a round, no account needed.
         </p>
+        <p className="mt-4 text-sm text-faint">
+          Stars show difficulty, from <span className="text-accent">★</span> for beginners to{" "}
+          <span className="text-accent">★★★★★</span> for experts.
+        </p>
       </header>
 
       <ol className="border-t border-line">

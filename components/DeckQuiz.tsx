@@ -60,7 +60,7 @@ export function DeckQuiz({ deckId }: { deckId: string }) {
         <h1 className="font-serif text-5xl font-medium">{deck.title}</h1>
         <p className="mt-2 text-[17px] text-muted">{deck.description}</p>
         <p className="mt-2 flex items-baseline gap-2 text-sm text-faint">
-          Difficulty <Difficulty level={deck.difficulty} />
+          Difficulty: <Difficulty level={deck.difficulty} />
         </p>
         {/* One mark per card: gold once answered right, rose if missed, faint still to come. */}
         {cards && (
