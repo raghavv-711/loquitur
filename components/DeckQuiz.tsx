@@ -51,19 +51,34 @@ export function DeckQuiz({ deckId }: { deckId: string }) {
   });
 
   return (
-    <main className="mx-auto max-w-2xl px-4 pb-10 pt-4 sm:px-6">
-      <Link href="/study" className="text-sm text-muted hover:text-fg">
-        ← All decks
+    <main className="mx-auto w-full max-w-2xl px-4 pb-12 pt-8 sm:px-8 sm:pt-12">
+      <Link href="/study" className="text-muted hover:text-accent">
+        ← Contents
       </Link>
-      <header className="mb-8 mt-3">
-        <h1 className="font-serif text-5xl font-medium">
-          {deck.title}
-        </h1>
-        <p className="mt-1 text-muted">{deck.description}</p>
+      <header className="mb-8 mt-4">
+        <h1 className="font-serif text-5xl font-medium">{deck.title}</h1>
+        <p className="mt-2 text-[17px] text-muted">{deck.description}</p>
+        {/* One mark per card: gold once answered right, rose if missed, faint still to come. */}
+        {cards && (
+          <div className="mt-5 flex gap-1.5" aria-label={`Card ${Math.min(index + 1, cards.length)} of ${cards.length}`}>
+            {cards.map((c, i) => {
+              const done = i < index || (i === index && chosen !== null);
+              const missedIt = done && missed.some((m) => m.id === c.entry.id);
+              return (
+                <span
+                  key={i}
+                  className={`h-1 flex-1 rounded-xs ${
+                    !done ? (i === index ? "bg-line-strong" : "bg-line") : missedIt ? "bg-[#e39b7b]" : "bg-accent"
+                  }`}
+                />
+              );
+            })}
+          </div>
+        )}
       </header>
 
       {!cards ? (
-        <p className="text-muted">Shuffling…</p>
+        <p className="font-hand text-2xl text-accent">shuffling the cards…</p>
       ) : index < cards.length ? (
         <QuestionCard
           card={cards[index]}
@@ -76,43 +91,46 @@ export function DeckQuiz({ deckId }: { deckId: string }) {
           }}
           error={null}
           practice
-          extra={<SaveButton entry={toSave(cards[index].entry)} label="Save to My Words" />}
+          extra={<SaveButton entry={toSave(cards[index].entry)} label="Save to My Words" onPaper />}
         />
       ) : (
-        <section className="rounded-md border border-line bg-surface p-6 text-center">
-          <p className="font-serif text-5xl font-semibold">
-            {score}/{cards.length}
-          </p>
-          <p className="mt-2 text-muted">
-            {score === cards.length ? "Optime! A perfect round." : score >= cards.length / 2 ? "Bene! Nice work." : "Keep at it. Every round helps."}
-          </p>
+        <section>
+          <div className="flex items-end gap-5 border-b border-line pb-5">
+            <p className="font-serif text-7xl font-medium leading-none">
+              {score}
+              <span className="text-faint">/{cards.length}</span>
+            </p>
+            <p className="-rotate-2 pb-1 font-hand text-[30px] leading-none text-accent">
+              {score === cards.length ? "Optime! A perfect round." : score >= cards.length / 2 ? "Bene! Nice work." : "Keep at it. Every round helps."}
+            </p>
+          </div>
           {missed.length > 0 && (
-            <div className="mt-5 text-left">
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted">To practice</p>
-              <ul className="mt-2 space-y-2">
+            <div className="mt-6">
+              <h2 className="font-serif text-2xl italic text-muted">To practice</h2>
+              <dl className="mt-3">
                 {missed.map((e) => (
-                  <li key={e.id} className="flex items-center justify-between gap-3 rounded bg-surface-2 px-3 py-2">
+                  <div key={e.id} className="flex items-baseline justify-between gap-4 border-b border-line py-3">
                     <span>
-                      <span className="font-serif text-lg font-semibold">{e.term}</span>{" "}
-                      <span className="text-sm text-muted">
+                      <dt className="inline font-serif text-2xl font-semibold">{e.term}</dt>{" "}
+                      <dd className="inline text-[17px] text-muted">
                         {"meaning" in e.details ? e.details.meaning : e.details.plain}
-                      </span>
+                      </dd>
                     </span>
-                    <SaveButton entry={toSave(e)} />
-                  </li>
+                    <SaveButton entry={toSave(e)} quiet />
+                  </div>
                 ))}
-              </ul>
+              </dl>
             </div>
           )}
-          <div className="mt-6 flex justify-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-6">
             <button
               onClick={start}
-              className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-bg hover:brightness-110"
+              className="h-12 rounded-sm bg-accent px-7 text-lg font-semibold text-bg transition hover:bg-accent-soft"
             >
-              New round
+              Shuffle a new round
             </button>
-            <Link href="/study" className="rounded-sm border border-line px-5 py-2 text-sm hover:border-accent">
-              Other decks
+            <Link href="/study" className="text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent">
+              Choose another book
             </Link>
           </div>
         </section>
