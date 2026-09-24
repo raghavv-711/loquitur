@@ -143,166 +143,196 @@ export function DictionaryBrowser() {
   }
 
   const count = tab === "roots" ? roots.length : abbreviations.length;
+  // Letter sections only make sense when browsing A–Z; a search or "Most common" is one running list.
+  const byLetter = sort === "az" && !q;
+  const groups =
+    tab === "roots"
+      ? group(roots, (r) => r.key, byLetter).map(([letter, items]) => ({
+          letter,
+          entries: items.map((r) => <RootEntry key={r.key} r={r} tier={sort === "common" ? ROOT_TIER[r.key] : null} />),
+        }))
+      : group(abbreviations, (a) => a.display, byLetter).map(([letter, items]) => ({
+          letter,
+          entries: items.map((a) => (
+            <AbbrevEntry key={a.key} a={a} tier={sort === "common" ? ABBREV_TIER[a.key] : null} />
+          )),
+        }));
 
   return (
     <>
-      <div className="mb-4 flex gap-2" role="tablist">
+      {/* Two volumes of one dictionary: roots and abbreviations. */}
+      <div className="mb-8 flex items-baseline gap-8 border-b border-line" role="tablist">
         {(["roots", "abbreviations"] as const).map((t) => (
           <button
             key={t}
             role="tab"
             aria-selected={tab === t}
             onClick={() => switchTab(t)}
-            className={`whitespace-nowrap rounded-sm px-4 py-1.5 text-sm font-medium transition ${
-              tab === t ? "bg-accent text-bg" : "border border-line text-muted hover:text-fg"
+            className={`-mb-px border-b pb-2 font-serif text-2xl transition sm:text-3xl ${
+              tab === t ? "border-accent text-fg" : "border-transparent text-faint hover:text-muted"
             }`}
           >
             {t === "roots" ? "Roots" : "Abbreviations"}{" "}
-            <span className="opacity-70">{t === "roots" ? ROOT_LIST.length : ABBREV_LIST.length}</span>
+            <span className="font-sans text-sm text-faint">{t === "roots" ? ROOT_LIST.length : ABBREV_LIST.length}</span>
           </button>
         ))}
       </div>
 
-      <div className="mb-6 flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-end gap-x-8 gap-y-4">
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder={tab === "roots" ? 'Search roots, e.g. "kidney" or "cardi"' : 'Search, e.g. "PRN" or "bedtime"'}
-          className="w-full max-w-sm rounded-sm border border-line bg-surface px-4 py-2 text-sm outline-none focus:border-accent"
+          placeholder={tab === "roots" ? "Look up a root or a meaning, like “kidney”" : "Look up PRN, or a meaning like “bedtime”"}
+          className="w-full max-w-md border-b border-line-strong bg-transparent pb-2 text-lg outline-none placeholder:italic placeholder:text-faint focus:border-accent"
           aria-label="Search the dictionary"
         />
-        <div className="flex flex-wrap gap-2 text-xs">
+        <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2 text-[15px]">
           {tab === "roots"
             ? (["all", "latin", "greek"] as const).map((f) => (
-                <Chip key={f} active={rootFilter === f} onClick={() => setRootFilter(f)}>
+                <Filter key={f} active={rootFilter === f} onClick={() => setRootFilter(f)}>
                   {f === "all" ? "All" : f === "latin" ? "Latin" : "Greek"}
-                </Chip>
+                </Filter>
               ))
             : (["all", "latin", "warnings"] as const).map((f) => (
-                <Chip key={f} active={abbrevFilter === f} onClick={() => setAbbrevFilter(f)}>
-                  {f === "all" ? "All" : f === "latin" ? "Latin phrases" : "Error-prone"}
-                </Chip>
+                <Filter key={f} active={abbrevFilter === f} onClick={() => setAbbrevFilter(f)}>
+                  {f === "all" ? "All" : f === "latin" ? "Latin phrases" : "Easy to misread"}
+                </Filter>
               ))}
         </div>
-        <span className="text-sm text-faint">
-          {count} {count === 1 ? "entry" : "entries"}
-        </span>
-        <label className="ml-auto flex items-center gap-2 text-sm text-muted">
-          Sort
-          <select
-            value={sort}
-            onChange={(e) => switchSort(e.target.value as Sort)}
-            className="rounded-sm border border-line bg-surface px-3 py-1.5 text-fg outline-none focus:border-accent"
-          >
-            <option value="az">A–Z</option>
-            <option value="common">Most common</option>
-          </select>
-        </label>
+        <div className="flex items-baseline gap-5 text-[15px] sm:ml-auto">
+          <span className="text-faint">Order:</span>
+          <Filter active={sort === "az"} onClick={() => switchSort("az")}>
+            A–Z
+          </Filter>
+          <Filter active={sort === "common"} onClick={() => switchSort("common")}>
+            Most common
+          </Filter>
+        </div>
       </div>
 
-      {sort === "common" && (
-        <p className="-mt-3 mb-5 text-xs text-faint">
-          Ranked by how often each {tab === "roots" ? "root appears in medical words" : "abbreviation appears"} in
-          nearly 5,000 sample medical reports (MTSamples).
-          {tab === "abbreviations" && " Pharmacy-label shorthand like Sig and c̄ is rarer in doctors' reports than on pill bottles."}
-        </p>
+      <p className="mt-4 text-sm text-faint">
+        {count} {count === 1 ? "entry" : "entries"}
+        {sort === "common" &&
+          ` · ranked by how often each ${tab === "roots" ? "root appears in medical words" : "abbreviation appears"} in nearly 5,000 sample medical reports (MTSamples).`}
+        {sort === "common" &&
+          tab === "abbreviations" &&
+          " Pharmacy-label shorthand like Sig and c̄ is rarer in doctors' reports than on pill bottles."}
+      </p>
+
+      {/* Thumb index, like the notched letter tabs on the edge of a printed dictionary. */}
+      {byLetter && (
+        <nav aria-label="Jump to letter" className="mt-6 flex flex-wrap gap-x-3 gap-y-1 font-serif text-xl">
+          {groups.map(({ letter }) => (
+            <a key={letter} href={`#letter-${letter}`} className="text-faint hover:text-accent">
+              {letter}
+            </a>
+          ))}
+        </nav>
       )}
 
       {count === 0 ? (
-        <p className="rounded-md border border-dashed border-line p-6 text-muted">
-          Nothing matches &ldquo;{query}&rdquo;. Try a meaning in plain English, like &ldquo;heart&rdquo; or
-          &ldquo;twice a day&rdquo;.
+        <p className="mt-10 -rotate-1 font-hand text-[26px] text-accent">
+          Nothing matches &ldquo;{query}&rdquo;. Try a meaning in plain English, like &ldquo;heart&rdquo; or &ldquo;twice
+          a day&rdquo;.
         </p>
-      ) : tab === "roots" ? (
-        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {roots.map((r) => {
-            const entry: NewCodexEntry = {
-              kind: "root",
-              key: r.key,
-              term: r.display,
-              details: { origin: r.origin, meaning: r.meaning, hook: r.hook },
-              source_word: null,
-            };
-            const examples = exampleWords(r.key);
-            return (
-              <li key={r.key} className="flex flex-col rounded-md border border-line bg-surface p-4">
-                <div className="flex items-start justify-between gap-2">
-                  <span className="font-serif text-2xl font-semibold">{r.display}</span>
-                  <SaveButton entry={entry} />
-                </div>
-                {sort === "common" && <TierBadge tier={ROOT_TIER[r.key]} />}
-                <p className="mt-1 text-sm text-muted">
-                  {r.origin} · <strong className="text-fg">{r.meaning}</strong>
-                </p>
-                <p className="mt-2 text-sm text-muted">{r.hook}</p>
-                {examples.length > 0 && (
-                  <p className="mt-auto pt-3 text-xs text-faint">
-                    Found in:{" "}
-                    {examples.map((w, i) => (
-                      <span key={w.word}>
-                        {i > 0 && ", "}
-                        <span className="text-accent" title={w.meaning}>
-                          {w.word}
-                        </span>
-                      </span>
-                    ))}
-                  </p>
-                )}
-              </li>
-            );
-          })}
-        </ul>
       ) : (
-        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {abbreviations.map((a) => {
-            const entry: NewCodexEntry = {
-              kind: "abbreviation",
-              key: a.key,
-              term: a.display,
-              details: { expansion: a.expansion, literal: a.literal, plain: a.plain },
-              source_word: null,
-            };
-            return (
-              <li key={a.key} className="flex flex-col rounded-md border border-line bg-surface p-4">
-                <div className="flex items-start justify-between gap-2">
-                  <span className="font-serif text-2xl font-semibold">{a.display}</span>
-                  <SaveButton entry={entry} />
-                </div>
-                {sort === "common" && <TierBadge tier={ABBREV_TIER[a.key]} />}
-                <p className="mt-1 font-serif italic text-accent">
-                  {a.expansion}
-                  {a.literal !== a.expansion && <span className="not-italic text-muted"> — &ldquo;{a.literal}&rdquo;</span>}
-                </p>
-                <p className="mt-2 text-sm">{a.plain}</p>
-                {a.warning && (
-                  <p className="mt-3 rounded-lg bg-amber-400/10 p-2 text-xs text-amber-200">⚠️ {a.warning}</p>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+        <div className="mt-6">
+          {groups.map(({ letter, entries }) => (
+            <section key={letter || "all"} id={letter ? `letter-${letter}` : undefined} className="scroll-mt-6 pt-6">
+              {letter && (
+                <h2 className="mb-4 flex items-baseline gap-4 border-b border-line pb-1 font-serif text-5xl text-accent">
+                  {letter}
+                  <span className="font-sans text-sm text-faint">{entries.length}</span>
+                </h2>
+              )}
+              <dl className="gap-x-14 [column-rule:1px_solid_var(--color-line)] md:columns-2">{entries}</dl>
+            </section>
+          ))}
+        </div>
       )}
     </>
   );
 }
 
-function TierBadge({ tier }: { tier: string }) {
-  const style =
-    tier === "Very common"
-      ? "bg-accent/15 text-accent"
-      : tier === "Common"
-        ? "bg-accent-2/15 text-accent-2"
-        : "bg-surface-2 text-faint";
-  return <span className={`mt-1 inline-block w-fit rounded-sm px-2 py-0.5 text-[11px] font-medium ${style}`}>{tier}</span>;
+// Split a list into letter sections (A, B, …), keeping its order. With `byLetter` off it stays one section.
+function group<T>(items: T[], name: (item: T) => string, byLetter: boolean): [string, T[]][] {
+  if (!byLetter) return [["", items]];
+  const out = new Map<string, T[]>();
+  for (const item of items) {
+    const letter = (name(item).normalize("NFD").match(/[a-z0-9]/i)?.[0] ?? "#").toUpperCase();
+    out.set(letter, [...(out.get(letter) ?? []), item]);
+  }
+  return [...out];
 }
 
-function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+// One entry set like a printed dictionary: headword, origin in brackets, then the meaning.
+function RootEntry({ r, tier }: { r: (typeof ROOT_LIST)[number]; tier: string | null }) {
+  const entry: NewCodexEntry = {
+    kind: "root",
+    key: r.key,
+    term: r.display,
+    details: { origin: r.origin, meaning: r.meaning, hook: r.hook },
+    source_word: null,
+  };
+  const examples = exampleWords(r.key);
+  return (
+    <div className="mb-6 break-inside-avoid">
+      <dt className="flex items-baseline justify-between gap-3">
+        <span className="font-serif text-[26px] font-semibold leading-tight">{r.display}</span>
+        <SaveButton entry={entry} quiet />
+      </dt>
+      <dd className="mt-1 text-[17px] leading-relaxed">
+        <span className="text-faint">[{r.origin}]</span> <strong className="font-semibold">{r.meaning}</strong>.
+        {tier && <em className="ml-2 text-sm text-accent">{tier.toLowerCase()}</em>}
+        {r.hook && <span className="block text-[15px] text-muted">{r.hook}</span>}
+        {examples.length > 0 && (
+          <span className="mt-1 block text-[15px] italic text-muted">
+            {examples.map((w, i) => (
+              <span key={w.word}>
+                {i > 0 && ", "}
+                <span title={w.meaning}>{w.word}</span>
+              </span>
+            ))}
+          </span>
+        )}
+      </dd>
+    </div>
+  );
+}
+
+function AbbrevEntry({ a, tier }: { a: (typeof ABBREV_LIST)[number]; tier: string | null }) {
+  const entry: NewCodexEntry = {
+    kind: "abbreviation",
+    key: a.key,
+    term: a.display,
+    details: { expansion: a.expansion, literal: a.literal, plain: a.plain },
+    source_word: null,
+  };
+  return (
+    <div className="mb-6 break-inside-avoid">
+      <dt className="flex items-baseline justify-between gap-3">
+        <span className="font-serif text-[26px] font-semibold leading-tight">{a.display}</span>
+        <SaveButton entry={entry} quiet />
+      </dt>
+      <dd className="mt-1 text-[17px] leading-relaxed">
+        <em className="text-accent">{a.expansion}</em>
+        {a.literal !== a.expansion && <span className="text-faint"> [&ldquo;{a.literal}&rdquo;]</span>}{" "}
+        {a.plain}
+        {tier && <em className="ml-2 text-sm text-accent">{tier.toLowerCase()}</em>}
+        {a.warning && <span className="mt-1 block text-[15px] text-[#e39b7b]">{a.warning}</span>}
+      </dd>
+    </div>
+  );
+}
+
+// A filter written as a word you can click; the chosen one is underlined in gold.
+function Filter({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
     <button
       onClick={onClick}
       aria-pressed={active}
-      className={`rounded-sm border px-3 py-1 transition ${
-        active ? "border-accent text-accent" : "border-line text-muted hover:text-fg"
+      className={`border-b pb-0.5 transition ${
+        active ? "border-accent text-accent" : "border-transparent text-muted hover:text-fg"
       }`}
     >
       {children}

@@ -6,14 +6,17 @@ import { SignInDialog } from "./AuthBar";
 import { useCodex } from "./CodexProvider";
 
 // `onPaper` is for the cream index cards, where gold ink would be too faint.
+// `quiet` is a plain text link, for dictionary entries where a button would be too loud.
 export function SaveButton({
   entry,
   label = "Save",
   onPaper = false,
+  quiet = false,
 }: {
   entry: NewCodexEntry;
   label?: string;
   onPaper?: boolean;
+  quiet?: boolean;
 }) {
   const { enabled, user, isSaved, save } = useCodex();
   const [busy, setBusy] = useState(false);
@@ -35,8 +38,12 @@ export function SaveButton({
       <button
         onClick={onClick}
         disabled={saved || busy}
-        className={`shrink-0 rounded-sm px-2.5 py-1 text-xs font-medium transition ${
-          saved
+        className={`shrink-0 text-xs font-medium transition ${quiet ? "" : "rounded-sm px-2.5 py-1"} ${
+          quiet
+            ? saved
+              ? "text-emerald-300"
+              : "text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent"
+            : saved
             ? onPaper
               ? "text-[#3f6a4f]"
               : "text-emerald-300"
@@ -46,7 +53,7 @@ export function SaveButton({
         }`}
         title={error ?? undefined}
       >
-        {saved ? "✓ In My Words" : busy ? "Saving…" : `+ ${label}`}
+        {saved ? (quiet ? "✓ saved" : "✓ In My Words") : busy ? "Saving…" : quiet ? `+ ${label.toLowerCase()}` : `+ ${label}`}
       </button>
       {error && <span className={`text-xs ${onPaper ? "text-[#7a3317]" : "text-red-300"}`}>{error}</span>}
       {signingIn && <SignInDialog onClose={() => setSigningIn(false)} />}
