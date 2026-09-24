@@ -14,7 +14,7 @@ export default function DictionaryPage() {
       <header className="mb-6">
         <h1 className="font-serif text-5xl font-medium sm:text-6xl">Dictionary</h1>
         <p className="mt-1 font-serif text-lg italic text-muted">
-          The Latin and Greek behind medical words, one piece at a time.
+          The Latin and Greek behind medical words.
         </p>
       </header>
       {/* Suspense is required because the browser reads ?tab= and ?q= from the address bar. */}
