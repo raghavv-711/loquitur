@@ -1,19 +1,24 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AccountButton, NavLink, UserLinks } from "./AuthBar";
-import { BrandMenu } from "./BrandMenu";
 
-// Logo menu (About, Privacy) and account on the first row; tabs beside them on wide screens,
-// or on their own row on phones.
+// Logo (home) and account on the first row; tabs beside them on wide screens, or on their own row on phones.
 export function TopBar() {
   const pathname = usePathname();
   const onHome = pathname === "/";
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 text-sm">
-      <BrandMenu />
+      <Link
+        href="/"
+        className="flex shrink-0 items-center gap-2 font-serif text-2xl font-semibold transition hover:text-accent sm:text-[28px]"
+      >
+        <Image src="/brand/emblem.png" alt="" width={40} height={40} priority />
+        Loquitur
+      </Link>
 
       <div className="flex items-center gap-6 sm:order-3">
         <AccountButton />
@@ -21,13 +26,14 @@ export function TopBar() {
 
       <nav
         aria-label="Main"
-        // On very narrow phones (signed in = 5 tabs) the row scrolls sideways instead of squishing.
+        // On very narrow phones (signed in = 6 tabs) the row scrolls sideways instead of squishing.
         className="order-last -mx-1 flex w-[calc(100%+0.5rem)] items-center justify-between gap-2.5 text-sm sm:text-base overflow-x-auto whitespace-nowrap border-t border-line px-1 pt-3 [scrollbar-width:none] sm:order-2 sm:mx-0 sm:ml-auto sm:w-auto sm:justify-end sm:gap-8 sm:overflow-visible sm:border-0 sm:px-0 sm:pt-0"
       >
         <DecodeTab active={onHome} />
         <NavLink href="/dictionary">Dictionary</NavLink>
         <NavLink href="/study">Study</NavLink>
         <UserLinks />
+        <NavLink href="/about">About</NavLink>
       </nav>
     </div>
   );

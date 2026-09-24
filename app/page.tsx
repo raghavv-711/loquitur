@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { HighlightedText } from "@/components/HighlightedText";
 import { InstallPrompt } from "@/components/InstallPrompt";
@@ -93,6 +94,9 @@ export default function Home() {
             <em>Loquitur</em> is Latin for &ldquo;it speaks.&rdquo; Hand it a prescription label or a doctor&apos;s note,
             and it explains every word through the Latin and Greek underneath.
           </p>
+          <Link href="/about" className="w-fit -rotate-1 font-hand text-[26px] text-accent transition hover:text-accent-soft">
+            curious why I started this? &rarr;
+          </Link>
         </div>
         <div className="hidden justify-center md:col-span-5 md:flex">
           <Image src="/brand/logo.png" alt="" width={720} height={587} priority className="w-72 lg:w-[340px]" />
@@ -180,7 +184,12 @@ export default function Home() {
             </button>
           </span>
         </div>
-        <p className="text-sm text-faint">Your label goes to the AI to be read, then it&apos;s forgotten. Loquitur never saves it.</p>
+        <p className="text-sm text-faint">
+          Your label goes to the AI to be read, then it&apos;s forgotten. Loquitur never saves it.{" "}
+          <Link href="/privacy" className="text-muted underline decoration-line-strong underline-offset-4 hover:text-accent">
+            How I handle your info
+          </Link>
+        </p>
       </section>
 
       {error && <p className="mt-8 border-l-2 border-red-300 bg-red-400/10 p-4 text-red-200">{error}</p>}
