@@ -3,9 +3,10 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import type { NewCodexEntry } from "@/lib/codex";
-import { ABBREVIATIONS, ROOTS } from "@/lib/dictionary";
+import { ABBREVIATIONS, ROOTS, checkedLabel } from "@/lib/dictionary";
 import { abbrevDisplay, exampleWords, rootDisplay } from "@/lib/display";
 import { ABBREV_FREQUENCY, ROOT_FREQUENCY } from "@/lib/prevalence";
+import { ReportMistake } from "./ReportMistake";
 import { SaveButton } from "./SaveButton";
 
 type Tab = "roots" | "abbreviations";
@@ -295,6 +296,7 @@ function RootEntry({ r, tier }: { r: (typeof ROOT_LIST)[number]; tier: string | 
             ))}
           </span>
         )}
+        <Provenance entry={r} word={r.display} />
       </dd>
     </div>
   );
@@ -320,8 +322,18 @@ function AbbrevEntry({ a, tier }: { a: (typeof ABBREV_LIST)[number]; tier: strin
         {a.plain}
         {tier && <em className="ml-2 text-sm text-accent">{tier.toLowerCase()}</em>}
         {a.warning && <span className="mt-1 block text-[15px] text-[#e39b7b]">{a.warning}</span>}
+        <Provenance entry={a} word={a.display} />
       </dd>
     </div>
+  );
+}
+
+// Who checked an entry and when, plus a way to say it's wrong.
+function Provenance({ entry, word }: { entry: { checked?: string }; word: string }) {
+  return (
+    <span className="mt-1.5 block text-xs text-faint">
+      {checkedLabel(entry)} · <ReportMistake word={word} className="decoration-line-strong hover:text-accent" />
+    </span>
   );
 }
 

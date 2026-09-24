@@ -80,7 +80,11 @@ export default function StudyPage() {
         <Link href="/my-words" className="text-accent underline underline-offset-4">
           Save words to My Words
         </Link>{" "}
-        and use Review.
+        and use Review. Or{" "}
+        <Link href="/pocket-card" className="text-accent underline underline-offset-4">
+          print a pocket card
+        </Link>{" "}
+        to keep the most common ones on you.
       </p>
     </main>
   );

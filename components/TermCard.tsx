@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { abbreviationEntry, rootEntry } from "@/lib/codex";
 import type { VerifiedTerm } from "@/lib/schema";
+import { ReportMistake } from "./ReportMistake";
 import { SaveButton } from "./SaveButton";
 
 // How each kind of word is marked in the document, like a reader's pen (hand-drawn strokes in globals.css):
@@ -146,6 +147,9 @@ export function TermCard({ term, onClose }: { term: VerifiedTerm; onClose: () =>
 
       <p className={`mt-4 text-xs ${status.className}`}>
         {status.label} <span className="text-[#5c5446]">· {status.note}</span>
+      </p>
+      <p className="mt-1 text-xs text-[#5c5446]">
+        <ReportMistake word={term.text} className="decoration-paper-line hover:text-ink" />
       </p>
     </article>
   );

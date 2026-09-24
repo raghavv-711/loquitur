@@ -8,13 +8,25 @@ export type AbbreviationEntry = {
   literal: string; // word-for-word translation
   plain: string; // what it means on a label
   warning?: string; // ISMP / Joint Commission error-prone abbreviation note
+  checked?: string; // YYYY-MM-DD, when this entry was last re-checked (defaults to DICTIONARY_CHECKED.on)
 };
 
 export type RootEntry = {
   origin: string;
   meaning: string;
   hook: string; // a memory aid from an everyday English word
+  checked?: string; // YYYY-MM-DD, when this entry was last re-checked (defaults to DICTIONARY_CHECKED.on)
 };
+
+// Raghav reviewed every entry on this date. When an entry is corrected later, give it its own `checked` date.
+export const DICTIONARY_CHECKED = { by: "Raghav", on: "2026-09-23" };
+
+// "checked by Raghav, Sep 2026"
+export function checkedLabel(entry: { checked?: string }): string {
+  const date = new Date(`${entry.checked ?? DICTIONARY_CHECKED.on}T00:00:00Z`);
+  const when = date.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
+  return `checked by ${DICTIONARY_CHECKED.by}, ${when}`;
+}
 
 // Keys are uppercase letters and digits only (see normalizeAbbrev).
 export const ABBREVIATIONS: Record<string, AbbreviationEntry> = {

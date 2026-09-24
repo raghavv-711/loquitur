@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CONTACT } from "@/lib/contact";
 
 export const metadata: Metadata = { title: "Privacy · Loquitur" };
-
-const CONTACT = "raghavvijayapal@gmail.com";
 
 export default function PrivacyPage() {
   return (

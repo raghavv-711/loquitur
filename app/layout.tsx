@@ -35,11 +35,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${cormorant.variable} ${lora.variable} ${caveat.variable} ${signature.variable}`}>
       <body className="flex min-h-screen flex-col antialiased">
         <CodexProvider>
-          <div className="mx-auto w-full max-w-6xl px-4 pt-5 sm:px-8 sm:pt-8">
+          <div className="mx-auto w-full max-w-6xl px-4 pt-5 sm:px-8 sm:pt-8 print:hidden">
             <TopBar />
           </div>
           <div className="flex-1">{children}</div>
-          <footer className="mx-auto w-full max-w-6xl px-4 pb-8 sm:px-8">
+          <footer className="mx-auto w-full max-w-6xl px-4 pb-8 sm:px-8 print:hidden">
             <div className="flex flex-col gap-3 border-t border-line pt-5">
               <p className="text-sm text-faint">
                 Loquitur explains words. It is not medical advice. Always ask your pharmacist or doctor about your care.
