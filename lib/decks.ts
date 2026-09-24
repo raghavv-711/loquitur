@@ -7,7 +7,6 @@ import { abbrevDisplay, rootDisplay } from "./display";
 export type Deck = {
   id: string;
   title: string;
-  icon: string;
   description: string;
   roots: string[];
   abbreviations: string[];
@@ -17,7 +16,6 @@ export const DECKS: Deck[] = [
   {
     id: "premed-starter",
     title: "Pre-med starter",
-    icon: "🩺",
     description: "The prefixes and suffixes that build thousands of medical words. Start here.",
     roots: [
       "a", "an", "anti", "hyper", "hypo", "tachy", "brady", "dys", "peri", "endo", "epi", "sub", "intra", "inter",
@@ -29,7 +27,6 @@ export const DECKS: Deck[] = [
   {
     id: "prescription-latin",
     title: "Prescription Latin",
-    icon: "💊",
     description: "The Latin shorthand on pill bottles: when, how and how much to take.",
     roots: [],
     abbreviations: [
@@ -41,7 +38,6 @@ export const DECKS: Deck[] = [
   {
     id: "heart",
     title: "Heart & blood vessels",
-    icon: "❤️",
     description: "Cardiology words, from arrhythmia to atherosclerosis.",
     roots: [
       "cardi", "angi", "arteri", "ven", "phleb", "vas", "vascul", "coron", "thromb", "embol", "ather", "scler",
@@ -52,7 +48,6 @@ export const DECKS: Deck[] = [
   {
     id: "kidneys",
     title: "Kidneys & urinary tract",
-    icon: "🫘",
     description: "Nephrology and urology: stones, bladders and everything in between.",
     roots: ["nephr", "ren", "ur", "uria", "cyst", "lith", "calc", "ureter", "urethr", "vesic", "hydr", "noct", "iasis", "prostat", "adren"],
     abbreviations: ["UTI", "CKD", "AKI", "GU", "BMP"],
@@ -60,7 +55,6 @@ export const DECKS: Deck[] = [
   {
     id: "lungs",
     title: "Lungs & breathing",
-    icon: "🫁",
     description: "Pulmonology words, from bronchitis to dyspnea.",
     roots: ["pulmon", "pneumon", "pneum", "bronch", "trache", "pleur", "laryng", "pharyng", "rhin", "pnea", "spir", "ox", "thorac", "pector", "cyan"],
     abbreviations: ["SOB", "RR", "COPD", "URI", "INH", "NEB", "MDI"],
@@ -68,7 +62,6 @@ export const DECKS: Deck[] = [
   {
     id: "digestion",
     title: "Stomach & digestion",
-    icon: "🍽️",
     description: "Gastroenterology, from the esophagus to the colon.",
     roots: [
       "gastr", "enter", "esophag", "col", "colon", "rect", "proct", "hepat", "chol", "cholecyst", "pancreat", "splen",
@@ -79,7 +72,6 @@ export const DECKS: Deck[] = [
   {
     id: "brain",
     title: "Brain, nerves & mind",
-    icon: "🧠",
     description: "Neurology and psychiatry words, from encephalitis to insomnia.",
     roots: ["neur", "encephal", "cerebr", "cephal", "crani", "psych", "somn", "hypn", "esthesi", "phas", "plegia", "algia", "dynia", "myel"],
     abbreviations: ["CVA", "CT", "MRI"],
@@ -87,7 +79,6 @@ export const DECKS: Deck[] = [
   {
     id: "bones",
     title: "Bones, joints & muscles",
-    icon: "🦴",
     description: "Orthopedic words, from arthritis to osteomalacia.",
     roots: ["oste", "arthr", "my", "muscul", "tendin", "chondr", "oss", "spondyl", "vertebr", "cost", "carp", "brachi", "femor", "dactyl", "pod", "lumb", "malacia"],
     abbreviations: ["FX", "NSAID"],

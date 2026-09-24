@@ -153,8 +153,8 @@ export function DictionaryBrowser() {
             role="tab"
             aria-selected={tab === t}
             onClick={() => switchTab(t)}
-            className={`whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition ${
-              tab === t ? "bg-linear-to-r from-accent to-accent-2 text-bg" : "border border-line text-muted hover:text-fg"
+            className={`whitespace-nowrap rounded-sm px-4 py-1.5 text-sm font-medium transition ${
+              tab === t ? "bg-accent text-bg" : "border border-line text-muted hover:text-fg"
             }`}
           >
             {t === "roots" ? "Roots" : "Abbreviations"}{" "}
@@ -168,7 +168,7 @@ export function DictionaryBrowser() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={tab === "roots" ? 'Search roots, e.g. "kidney" or "cardi"' : 'Search, e.g. "PRN" or "bedtime"'}
-          className="w-full max-w-sm rounded-full border border-line bg-surface px-4 py-2 text-sm outline-none focus:border-accent"
+          className="w-full max-w-sm rounded-sm border border-line bg-surface px-4 py-2 text-sm outline-none focus:border-accent"
           aria-label="Search the dictionary"
         />
         <div className="flex flex-wrap gap-2 text-xs">
@@ -180,7 +180,7 @@ export function DictionaryBrowser() {
               ))
             : (["all", "latin", "warnings"] as const).map((f) => (
                 <Chip key={f} active={abbrevFilter === f} onClick={() => setAbbrevFilter(f)}>
-                  {f === "all" ? "All" : f === "latin" ? "Latin phrases" : "⚠️ Error-prone"}
+                  {f === "all" ? "All" : f === "latin" ? "Latin phrases" : "Error-prone"}
                 </Chip>
               ))}
         </div>
@@ -192,7 +192,7 @@ export function DictionaryBrowser() {
           <select
             value={sort}
             onChange={(e) => switchSort(e.target.value as Sort)}
-            className="rounded-full border border-line bg-surface px-3 py-1.5 text-fg outline-none focus:border-accent"
+            className="rounded-sm border border-line bg-surface px-3 py-1.5 text-fg outline-none focus:border-accent"
           >
             <option value="az">A–Z</option>
             <option value="common">Most common</option>
@@ -209,7 +209,7 @@ export function DictionaryBrowser() {
       )}
 
       {count === 0 ? (
-        <p className="rounded-2xl border border-dashed border-line p-6 text-muted">
+        <p className="rounded-md border border-dashed border-line p-6 text-muted">
           Nothing matches &ldquo;{query}&rdquo;. Try a meaning in plain English, like &ldquo;heart&rdquo; or
           &ldquo;twice a day&rdquo;.
         </p>
@@ -225,7 +225,7 @@ export function DictionaryBrowser() {
             };
             const examples = exampleWords(r.key);
             return (
-              <li key={r.key} className="flex flex-col rounded-2xl border border-line bg-surface p-4">
+              <li key={r.key} className="flex flex-col rounded-md border border-line bg-surface p-4">
                 <div className="flex items-start justify-between gap-2">
                   <span className="font-serif text-2xl font-semibold">{r.display}</span>
                   <SaveButton entry={entry} />
@@ -234,7 +234,7 @@ export function DictionaryBrowser() {
                 <p className="mt-1 text-sm text-muted">
                   {r.origin} · <strong className="text-fg">{r.meaning}</strong>
                 </p>
-                <p className="mt-2 text-sm text-muted">💡 {r.hook}</p>
+                <p className="mt-2 text-sm text-muted">{r.hook}</p>
                 {examples.length > 0 && (
                   <p className="mt-auto pt-3 text-xs text-faint">
                     Found in:{" "}
@@ -263,7 +263,7 @@ export function DictionaryBrowser() {
               source_word: null,
             };
             return (
-              <li key={a.key} className="flex flex-col rounded-2xl border border-line bg-surface p-4">
+              <li key={a.key} className="flex flex-col rounded-md border border-line bg-surface p-4">
                 <div className="flex items-start justify-between gap-2">
                   <span className="font-serif text-2xl font-semibold">{a.display}</span>
                   <SaveButton entry={entry} />
@@ -293,7 +293,7 @@ function TierBadge({ tier }: { tier: string }) {
       : tier === "Common"
         ? "bg-accent-2/15 text-accent-2"
         : "bg-surface-2 text-faint";
-  return <span className={`mt-1 inline-block w-fit rounded-full px-2 py-0.5 text-[11px] font-medium ${style}`}>{tier}</span>;
+  return <span className={`mt-1 inline-block w-fit rounded-sm px-2 py-0.5 text-[11px] font-medium ${style}`}>{tier}</span>;
 }
 
 function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
@@ -301,7 +301,7 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
     <button
       onClick={onClick}
       aria-pressed={active}
-      className={`rounded-full border px-3 py-1 transition ${
+      className={`rounded-sm border px-3 py-1 transition ${
         active ? "border-accent text-accent" : "border-line text-muted hover:text-fg"
       }`}
     >

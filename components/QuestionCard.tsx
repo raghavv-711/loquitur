@@ -28,7 +28,7 @@ export function QuestionCard({
   const correct = chosen === q.answer;
 
   return (
-    <section className="rounded-2xl border border-line bg-surface p-6 shadow-sm">
+    <section className="rounded-md border border-line bg-surface p-6">
       <p className="text-xs font-medium uppercase tracking-wide text-muted">
         {position} · {q.type === "decode" ? "Decode it yourself" : card.entry.kind === "root" ? "Word root" : "Abbreviation"}
       </p>
@@ -50,7 +50,7 @@ export function QuestionCard({
               key={i}
               onClick={() => onAnswer(i)}
               disabled={answered}
-              className={`rounded-xl border px-4 py-3 text-left transition ${style}`}
+              className={`rounded border px-4 py-3 text-left transition ${style}`}
             >
               {option}
             </button>
@@ -69,7 +69,7 @@ export function QuestionCard({
           <button
             onClick={onNext}
             autoFocus
-            className="mt-4 rounded-full bg-linear-to-r from-accent to-accent-2 px-5 py-2 text-sm font-medium text-bg hover:brightness-110"
+            className="mt-4 rounded-sm bg-accent px-5 py-2 text-sm font-medium text-bg hover:brightness-110"
           >
             Next →
           </button>

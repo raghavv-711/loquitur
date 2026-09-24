@@ -6,24 +6,24 @@ import { useCallback, useState } from "react";
 import { useCodex } from "./CodexProvider";
 import { GoogleButton, googleButtonAvailable } from "./GoogleButton";
 
-// Codex and Review tabs, shown only when signed in.
+// My Words and Review tabs, shown only when signed in.
 export function UserLinks() {
   const { enabled, user, dueCount } = useCodex();
   if (!enabled || !user) return null;
   return (
     <>
-      <NavLink href="/codex">Codex</NavLink>
+      <NavLink href="/my-words">My Words</NavLink>
       <NavLink href="/review">
         Review
         {dueCount > 0 && (
-          <span className="ml-1.5 rounded-full bg-accent-2 px-1.5 py-0.5 text-xs font-medium text-bg">{dueCount}</span>
+          <span className="ml-1.5 rounded-sm bg-accent px-1.5 py-0.5 text-xs font-medium text-bg">{dueCount}</span>
         )}
       </NavLink>
     </>
   );
 }
 
-// "Sign in" when signed out; "Sign out" when signed in (on phones that one lives on the Codex page).
+// "Sign in" when signed out; "Sign out" when signed in (on phones that one lives on the My Words page).
 export function AccountButton() {
   const { enabled, user, loading } = useCodex();
   const [open, setOpen] = useState(false);
@@ -37,7 +37,7 @@ export function AccountButton() {
     </form>
   ) : (
     <>
-      <button onClick={() => setOpen(true)} className="rounded-full border border-line px-4 py-1.5 hover:border-accent">
+      <button onClick={() => setOpen(true)} className="rounded-sm border border-line-strong px-4 py-2 text-fg hover:border-accent hover:text-accent">
         Sign in<span className="hidden sm:inline"> to save words</span>
       </button>
       {open && <SignInDialog onClose={() => setOpen(false)} />}
@@ -53,7 +53,7 @@ export function NavLink({ href, children }: { href: string; children: React.Reac
     <Link
       href={href}
       aria-current={active ? "page" : undefined}
-      className={`flex items-center transition ${active ? "font-medium text-accent" : "text-muted hover:text-fg"}`}
+      className={`flex items-center transition ${active ? "border-b border-accent pb-0.5 text-accent" : "text-muted hover:text-fg"}`}
     >
       {children}
     </Link>
@@ -69,7 +69,7 @@ export function SignInDialog({ onClose }: { onClose: () => void }) {
   const router = useRouter();
   const onGoogleSignedIn = useCallback(() => {
     onClose();
-    router.push("/codex");
+    router.push("/my-words");
   }, [onClose, router]);
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
@@ -97,7 +97,7 @@ export function SignInDialog({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={onClose}>
       <div
-        className="w-full max-w-sm rounded-2xl bg-surface p-6 shadow-xl"
+        className="w-full max-w-sm rounded-md bg-surface p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-labelledby="signin-title"
@@ -111,7 +111,7 @@ export function SignInDialog({ onClose }: { onClose: () => void }) {
           </p>
         ) : (
           <form onSubmit={submit} className="mt-3">
-            <p className="text-sm text-muted">Save the roots and abbreviations you learn to your Codex.</p>
+            <p className="text-sm text-muted">Save the roots and abbreviations you learn to My Words.</p>
             {googleButtonAvailable ? (
               <GoogleButton onSignedIn={onGoogleSignedIn} />
             ) : (
@@ -119,7 +119,7 @@ export function SignInDialog({ onClose }: { onClose: () => void }) {
               <button
                 type="button"
                 onClick={google}
-                className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-line py-2.5 text-sm font-medium hover:border-accent"
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-sm border border-line py-2.5 text-sm font-medium hover:border-accent"
               >
                 <GoogleLogo />
                 Continue with Google
@@ -138,11 +138,11 @@ export function SignInDialog({ onClose }: { onClose: () => void }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="w-full rounded-xl border border-line bg-surface-2 p-3 outline-none focus:border-accent"
+                  className="w-full rounded border border-line bg-surface-2 p-3 outline-none focus:border-accent"
                 />
                 <button
                   disabled={status === "sending"}
-                  className="mt-3 w-full rounded-full bg-linear-to-r from-accent to-accent-2 py-2.5 text-sm font-medium text-bg hover:brightness-110 disabled:opacity-40"
+                  className="mt-3 w-full rounded-sm bg-accent py-2.5 text-sm font-medium text-bg hover:brightness-110 disabled:opacity-40"
                 >
                   {status === "sending" ? "Sending…" : "Email me a sign-in link"}
                 </button>

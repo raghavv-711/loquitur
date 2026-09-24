@@ -83,64 +83,73 @@ export default function Home() {
   const canDecode = !loading && (photo !== null || input.trim().length > 0);
 
   return (
-    <main className="mx-auto max-w-5xl px-4 pb-10 pt-4 sm:px-6">
-      <header className="mb-8 text-center">
-        <h1 className="sr-only">Loquitur</h1>
-        <Image
-          src="/brand/logo.png"
-          alt="Loquitur"
-          width={720}
-          height={587}
-          priority
-          className="mx-auto w-56 sm:w-72"
-        />
-        <p className="mt-2 font-serif text-lg italic text-muted">Your medical paperwork, in plain English.</p>
+    <main className="mx-auto w-full max-w-6xl px-4 pb-12 pt-8 sm:px-8 sm:pt-12">
+      <header className="grid items-center gap-8 md:grid-cols-12 md:gap-10">
+        <div className="flex flex-col gap-5 md:col-span-7">
+          <h1 className="font-serif text-5xl font-medium leading-[0.98] sm:text-6xl lg:text-[80px]">
+            Let your paperwork <em className="text-accent">speak</em> plainly.
+          </h1>
+          <p className="max-w-xl text-lg leading-relaxed text-[#c3cadb] sm:text-xl">
+            <em>Loquitur</em> is Latin for &ldquo;it speaks.&rdquo; Hand it a prescription label or a doctor&apos;s note,
+            and it explains every word through the Latin and Greek underneath.
+          </p>
+        </div>
+        <div className="hidden justify-center md:col-span-5 md:flex">
+          <Image src="/brand/logo.png" alt="" width={720} height={587} priority className="w-72 lg:w-[340px]" />
+        </div>
       </header>
 
-      <section className="rounded-2xl border border-line bg-surface p-5 shadow-sm">
+      <section id="decode" className="mt-12 flex flex-col gap-4 sm:mt-16">
         {photo ? (
           <div>
-            <p className="text-sm font-medium">Your photo</p>
+            <p className="text-lg font-medium">Your photo</p>
             {/* eslint-disable-next-line @next/next/no-img-element -- local data URL preview */}
             <img
               src={photo.previewUrl}
               alt="Uploaded document"
-              className="mt-2 max-h-72 w-auto rounded-xl border border-line"
+              className="mt-3 max-h-72 w-auto rounded-sm border border-line"
             />
             <button
               onClick={() => setPhoto(null)}
-              className="mt-2 text-sm text-muted underline underline-offset-2 hover:text-fg"
+              className="mt-3 text-muted underline underline-offset-4 hover:text-accent"
             >
-              Remove photo and paste text instead
+              Remove photo and type text instead
             </button>
           </div>
         ) : (
           <>
-            <label htmlFor="doc" className="text-sm font-medium">
-              Paste text from a prescription label or after-visit summary, or upload a photo
-            </label>
+            <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+              <label htmlFor="doc" className="text-lg font-medium">
+                What did the pharmacy or doctor give you?
+              </label>
+              <span className="-rotate-2 font-hand text-2xl text-accent">no paperwork handy? try a sample below</span>
+            </div>
             <textarea
               id="doc"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              rows={6}
-              placeholder="e.g. Take 1 tab PO BID pc x 7 days"
-              className="mt-2 w-full resize-y rounded-xl border border-line bg-surface-2 p-3 font-mono text-[15px] outline-none focus:border-accent"
+              rows={4}
+              placeholder="Take 1 tab PO BID pc x 7 days"
+              className="w-full resize-y rounded border border-[#2a3659] bg-surface-2 px-5 py-4 text-lg leading-relaxed outline-none placeholder:text-faint focus:border-accent sm:px-6 sm:text-xl"
             />
           </>
         )}
 
-        <div className="mt-3 flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
           <button
             onClick={decode}
             disabled={!canDecode}
-            className="rounded-full bg-linear-to-r from-accent to-accent-2 px-5 py-2 text-sm font-medium text-bg transition hover:brightness-110 disabled:opacity-40"
+            className="h-12 rounded-sm bg-accent px-7 text-lg font-semibold text-bg transition hover:bg-accent-soft disabled:opacity-40"
           >
-            {loading ? (photo ? "Reading photo…" : "Decoding…") : "Decode"}
+            {loading ? (photo ? "Reading photo…" : "Decoding…") : "Decode it"}
           </button>
           {/* On phones this offers the camera or photo library. */}
-          <label className="cursor-pointer rounded-full border border-accent px-4 py-1.5 text-sm font-medium hover:border-accent hover:text-accent">
-            📷 {photo ? "Choose another photo" : "Upload a photo"}
+          <label className="flex h-12 cursor-pointer items-center gap-2.5 rounded-sm border border-line-strong px-5 text-[17px] transition hover:border-accent hover:text-accent">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M4 8h3l2-3h6l2 3h3v11H4z" />
+              <circle cx="12" cy="13" r="3.5" />
+            </svg>
+            {photo ? "Choose another photo" : "Photo of a label"}
             <input
               type="file"
               accept="image/*"
@@ -152,63 +161,51 @@ export default function Home() {
               }}
             />
           </label>
-          <span className="text-sm text-muted">or try:</span>
-          {SAMPLES.map((sample) => (
-            <button
-              key={sample.name}
-              onClick={() => {
-                setPhoto(null);
-                setInput(sample.text);
-              }}
-              className="rounded-full border border-line px-3 py-1.5 text-sm hover:border-accent"
-            >
-              {sample.name}
+          <span className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
+            <span className="text-faint">Samples:</span>
+            {SAMPLES.map((sample) => (
+              <button
+                key={sample.name}
+                onClick={() => {
+                  setPhoto(null);
+                  setInput(sample.text);
+                }}
+                className="text-accent hover:text-accent-soft"
+              >
+                {sample.name.toLowerCase()}
+              </button>
+            ))}
+            <button onClick={loadSamplePhoto} className="text-accent hover:text-accent-soft">
+              photo of a bottle
             </button>
-          ))}
-          <button
-            onClick={loadSamplePhoto}
-            className="rounded-full border border-line px-3 py-1.5 text-sm hover:border-accent"
-          >
-            Sample photo
-          </button>
+          </span>
         </div>
-        <p className="mt-3 text-xs text-muted">
-          Your text or photo is sent to the AI to be decoded and is never stored.
-        </p>
+        <p className="text-sm text-faint">Your text or photo is sent to the AI to be decoded and is never stored.</p>
       </section>
 
-      {error && <p className="mt-6 rounded-xl bg-red-400/10 p-4 text-sm text-red-200">{error}</p>}
+      {error && <p className="mt-8 border-l-2 border-red-300 bg-red-400/10 p-4 text-red-200">{error}</p>}
 
       {/* Before anything is decoded, teach one root a day. */}
       {!result && !loading && (
-        <div className="mt-8">
+        <div className="mt-14">
           <WordOfTheDay />
         </div>
       )}
 
       {result && (
-        <section className="mt-8">
-          <div className="rounded-2xl border border-line bg-surface-2 p-5 text-fg">
-            <div className="flex items-center justify-between gap-3">
-              <h2 className="text-xs font-semibold uppercase tracking-wide text-accent">What this says</h2>
-              <ReadAloud text={result.summary} />
+        <section className="mt-12 grid items-start gap-10 border-t border-line pt-9 md:grid-cols-12">
+          <div className="flex flex-col gap-6 md:col-span-7">
+            <div>
+              <div className="flex items-center justify-between gap-3">
+                <h2 className="text-xs uppercase tracking-[0.14em] text-accent">What this says</h2>
+                <ReadAloud text={result.summary} />
+              </div>
+              <p className="mt-3 font-serif text-[28px] leading-snug sm:text-[34px]">{result.summary}</p>
             </div>
-            <p className="mt-2 text-lg">{result.summary}</p>
-          </div>
 
-          <div className="mt-6 flex flex-wrap gap-3 text-xs">
-            {Object.values(KIND_STYLES).map((kind) => (
-              <span key={kind.label} className={`rounded-full px-2 py-0.5 font-medium ${kind.chip}`}>
-                {kind.label}
-              </span>
-            ))}
-            <span className="text-muted">Tap a highlighted word to decode it.</span>
-          </div>
-
-          <div className="mt-3 grid gap-6 md:grid-cols-[1fr_minmax(0,380px)]">
             <div>
               {result.transcript !== undefined && (
-                <p className="mb-2 text-xs text-muted">
+                <p className="mb-2 text-sm text-faint">
                   What Loquitur read from your photo. Check it against the label: photos can be misread.
                 </p>
               )}
@@ -220,32 +217,39 @@ export default function Home() {
                   onSelect={setSelected}
                 />
               ) : (
-                <p className="rounded-2xl border border-line bg-surface p-5 text-sm text-muted">
+                <p className="border-l-2 border-line bg-surface p-5 text-muted">
                   No readable text found. Try a sharper, well-lit photo taken straight on.
                 </p>
               )}
             </div>
-            <div className="md:sticky md:top-6 md:self-start">
-              {selectedTerm ? (
-                <TermCard term={selectedTerm} onClose={() => setSelected(null)} />
-              ) : (
-                <div className="rounded-2xl border border-dashed border-line p-5 text-sm text-muted">
-                  Found {result.terms.length} term{result.terms.length === 1 ? "" : "s"}. Tap one to see what it
-                  means and where the word comes from.
-                </div>
-              )}
-            </div>
+
+            <p className="flex flex-wrap gap-x-2 text-[15px] text-faint">
+              {Object.values(KIND_STYLES).map((kind) => (
+                <span key={kind.label}>
+                  <span className={`underline decoration-[1.5px] underline-offset-[5px] ${kind.mark}`}>{kind.label}</span>
+                  {" ·"}
+                </span>
+              ))}
+              <span>tap one to read its card</span>
+            </p>
+          </div>
+
+          <div className="md:sticky md:top-6 md:col-span-5">
+            {selectedTerm ? (
+              <TermCard term={selectedTerm} onClose={() => setSelected(null)} />
+            ) : (
+              <p className="-rotate-1 font-hand text-[26px] leading-snug text-accent">
+                Found {result.terms.length} word{result.terms.length === 1 ? "" : "s"} worth explaining. Tap an
+                underlined one to see what it means and where it comes from.
+              </p>
+            )}
           </div>
         </section>
       )}
 
-      <div className="mt-8">
+      <div className="mt-12">
         <InstallPrompt />
       </div>
-
-      <p className="mt-12 text-xs text-muted">
-        Loquitur explains words. It is not medical advice. Ask your pharmacist or doctor about your care.
-      </p>
     </main>
   );
 }

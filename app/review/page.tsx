@@ -39,7 +39,7 @@ export default function ReviewPage() {
       setMode(m);
 
       const all = await supabase.from("codex_entries").select("*");
-      if (all.error) return setError("Couldn't load your Codex. Refresh to try again.");
+      if (all.error) return setError("Couldn't load your words. Refresh to try again.");
       const entries = all.data as CodexEntry[];
       const now = Date.now();
       const due = entries
@@ -80,7 +80,7 @@ export default function ReviewPage() {
   return (
     <main className="mx-auto max-w-2xl px-4 pb-10 pt-4 sm:px-6">
       <header className="mb-8">
-        <h1 className="font-serif text-4xl font-semibold tracking-tight sm:text-5xl">Review</h1>
+        <h1 className="font-serif text-5xl font-medium sm:text-6xl">Review</h1>
         <p className="mt-1 font-serif text-lg italic text-muted">
           {mode === "practice" ? "Practice round: this won't change your schedule." : "A few minutes a day keeps the Latin fresh."}
         </p>
@@ -95,7 +95,7 @@ export default function ReviewPage() {
           <button onClick={() => setSigningIn(true)} className="font-medium text-accent underline">
             Sign in
           </button>{" "}
-          to review your Codex.
+          to review your saved words.
           {signingIn && <SignInDialog onClose={() => setSigningIn(false)} />}
         </Notice>
       ) : error && !cards ? (
@@ -133,7 +133,7 @@ function Summary({
   onPractice: () => void;
 }) {
   return (
-    <section className="rounded-2xl border border-line bg-surface p-6 text-center shadow-sm">
+    <section className="rounded-md border border-line bg-surface p-6 text-center">
       <p className="font-serif text-5xl font-semibold">
         {score}/{total}
       </p>
@@ -142,10 +142,10 @@ function Summary({
       </p>
       {mode === "due" && <p className="mt-1 text-sm text-muted">Words you got right come back later, spaced further apart each time.</p>}
       <div className="mt-5 flex justify-center gap-3">
-        <button onClick={onPractice} className="rounded-full border border-line px-4 py-2 text-sm hover:border-accent">
+        <button onClick={onPractice} className="rounded-sm border border-line px-4 py-2 text-sm hover:border-accent">
           Practice more
         </button>
-        <Link href="/" className="rounded-full bg-linear-to-r from-accent to-accent-2 px-4 py-2 text-sm font-medium text-bg hover:brightness-110">
+        <Link href="/" className="rounded-sm bg-accent px-4 py-2 text-sm font-medium text-bg hover:brightness-110">
           Decode a document
         </Link>
       </div>
@@ -157,7 +157,7 @@ function EmptyState({ nextDue, hasWords, onPractice }: { nextDue: string | null;
   if (!hasWords) {
     return (
       <Notice>
-        Your Codex is empty.{" "}
+        You haven&apos;t saved any words yet.{" "}
         <Link href="/" className="font-medium text-accent underline">
           Decode a document
         </Link>{" "}
@@ -170,7 +170,7 @@ function EmptyState({ nextDue, hasWords, onPractice }: { nextDue: string | null;
       <p>
         All caught up! Your next review is <strong>{nextDue ? describeDue(nextDue) : "soon"}</strong>.
       </p>
-      <button onClick={onPractice} className="mt-3 rounded-full border border-line px-4 py-2 text-sm hover:border-accent">
+      <button onClick={onPractice} className="mt-3 rounded-sm border border-line px-4 py-2 text-sm hover:border-accent">
         Practice anyway
       </button>
     </Notice>
@@ -178,5 +178,5 @@ function EmptyState({ nextDue, hasWords, onPractice }: { nextDue: string | null;
 }
 
 function Notice({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-2xl border border-dashed border-line p-6 text-muted">{children}</div>;
+  return <div className="rounded-md border border-dashed border-line p-6 text-muted">{children}</div>;
 }

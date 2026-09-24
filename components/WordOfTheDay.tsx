@@ -13,7 +13,7 @@ export function WordOfTheDay() {
   if (!word) return <div className="h-40" aria-hidden="true" />; // hold the space so the page doesn't jump
 
   return (
-    <section className="rounded-2xl border border-line bg-surface p-5">
+    <section className="rounded-md border border-line bg-surface p-5">
       <div className="flex items-start justify-between gap-3">
         <div>
           <h2 className="text-xs font-semibold uppercase tracking-wide text-accent">Word of the day</h2>

@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 export default function DictionaryPage() {
   return (
-    <main className="mx-auto max-w-5xl px-4 pb-10 pt-4 sm:px-6">
+    <main className="mx-auto w-full max-w-6xl px-4 pb-12 pt-8 sm:px-8 sm:pt-12">
       <header className="mb-6">
-        <h1 className="font-serif text-4xl font-semibold tracking-tight sm:text-5xl">Dictionary</h1>
+        <h1 className="font-serif text-5xl font-medium sm:text-6xl">Dictionary</h1>
         <p className="mt-1 font-serif text-lg italic text-muted">
           The Latin and Greek behind medical words, one piece at a time.
         </p>

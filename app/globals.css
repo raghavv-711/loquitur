@@ -1,18 +1,25 @@
 @import "tailwindcss";
 
-/* Colors taken from the Loquitur logo: deep navy with a sky-blue → lavender gradient. */
+/* "Night Library": the navy of the Loquitur logo, gold ink, and book typography. */
 @theme {
-  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --color-bg: #040c20; /* page background, matches the logo */
-  --color-surface: #0a1530; /* cards */
-  --color-surface-2: #0f1c3d; /* inputs, nested panels */
-  --color-line: #1e2c52; /* borders and dividers */
-  --color-fg: #eef3ff; /* main text */
-  --color-muted: #a3aecb; /* secondary text */
-  --color-faint: #707ca2; /* hints */
-  --color-accent: #92caeb; /* sky blue from the logo ring */
-  --color-accent-2: #aaaaef; /* lavender from the logo ring */
+  --font-sans: var(--font-lora), Georgia, serif; /* body text */
+  --font-serif: var(--font-cormorant), "Iowan Old Style", Palatino, Georgia, serif; /* headings */
+  --font-hand: var(--font-caveat), "Bradley Hand", cursive; /* margin notes */
+  --color-bg: #071230; /* page background */
+  --color-surface: #0a1738; /* panels */
+  --color-surface-2: #0c1a3d; /* inputs, nested panels */
+  --color-line: #1f2b4d; /* borders and dividers */
+  --color-line-strong: #56617f; /* outlined buttons */
+  --color-fg: #eef1f7; /* main text */
+  --color-muted: #b9c1d6; /* secondary text */
+  --color-faint: #8d97b3; /* hints */
+  --color-accent: #d8b56a; /* gold ink */
+  --color-accent-soft: #f0d9a2; /* gold on hover */
+  --color-accent-2: #9fb6e8; /* pale blue, for abbreviations */
   --color-accent-deep: #6381c7; /* the blue "o" in the wordmark */
+  --color-paper: #f5efe2; /* index cards */
+  --color-ink: #1d2438; /* text on index cards */
+  --color-paper-line: #ddd2bf;
 }
 
 :root {
@@ -25,7 +32,7 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-accent-2) 40%, transparent);
+  background: color-mix(in srgb, var(--color-accent) 40%, transparent);
 }
 
 /* Installed on an iPhone, the app draws under the status bar and home indicator; keep content clear of them. */

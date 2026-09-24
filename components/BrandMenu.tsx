@@ -46,10 +46,10 @@ export function BrandMenu() {
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="menu"
         aria-expanded={open}
-        className="flex shrink-0 items-center gap-2 rounded-full py-1 pl-1 pr-2 font-serif text-xl font-semibold tracking-tight transition hover:bg-surface"
+        className="flex shrink-0 items-center gap-2 rounded-sm py-1 pl-1 pr-2 font-serif text-2xl font-semibold transition hover:text-accent sm:text-[28px]"
       >
-        <Image src="/brand/emblem.png" alt="" width={36} height={36} priority />
-        <span className="hidden sm:inline">Loquitur</span>
+        <Image src="/brand/emblem.png" alt="" width={40} height={40} priority />
+        <span>Loquitur</span>
         <span aria-hidden="true" className={`text-xs text-muted transition ${open ? "rotate-180" : ""}`}>
           ▾
         </span>
@@ -58,7 +58,7 @@ export function BrandMenu() {
       {open && (
         <div
           role="menu"
-          className="absolute left-0 top-full z-40 mt-2 w-64 rounded-2xl border border-line bg-surface p-2 shadow-xl shadow-black/40"
+          className="absolute left-0 top-full z-40 mt-2 w-64 rounded-md border border-line bg-surface-2 p-2 shadow-xl shadow-black/40"
         >
           <MenuLink href="/about" title="About Loquitur" hint="Who built it and why" />
           <MenuLink href="/privacy" title="Privacy" hint="What happens to your information" />
@@ -70,7 +70,7 @@ export function BrandMenu() {
 
 function MenuLink({ href, title, hint }: { href: string; title: string; hint: string }) {
   return (
-    <Link href={href} role="menuitem" className="block rounded-xl px-3 py-2.5 transition hover:bg-surface-2">
+    <Link href={href} role="menuitem" className="block rounded px-3 py-2.5 transition hover:bg-surface-2">
       <span className="block text-sm font-medium text-fg">{title}</span>
       <span className="block text-xs text-muted">{hint}</span>
     </Link>

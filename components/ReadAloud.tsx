@@ -44,7 +44,7 @@ export function ReadAloud({ text, label = "Read aloud" }: { text: string; label?
     <button
       onClick={toggle}
       aria-pressed={speaking}
-      className="flex shrink-0 items-center gap-1.5 rounded-full border border-line px-3 py-1 text-xs font-medium text-accent hover:border-accent"
+      className="flex shrink-0 items-center gap-1.5 rounded-sm border border-line px-3 py-1 text-xs font-medium text-accent hover:border-accent"
     >
       <span aria-hidden="true">{speaking ? "⏹" : "🔊"}</span>
       {speaking ? "Stop" : label}

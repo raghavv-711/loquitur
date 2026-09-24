@@ -63,7 +63,7 @@ export function InstallPrompt() {
   if (mode === "hidden") return null;
 
   return (
-    <aside className="flex items-start gap-3 rounded-2xl border border-line bg-surface p-4 text-sm">
+    <aside className="flex items-start gap-3 rounded-md border border-line bg-surface p-4 text-sm">
       <span className="text-2xl" aria-hidden="true">
         📲
       </span>
@@ -80,7 +80,7 @@ export function InstallPrompt() {
         {mode === "button" && (
           <button
             onClick={install}
-            className="mt-3 rounded-full bg-linear-to-r from-accent to-accent-2 px-4 py-1.5 text-sm font-medium text-bg hover:brightness-110"
+            className="mt-3 rounded-sm bg-accent px-4 py-1.5 text-sm font-medium text-bg hover:brightness-110"
           >
             Install app
           </button>

@@ -7,27 +7,30 @@ export const metadata: Metadata = {
   description: "Free study decks of medical Latin and Greek: heart, kidneys, lungs, prescription Latin and a pre-med starter.",
 };
 
+// Each deck is a "book" (liber), numbered the Roman way.
+const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
+
 export default function StudyPage() {
   return (
-    <main className="mx-auto max-w-5xl px-4 pb-10 pt-4 sm:px-6">
+    <main className="mx-auto w-full max-w-6xl px-4 pb-12 pt-8 sm:px-8 sm:pt-12">
       <header className="mb-8">
-        <h1 className="font-serif text-4xl font-semibold tracking-tight sm:text-5xl">Study</h1>
+        <h1 className="font-serif text-5xl font-medium sm:text-6xl">Study</h1>
         <p className="mt-1 font-serif text-lg italic text-muted">
           Ready-made decks from Loquitur&apos;s dictionary. No account needed.
         </p>
       </header>
 
       <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {DECKS.map((deck) => (
+        {DECKS.map((deck, i) => (
           <li key={deck.id}>
             <Link
               href={`/study/${deck.id}`}
-              className="flex h-full flex-col rounded-2xl border border-line bg-surface p-5 transition hover:border-accent"
+              className="flex h-full flex-col rounded-md border border-line bg-surface p-5 transition hover:border-accent"
             >
-              <span className="text-3xl" aria-hidden="true">
-                {deck.icon}
+              <span className="font-serif text-lg italic text-accent" aria-hidden="true">
+                Liber {ROMAN[i]}
               </span>
-              <span className="mt-3 font-serif text-xl font-semibold">{deck.title}</span>
+              <span className="mt-1 font-serif text-xl font-semibold">{deck.title}</span>
               <span className="mt-1 text-sm text-muted">{deck.description}</span>
               <span className="mt-auto pt-4 text-xs text-faint">
                 {deckSize(deck)} words · 10 questions per round
@@ -39,8 +42,8 @@ export default function StudyPage() {
 
       <p className="mt-8 text-sm text-muted">
         Want reviews spaced out over days so words stick?{" "}
-        <Link href="/codex" className="text-accent underline underline-offset-2">
-          Save words to your Codex
+        <Link href="/my-words" className="text-accent underline underline-offset-2">
+          Save words to My Words
         </Link>{" "}
         and use Review.
       </p>

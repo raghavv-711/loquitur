@@ -15,7 +15,7 @@ export default function AboutPage() {
   return (
     <main className="mx-auto max-w-2xl px-4 pb-16 pt-6 sm:px-6">
       <Image src="/brand/emblem.png" alt="" width={72} height={72} priority />
-      <h1 className="mt-4 font-serif text-4xl font-semibold tracking-tight">About Loquitur</h1>
+      <h1 className="mt-4 font-serif text-5xl font-medium">About Loquitur</h1>
 
       <div className="mt-8 space-y-6 leading-relaxed text-fg/85 [&_h2]:font-serif [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-fg">
         <section>
@@ -72,7 +72,7 @@ export default function AboutPage() {
             page has {DECK_COUNT} ready-made decks drawn from the dictionary, organized the way medicine is: the heart,
             the kidneys, the lungs, digestion, the brain, and bones and muscles, plus Prescription Latin for the
             shorthand on pill bottles and a Pre-med starter with the prefixes and suffixes that build thousands of words.
-            Each round is ten quick questions, and no account is needed. Missed a word? Save it to your Codex to keep
+            Each round is ten quick questions, and no account is needed. Missed a word? Save it to My Words to keep
             practicing it.
           </p>
         </section>
@@ -80,7 +80,7 @@ export default function AboutPage() {
         <section>
           <h2>Learn it, don&apos;t just look it up</h2>
           <p className="mt-2">
-            Sign in to save any root or abbreviation to your <strong className="text-fg">Codex</strong>. Loquitur then
+            Sign in to save any root or abbreviation to <strong className="text-fg">My Words</strong>, your own word list. Loquitur then
             quizzes you on your saved words: what a root means, what Latin phrase an abbreviation stands for, and
             &ldquo;decode it yourself&rdquo; questions that combine roots you know into new words (you know{" "}
             <em>nephr-</em>, so what is a <em>nephrectomy</em>?). Words you get right come back less often; words you
@@ -103,7 +103,7 @@ export default function AboutPage() {
           </p>
         </section>
 
-        <p className="rounded-xl border border-line bg-surface p-4 text-sm text-muted">
+        <p className="rounded border border-line bg-surface p-4 text-sm text-muted">
           Loquitur explains words. It is not medical advice. Always ask your pharmacist or doctor about your care.
         </p>
 

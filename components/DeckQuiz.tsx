@@ -56,8 +56,8 @@ export function DeckQuiz({ deckId }: { deckId: string }) {
         ← All decks
       </Link>
       <header className="mb-8 mt-3">
-        <h1 className="font-serif text-4xl font-semibold tracking-tight">
-          <span aria-hidden="true">{deck.icon}</span> {deck.title}
+        <h1 className="font-serif text-5xl font-medium">
+          {deck.title}
         </h1>
         <p className="mt-1 text-muted">{deck.description}</p>
       </header>
@@ -76,10 +76,10 @@ export function DeckQuiz({ deckId }: { deckId: string }) {
           }}
           error={null}
           practice
-          extra={<SaveButton entry={toSave(cards[index].entry)} label="Save to Codex" />}
+          extra={<SaveButton entry={toSave(cards[index].entry)} label="Save to My Words" />}
         />
       ) : (
-        <section className="rounded-2xl border border-line bg-surface p-6 text-center">
+        <section className="rounded-md border border-line bg-surface p-6 text-center">
           <p className="font-serif text-5xl font-semibold">
             {score}/{cards.length}
           </p>
@@ -91,7 +91,7 @@ export function DeckQuiz({ deckId }: { deckId: string }) {
               <p className="text-xs font-semibold uppercase tracking-wide text-muted">To practice</p>
               <ul className="mt-2 space-y-2">
                 {missed.map((e) => (
-                  <li key={e.id} className="flex items-center justify-between gap-3 rounded-xl bg-surface-2 px-3 py-2">
+                  <li key={e.id} className="flex items-center justify-between gap-3 rounded bg-surface-2 px-3 py-2">
                     <span>
                       <span className="font-serif text-lg font-semibold">{e.term}</span>{" "}
                       <span className="text-sm text-muted">
@@ -107,11 +107,11 @@ export function DeckQuiz({ deckId }: { deckId: string }) {
           <div className="mt-6 flex justify-center gap-3">
             <button
               onClick={start}
-              className="rounded-full bg-linear-to-r from-accent to-accent-2 px-5 py-2 text-sm font-medium text-bg hover:brightness-110"
+              className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-bg hover:brightness-110"
             >
               New round
             </button>
-            <Link href="/study" className="rounded-full border border-line px-5 py-2 text-sm hover:border-accent">
+            <Link href="/study" className="rounded-sm border border-line px-5 py-2 text-sm hover:border-accent">
               Other decks
             </Link>
           </div>

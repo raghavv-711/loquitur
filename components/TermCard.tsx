@@ -3,23 +3,26 @@ import { abbreviationEntry, rootEntry } from "@/lib/codex";
 import type { VerifiedTerm } from "@/lib/schema";
 import { SaveButton } from "./SaveButton";
 
+// How each kind of word is marked in the document, like a reader's pen: solid gold for medical words,
+// dotted blue for abbreviations, wavy rose for drugs.
 export const KIND_STYLES = {
-  abbreviation: { label: "Abbreviation", mark: "bg-sky-400/15 decoration-sky-400", chip: "bg-sky-400/15 text-sky-200" },
-  medical_term: { label: "Medical term", mark: "bg-emerald-400/15 decoration-emerald-400", chip: "bg-emerald-400/15 text-emerald-200" },
-  drug: { label: "Drug", mark: "bg-rose-400/15 decoration-rose-400", chip: "bg-rose-400/15 text-rose-200" },
+  abbreviation: { label: "Abbreviation", mark: "decoration-dotted decoration-accent-2 text-[#cfdcf7]" },
+  medical_term: { label: "Medical term", mark: "decoration-solid decoration-accent text-[#f3e3bd]" },
+  drug: { label: "Drug", mark: "decoration-wavy decoration-[#e39b7b] text-[#f5d2c2]" },
 } as const;
 
+// Status notes sit on the paper-colored card, so they use darker inks.
 const STATUS = {
-  verified: { label: "✓ Verified", className: "text-emerald-300", note: "Checked against Loquitur's dictionary." },
+  verified: { label: "✓ Checked", className: "text-[#3f6a4f]", note: "Found in the Loquitur dictionary." },
   draft: {
     label: "◌ Draft entry",
-    className: "text-sky-300",
+    className: "text-[#3d5a8a]",
     note: "From Loquitur's dictionary, still awaiting expert review.",
   },
-  partial: { label: "◐ Partly verified", className: "text-amber-300", note: "Some word parts are in Loquitur's dictionary." },
+  partial: { label: "◐ Partly checked", className: "text-[#8a5a17]", note: "Some word parts are in Loquitur's dictionary." },
   unverified: {
-    label: "? Unverified",
-    className: "text-muted",
+    label: "? Unchecked",
+    className: "text-[#6f6556]",
     note: "AI explanation only. Ask your pharmacist if you're unsure.",
   },
 } as const;
@@ -37,15 +40,16 @@ export function TermCard({ term, onClose }: { term: VerifiedTerm; onClose: () =>
   const status = drugStatus(term) ?? STATUS[term.status];
 
   return (
-    <article className="rounded-2xl border border-line bg-surface p-5 shadow-sm">
+    // An index card, tilted slightly as if set down on the desk.
+    <article className="rotate-[0.8deg] rounded-sm bg-paper p-6 text-ink shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:p-7">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${kind.chip}`}>{kind.label}</span>
-          <h3 className="mt-2 font-serif text-2xl font-semibold">{term.text}</h3>
+          <span className="text-xs uppercase tracking-[0.14em] text-[#6f6556]">{kind.label}</span>
+          <h3 className="mt-1 font-serif text-4xl font-semibold leading-none sm:text-5xl">{term.text}</h3>
         </div>
         <button
           onClick={onClose}
-          className="rounded-full px-2 text-xl text-faint hover:text-fg"
+          className="rounded-sm px-2 text-2xl text-[#6f6556] hover:text-ink"
           aria-label="Close"
         >
           ×
@@ -53,29 +57,29 @@ export function TermCard({ term, onClose }: { term: VerifiedTerm; onClose: () =>
       </div>
 
       {term.expansion && (
-        <p className="mt-2 font-serif text-lg italic text-accent">
-          {term.expansion}
-          {term.literal && <span className="not-italic text-muted"> — “{term.literal}”</span>}
+        <p className="mt-4 border-b border-paper-line pb-3 text-lg">
+          <em>{term.expansion}</em>
+          {term.literal && <span> · “{term.literal}”</span>}
         </p>
       )}
 
-      <p className="mt-3 text-base">{term.plain}</p>
+      <p className="mt-3 text-lg leading-relaxed">{term.plain}</p>
 
       {term.warning && (
-        <p className="mt-3 rounded-lg bg-amber-400/10 p-3 text-sm text-amber-200">⚠️ {term.warning}</p>
+        <p className="mt-3 border-t border-paper-line pt-3 text-[15px] leading-relaxed text-[#7a3317]">{term.warning}</p>
       )}
 
       {term.fda && (
-        <div className="mt-4 rounded-lg bg-surface-2 p-3 text-sm">
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted">FDA drug label</h4>
+        <div className="mt-4 rounded-sm bg-[#ece4d2] p-3 text-sm">
+          <h4 className="text-xs uppercase tracking-[0.14em] text-[#6f6556]">FDA drug label</h4>
           <p className="mt-1">
             <strong className="capitalize">{term.fda.genericName.toLowerCase()}</strong>
-            {term.fda.brandName && <span className="text-muted"> · brand: {term.fda.brandName}</span>}
+            {term.fda.brandName && <span className="text-[#5c5446]"> · brand: {term.fda.brandName}</span>}
           </p>
           {term.fda.usedFor && (
             <>
-              <p className="mt-1 text-fg/85">“{term.fda.usedFor}”</p>
-              <p className="mt-1 text-xs text-muted">
+              <p className="mt-1 text-ink">“{term.fda.usedFor}”</p>
+              <p className="mt-1 text-xs text-[#5c5446]">
                 This is the officially approved use. Doctors sometimes prescribe a medicine for other reasons too.
               </p>
             </>
@@ -85,7 +89,7 @@ export function TermCard({ term, onClose }: { term: VerifiedTerm; onClose: () =>
               href={term.fda.labelUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 inline-block text-accent underline underline-offset-2"
+              className="mt-2 inline-block font-semibold text-ink underline underline-offset-2 hover:text-[#8a5a17]"
             >
               Read the full label on DailyMed ↗
             </a>
@@ -95,36 +99,36 @@ export function TermCard({ term, onClose }: { term: VerifiedTerm; onClose: () =>
 
       {term.roots.length > 0 && (
         <div className="mt-4">
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted">Word parts</h4>
+          <h4 className="text-xs uppercase tracking-[0.14em] text-[#6f6556]">Word parts</h4>
           <ul className="mt-2 space-y-2">
             {term.roots.map((root, i) => (
-              <li key={i} className="rounded-lg bg-surface-2 p-3">
+              <li key={i} className="border-t border-paper-line pt-2">
                 <div className="flex flex-wrap items-baseline gap-x-2">
                   {(() => {
                     const entry = rootEntry(root, term.text);
                     return entry ? (
                       <span className="order-last ml-auto">
-                        <SaveButton entry={entry} />
+                        <SaveButton entry={entry} onPaper />
                       </span>
                     ) : null;
                   })()}
                   <Link
                     href={`/dictionary?q=${encodeURIComponent(root.root.replace(/^-+|-+$/g, ""))}`}
-                    className="font-serif text-lg font-semibold hover:text-accent"
+                    className="font-serif text-xl font-semibold hover:text-[#8a5a17]"
                     title="See this root in the dictionary"
                   >
                     {root.root}
                   </Link>
-                  <span className="text-sm text-muted">
+                  <span className="text-sm text-[#5c5446]">
                     {root.origin} · <strong>{root.meaning}</strong>
                   </span>
                   {root.draft ? (
-                    <span className="text-xs text-sky-300">(draft)</span>
+                    <span className="text-xs text-[#3d5a8a]">(draft)</span>
                   ) : (
-                    !root.verified && <span className="text-xs text-faint">(unverified)</span>
+                    !root.verified && <span className="text-xs text-[#8a8070]">(unverified)</span>
                   )}
                 </div>
-                {root.hook && <p className="mt-1 text-sm text-muted">💡 {root.hook}</p>}
+                {root.hook && <p className="mt-1 font-hand text-xl leading-tight text-[#8a5a17]">{root.hook}</p>}
               </li>
             ))}
           </ul>
@@ -135,13 +139,13 @@ export function TermCard({ term, onClose }: { term: VerifiedTerm; onClose: () =>
         const entry = abbreviationEntry(term);
         return entry ? (
           <div className="mt-4">
-            <SaveButton entry={entry} label="Save to Codex" />
+            <SaveButton entry={entry} label="Save to My Words" onPaper />
           </div>
         ) : null;
       })()}
 
       <p className={`mt-4 text-xs ${status.className}`}>
-        {status.label} <span className="text-muted">· {status.note}</span>
+        {status.label} <span className="text-[#5c5446]">· {status.note}</span>
       </p>
     </article>
   );

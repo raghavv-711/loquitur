@@ -8,7 +8,7 @@ import type { AbbreviationDetails, CodexEntry, RootDetails } from "@/lib/codex";
 import { describeDue } from "@/lib/review";
 import { createClient } from "@/lib/supabase/client";
 
-export default function CodexPage() {
+export default function MyWordsPage() {
   const { enabled, user, loading, remove } = useCodex();
   const [entries, setEntries] = useState<CodexEntry[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -22,7 +22,7 @@ export default function CodexPage() {
       .select("*")
       .order("created_at", { ascending: false })
       .then(({ data, error }) => {
-        if (error) setError("Couldn't load your Codex. Refresh to try again.");
+        if (error) setError("Couldn't load your words. Refresh to try again.");
         else setEntries(data as CodexEntry[]);
       });
   }, [enabled, user]);
@@ -43,17 +43,17 @@ export default function CodexPage() {
   const abbreviations = visible.filter((e) => e.kind === "abbreviation");
 
   return (
-    <main className="mx-auto max-w-5xl px-4 pb-10 pt-4 sm:px-6">
+    <main className="mx-auto w-full max-w-6xl px-4 pb-12 pt-8 sm:px-8 sm:pt-12">
       <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-serif text-4xl font-semibold tracking-tight sm:text-5xl">My Codex</h1>
+          <h1 className="font-serif text-5xl font-medium sm:text-6xl">My Words</h1>
           <p className="mt-1 font-serif text-lg italic text-muted">The roots and abbreviations you&apos;ve learned.</p>
         </div>
         {user && (
           <div className="flex items-center gap-3 text-sm">
             <span className="text-faint">{user.email}</span>
             <form action="/auth/signout" method="post">
-              <button className="rounded-full border border-line px-3 py-1 text-muted hover:border-accent hover:text-fg">
+              <button className="rounded-sm border border-line px-3 py-1 text-muted hover:border-accent hover:text-fg">
                 Sign out
               </button>
             </form>
@@ -70,13 +70,13 @@ export default function CodexPage() {
           <button onClick={() => setSigningIn(true)} className="font-medium text-accent underline">
             Sign in
           </button>{" "}
-          to see your Codex.
+          to see your saved words.
           {signingIn && <SignInDialog onClose={() => setSigningIn(false)} />}
         </Notice>
       ) : error ? (
         <Notice>{error}</Notice>
       ) : entries === null ? (
-        <Notice>Loading your Codex…</Notice>
+        <Notice>Loading your words…</Notice>
       ) : entries.length === 0 ? (
         <Notice>
           Nothing saved yet.{" "}
@@ -91,8 +91,8 @@ export default function CodexPage() {
             <input
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              placeholder="Search your Codex"
-              className="w-full max-w-xs rounded-full border border-line bg-surface px-4 py-2 text-sm outline-none focus:border-accent"
+              placeholder="Search your words"
+              className="w-full max-w-xs rounded-sm border border-line bg-surface px-4 py-2 text-sm outline-none focus:border-accent"
             />
             <span className="text-sm text-muted">
               {roots.length} root{roots.length === 1 ? "" : "s"} · {abbreviations.length} abbreviation
@@ -122,7 +122,7 @@ function Section({
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted">{title}</h2>
       <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {entries.map((entry) => (
-          <li key={entry.id} className="flex flex-col rounded-2xl border border-line bg-surface p-4">
+          <li key={entry.id} className="flex flex-col rounded-md border border-line bg-surface p-4">
             <div className="flex items-start justify-between gap-2">
               <span className="font-serif text-2xl font-semibold">{entry.term}</span>
               <button
@@ -152,7 +152,7 @@ function RootBody({ details }: { details: RootDetails }) {
       <p className="mt-1 text-sm text-muted">
         {details.origin} · <strong className="text-fg">{details.meaning}</strong>
       </p>
-      {details.hook && <p className="mt-2 text-sm text-muted">💡 {details.hook}</p>}
+      {details.hook && <p className="mt-2 text-sm text-muted">{details.hook}</p>}
     </>
   );
 }
@@ -170,5 +170,5 @@ function AbbrevBody({ details }: { details: AbbreviationDetails }) {
 }
 
 function Notice({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-2xl border border-dashed border-line p-6 text-muted">{children}</div>;
+  return <div className="rounded-md border border-dashed border-line p-6 text-muted">{children}</div>;
 }

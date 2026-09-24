@@ -22,7 +22,7 @@ export function TopBar() {
       <nav
         aria-label="Main"
         // On very narrow phones (signed in = 5 tabs) the row scrolls sideways instead of squishing.
-        className="order-last -mx-1 flex w-[calc(100%+0.5rem)] items-center justify-between gap-2.5 text-[13px] sm:text-sm overflow-x-auto whitespace-nowrap border-t border-line px-1 pt-3 [scrollbar-width:none] sm:order-2 sm:mx-0 sm:ml-auto sm:w-auto sm:justify-end sm:gap-6 sm:overflow-visible sm:border-0 sm:px-0 sm:pt-0"
+        className="order-last -mx-1 flex w-[calc(100%+0.5rem)] items-center justify-between gap-2.5 text-sm sm:text-base overflow-x-auto whitespace-nowrap border-t border-line px-1 pt-3 [scrollbar-width:none] sm:order-2 sm:mx-0 sm:ml-auto sm:w-auto sm:justify-end sm:gap-8 sm:overflow-visible sm:border-0 sm:px-0 sm:pt-0"
       >
         <DecodeTab active={onHome} />
         <NavLink href="/dictionary">Dictionary</NavLink>
@@ -33,19 +33,21 @@ export function TopBar() {
   );
 }
 
-// The main feature, so it stands out on every page: an outlined pill, filled when you're on it.
+// The main feature, so it leads the tabs and gets a camera mark on every page.
 function DecodeTab({ active }: { active: boolean }) {
   return (
     <Link
       href="/"
       aria-current={active ? "page" : undefined}
-      className={`flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 font-medium transition sm:px-3.5 ${
-        active
-          ? "bg-linear-to-r from-accent to-accent-2 text-bg"
-          : "border border-accent/60 text-accent hover:border-accent hover:bg-accent/10"
+      className={`flex shrink-0 items-center gap-1.5 transition ${
+        active ? "border-b border-accent pb-0.5 text-accent" : "text-fg hover:text-accent"
       }`}
     >
-      <span aria-hidden="true">📷</span> Decode
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M4 8h3l2-3h6l2 3h3v11H4z" />
+        <circle cx="12" cy="13" r="3.5" />
+      </svg>
+      Decode
     </Link>
   );
 }

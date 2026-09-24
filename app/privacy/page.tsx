@@ -8,7 +8,7 @@ const CONTACT = "raghavvijayapal@gmail.com";
 export default function PrivacyPage() {
   return (
     <main className="mx-auto max-w-2xl px-4 pb-16 pt-4 sm:px-6">
-      <h1 className="font-serif text-4xl font-semibold tracking-tight">Privacy</h1>
+      <h1 className="font-serif text-5xl font-medium">Privacy</h1>
       <p className="mt-1 text-sm text-muted">Last updated September 23, 2026</p>
 
       <div className="mt-8 space-y-6 leading-relaxed text-fg/85 [&_h2]:font-serif [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-fg">
@@ -32,7 +32,7 @@ export default function PrivacyPage() {
           <p className="mt-2">
             Signing in with Google creates an account with Supabase, which stores your email address and the name and
             profile picture Google shares. Loquitur stores the words you choose to save
-            to your Codex and your review schedule. Nobody else can see your Codex. Loquitur does not use your Google
+            to My Words and your review schedule. Nobody else can see your saved words. Loquitur does not use your Google
             account for anything except signing you in.
           </p>
         </section>
@@ -54,7 +54,7 @@ export default function PrivacyPage() {
         <section>
           <h2>Deleting your data</h2>
           <p className="mt-2">
-            You can remove saved words from your Codex at any time. To delete your account entirely, email{" "}
+            You can remove saved words from My Words at any time. To delete your account entirely, email{" "}
             <a href={`mailto:${CONTACT}`} className="text-accent underline">
               {CONTACT}
             </a>

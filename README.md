@@ -17,7 +17,7 @@ Paste text or upload a photo. Loquitur finds the jargon in prescription labels a
    npm install
    ```
 3. Copy `.env.local.example` to `.env.local` and paste your Claude API key from console.anthropic.com.
-   Optional, for accounts and the Codex: create a free Supabase project, run `supabase/schema.sql` in its SQL Editor,
+   Optional, for accounts and My Words: create a free Supabase project, run `supabase/schema.sql` in its SQL Editor,
    add `http://localhost:3000/auth/callback` to Authentication → URL Configuration, and paste the project URL and
    publishable key into `.env.local`. Without them, everything except sign-in still works.
 4. Start the dev server and open http://localhost:3000:
@@ -77,7 +77,7 @@ text or photo → Claude (structured JSON: transcript, terms, roots, summary)
 - `app/study`, `lib/decks.ts`, `components/DeckQuiz.tsx`: ready-made study decks by body system (no sign-in needed)
 - `components/WordOfTheDay.tsx`, `components/ReadAloud.tsx`: a daily root on the home page, and read-aloud summaries
 - `lib/words.ts`: real medical words built from dictionary roots, for "decode it yourself" questions
-- `supabase/schema.sql`: the Codex table, with row-level security so each user sees only their own words
+- `supabase/schema.sql`: the saved-words table (My Words), with row-level security so each user sees only their own words
 - `app/api/decode/route.ts`: the API endpoint (input limits, error handling, no storage)
 
 ## Privacy and safety
@@ -85,7 +85,7 @@ text or photo → Claude (structured JSON: transcript, terms, roots, summary)
 - Document text and photos are sent to the Claude API for decoding and never stored or logged by Loquitur.
 - Loquitur explains words. It does not give medical advice.
 - Each visitor gets 25 decodes a day (`lib/rate-limit.ts`), counted by a salted hash of their IP address; raw IPs are never stored.
-- The Codex stores only the words a user saves, never their documents or photos.
+- My Words stores only the words a user saves, never their documents or photos.
 - Only use made-up or public sample documents for testing.
 
 ## Roadmap
@@ -94,7 +94,7 @@ text or photo → Claude (structured JSON: transcript, terms, roots, summary)
 - [x] Week 3: photo upload (Claude vision)
 - [x] Week 4: grow the dictionary to 152 abbreviations and 264 roots
 - [x] Week 5: confirm drug names with openFDA
-- [x] Week 6: sign-in + Codex (saved roots and abbreviations)
+- [x] Week 6: sign-in + My Words (saved roots and abbreviations)
 - [x] Week 7: spaced-repetition review quizzes
 - [x] Week 8a: accuracy evaluation
 - [x] Week 8b: launch on Vercel, with Google sign-in, a daily decode limit and a privacy page

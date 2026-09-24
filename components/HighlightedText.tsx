@@ -13,7 +13,7 @@ export function HighlightedText({ text, terms, selected, onSelect }: Props) {
   const segments = segmentText(text, terms);
 
   return (
-    <div className="whitespace-pre-wrap rounded-2xl border border-line bg-surface p-5 font-mono text-[15px] leading-8">
+    <div className="whitespace-pre-wrap border-l-2 border-accent bg-surface px-5 py-5 text-lg leading-[2.05] text-[#dfe4ef] sm:px-7 sm:py-6 sm:text-xl">
       {segments.map((segment, i) => {
         if (segment.termIndex === null) return <span key={i}>{segment.text}</span>;
         const term = terms[segment.termIndex];
@@ -22,8 +22,8 @@ export function HighlightedText({ text, terms, selected, onSelect }: Props) {
           <button
             key={i}
             onClick={() => onSelect(segment.termIndex!)}
-            className={`rounded px-0.5 underline decoration-2 underline-offset-4 transition ${KIND_STYLES[term.kind].mark} ${
-              isSelected ? "ring-2 ring-accent" : "hover:brightness-125"
+            className={`rounded-xs px-0.5 underline decoration-[1.5px] underline-offset-[6px] transition ${
+              isSelected ? "bg-accent text-bg no-underline" : `${KIND_STYLES[term.kind].mark} hover:bg-accent/15`
             }`}
           >
             {segment.text}
