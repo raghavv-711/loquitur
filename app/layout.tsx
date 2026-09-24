@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Caveat, Cormorant_Garamond, Lora } from "next/font/google";
+import { Caveat, Cormorant_Garamond, Lora, Mrs_Saint_Delafield } from "next/font/google";
 import Link from "next/link";
 import { CodexProvider } from "@/components/CodexProvider";
 import { TopBar } from "@/components/TopBar";
@@ -13,6 +13,8 @@ const cormorant = Cormorant_Garamond({
 });
 const lora = Lora({ subsets: ["latin"], style: ["normal", "italic"], variable: "--font-lora" });
 const caveat = Caveat({ subsets: ["latin"], weight: ["500", "700"], variable: "--font-caveat" });
+// Only used for Raghav's signature in the footer.
+const signature = Mrs_Saint_Delafield({ subsets: ["latin"], weight: "400", variable: "--font-sig-script" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://loquitur.vercel.app"),
@@ -30,7 +32,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${lora.variable} ${caveat.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${lora.variable} ${caveat.variable} ${signature.variable}`}>
       <body className="flex min-h-screen flex-col antialiased">
         <CodexProvider>
           <div className="mx-auto w-full max-w-6xl px-4 pt-5 sm:px-8 sm:pt-8">
@@ -43,8 +45,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 Loquitur explains words. It is not medical advice. Always ask your pharmacist or doctor about your care.
               </p>
               <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
-                <span className="text-muted">
-                  Crafted with care by <span className="font-hand text-2xl text-accent">Raghav</span>
+                <span className="flex items-baseline gap-2 text-muted">
+                  Crafted with care by
+                  <span className="font-signature -rotate-3 text-[40px] leading-none text-accent" aria-label="Raghav">
+                    RaghaV
+                  </span>
                 </span>
                 <span className="flex gap-6">
                   <Link href="/about" className="text-muted hover:text-accent">

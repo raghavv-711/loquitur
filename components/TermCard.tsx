@@ -3,12 +3,12 @@ import { abbreviationEntry, rootEntry } from "@/lib/codex";
 import type { VerifiedTerm } from "@/lib/schema";
 import { SaveButton } from "./SaveButton";
 
-// How each kind of word is marked in the document, like a reader's pen: solid gold for medical words,
-// dotted blue for abbreviations, wavy rose for drugs.
+// How each kind of word is marked in the document, like a reader's pen (hand-drawn strokes in globals.css):
+// a gold line for medical words, blue dots for abbreviations, a rose wave for drugs.
 export const KIND_STYLES = {
-  abbreviation: { label: "Abbreviation", mark: "decoration-dotted decoration-accent-2 text-[#cfdcf7]" },
-  medical_term: { label: "Medical term", mark: "decoration-solid decoration-accent text-[#f3e3bd]" },
-  drug: { label: "Drug", mark: "decoration-wavy decoration-[#e39b7b] text-[#f5d2c2]" },
+  abbreviation: { label: "Abbreviation", mark: "ink-dotted text-[#cfdcf7]" },
+  medical_term: { label: "Medical term", mark: "ink-solid text-[#f3e3bd]" },
+  drug: { label: "Drug", mark: "ink-wavy text-[#f5d2c2]" },
 } as const;
 
 // Status notes sit on the paper-colored card, so they use darker inks.

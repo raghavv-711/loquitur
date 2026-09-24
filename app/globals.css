@@ -5,6 +5,7 @@
   --font-sans: var(--font-lora), Georgia, serif; /* body text */
   --font-serif: var(--font-cormorant), "Iowan Old Style", Palatino, Georgia, serif; /* headings */
   --font-hand: var(--font-caveat), "Bradley Hand", cursive; /* margin notes */
+  --font-signature: var(--font-sig-script), "Snell Roundhand", cursive; /* footer signature */
   --color-bg: #071230; /* page background */
   --color-surface: #0a1738; /* panels */
   --color-surface-2: #0c1a3d; /* inputs, nested panels */
@@ -41,4 +42,31 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
+}
+
+/* Hand-drawn underlines for decoded words: a pen line that wobbles a little, like marking up a page by hand.
+   Each is a small repeating SVG stroke (colors are baked in, so they match the tokens above). */
+.ink-solid,
+.ink-dotted,
+.ink-wavy {
+  padding-bottom: 5px;
+  background-repeat: repeat-x;
+  background-position: 0 100%;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.ink-solid {
+  /* gold: medical words */
+  background-size: 46px 7px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='7'%3E%3Cpath d='M0 3.6 C7 2.4 13 4.9 22 3.9 S38 2.6 46 3.6' fill='none' stroke='%23d8b56a' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.ink-dotted {
+  /* pale blue: abbreviations */
+  background-size: 26px 7px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='7'%3E%3Cg fill='%239fb6e8'%3E%3Cellipse cx='2.5' cy='3.8' rx='1.7' ry='1.5'/%3E%3Cellipse cx='9' cy='3.3' rx='1.5' ry='1.4'/%3E%3Cellipse cx='15.6' cy='4' rx='1.8' ry='1.5'/%3E%3Cellipse cx='22' cy='3.5' rx='1.5' ry='1.4'/%3E%3C/g%3E%3C/svg%3E");
+}
+.ink-wavy {
+  /* rose: drugs */
+  background-size: 28px 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='8'%3E%3Cpath d='M0 4.2 Q3.6 1.2 7.2 4 T14 4.4 T21.2 3.8 T28 4.2' fill='none' stroke='%23e39b7b' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
 }

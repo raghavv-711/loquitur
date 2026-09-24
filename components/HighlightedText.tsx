@@ -22,8 +22,8 @@ export function HighlightedText({ text, terms, selected, onSelect }: Props) {
           <button
             key={i}
             onClick={() => onSelect(segment.termIndex!)}
-            className={`rounded-xs px-0.5 underline decoration-[1.5px] underline-offset-[6px] transition ${
-              isSelected ? "bg-accent text-bg no-underline" : `${KIND_STYLES[term.kind].mark} hover:bg-accent/15`
+            className={`rounded-xs px-0.5 transition ${
+              isSelected ? "bg-accent text-bg" : `${KIND_STYLES[term.kind].mark} hover:bg-accent/15`
             }`}
           >
             {segment.text}

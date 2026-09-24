@@ -235,7 +235,7 @@ export default function Home() {
             <p className="flex flex-wrap gap-x-2 text-[15px] text-faint">
               {Object.values(KIND_STYLES).map((kind) => (
                 <span key={kind.label}>
-                  <span className={`underline decoration-[1.5px] underline-offset-[5px] ${kind.mark}`}>{kind.label}</span>
+                  <span className={kind.mark}>{kind.label}</span>
                   {" ·"}
                 </span>
               ))}
