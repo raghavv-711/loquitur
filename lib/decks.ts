@@ -10,11 +10,14 @@ export type Deck = {
   description: string;
   roots: string[];
   abbreviations: string[];
+  // 1 (gentle) to 5 (hardest), judged by hand: how many words, how unfamiliar they are, and how many look-alikes.
+  difficulty: 1 | 2 | 3 | 4 | 5;
 };
 
 export const DECKS: Deck[] = [
   {
     id: "premed-starter",
+    difficulty: 1,
     title: "Pre-med starter",
     description: "The prefixes and suffixes that build thousands of medical words. Start here.",
     roots: [
@@ -26,6 +29,7 @@ export const DECKS: Deck[] = [
   },
   {
     id: "prescription-latin",
+    difficulty: 3,
     title: "Prescription Latin",
     description: "The Latin shorthand on pill bottles: when, how and how much to take.",
     roots: [],
@@ -37,6 +41,7 @@ export const DECKS: Deck[] = [
   },
   {
     id: "heart",
+    difficulty: 4,
     title: "Heart & blood vessels",
     description: "Cardiology words, from arrhythmia to atherosclerosis.",
     roots: [
@@ -47,6 +52,7 @@ export const DECKS: Deck[] = [
   },
   {
     id: "kidneys",
+    difficulty: 2,
     title: "Kidneys & urinary tract",
     description: "Nephrology and urology: stones, bladders and everything in between.",
     roots: ["nephr", "ren", "ur", "uria", "cyst", "lith", "calc", "ureter", "urethr", "vesic", "hydr", "noct", "iasis", "prostat", "adren"],
@@ -54,6 +60,7 @@ export const DECKS: Deck[] = [
   },
   {
     id: "lungs",
+    difficulty: 3,
     title: "Lungs & breathing",
     description: "Pulmonology words, from bronchitis to dyspnea.",
     roots: ["pulmon", "pneumon", "pneum", "bronch", "trache", "pleur", "laryng", "pharyng", "rhin", "pnea", "spir", "ox", "thorac", "pector", "cyan"],
@@ -61,6 +68,7 @@ export const DECKS: Deck[] = [
   },
   {
     id: "digestion",
+    difficulty: 3,
     title: "Stomach & digestion",
     description: "Gastroenterology, from the esophagus to the colon.",
     roots: [
@@ -71,6 +79,7 @@ export const DECKS: Deck[] = [
   },
   {
     id: "brain",
+    difficulty: 4,
     title: "Brain, nerves & mind",
     description: "Neurology and psychiatry words, from encephalitis to insomnia.",
     roots: ["neur", "encephal", "cerebr", "cephal", "crani", "psych", "somn", "hypn", "esthesi", "phas", "plegia", "algia", "dynia", "myel"],
@@ -78,6 +87,7 @@ export const DECKS: Deck[] = [
   },
   {
     id: "bones",
+    difficulty: 3,
     title: "Bones, joints & muscles",
     description: "Orthopedic words, from arthritis to osteomalacia.",
     roots: ["oste", "arthr", "my", "muscul", "tendin", "chondr", "oss", "spondyl", "vertebr", "cost", "carp", "brachi", "femor", "dactyl", "pod", "lumb", "malacia"],

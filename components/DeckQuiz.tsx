@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { CodexEntry, NewCodexEntry } from "@/lib/codex";
 import { deckEntries, findDeck } from "@/lib/decks";
 import { buildQuestion, type Question } from "@/lib/quiz";
+import { Difficulty } from "./Difficulty";
 import { QuestionCard } from "./QuestionCard";
 import { SaveButton } from "./SaveButton";
 
@@ -58,6 +59,9 @@ export function DeckQuiz({ deckId }: { deckId: string }) {
       <header className="mb-8 mt-4">
         <h1 className="font-serif text-5xl font-medium">{deck.title}</h1>
         <p className="mt-2 text-[17px] text-muted">{deck.description}</p>
+        <p className="mt-2 flex items-baseline gap-2 text-sm text-faint">
+          Difficulty <Difficulty level={deck.difficulty} />
+        </p>
         {/* One mark per card: gold once answered right, rose if missed, faint still to come. */}
         {cards && (
           <div className="mt-5 flex gap-1.5" aria-label={`Card ${Math.min(index + 1, cards.length)} of ${cards.length}`}>

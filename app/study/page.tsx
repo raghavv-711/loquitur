@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DECKS, deckSize, type Deck } from "@/lib/decks";
+import { Difficulty } from "@/components/Difficulty";
 import { abbrevDisplay, rootDisplay } from "@/lib/display";
 
 export const metadata: Metadata = {
@@ -52,7 +53,15 @@ export default function StudyPage() {
                     className="hidden flex-1 translate-y-[-0.3em] border-b border-dotted border-line-strong sm:block"
                     aria-hidden="true"
                   />
-                  <span className="ml-auto shrink-0 text-sm text-faint sm:ml-0">{deckSize(deck)} words</span>
+                  <span className="ml-auto hidden shrink-0 items-baseline gap-3 text-sm text-faint sm:ml-0 sm:flex">
+                    <Difficulty level={deck.difficulty} />
+                    <span>{deckSize(deck)} words</span>
+                  </span>
+                </span>
+                {/* On phones the stars and count get their own line so long titles don't get squeezed. */}
+                <span className="mt-1 flex items-baseline gap-3 text-sm text-faint sm:hidden">
+                  <Difficulty level={deck.difficulty} />
+                  <span>{deckSize(deck)} words</span>
                 </span>
                 <span className="mt-1 block text-[17px] text-muted">{deck.description}</span>
                 <span className="mt-1 block font-serif text-lg italic text-faint">{preview(deck)}</span>
