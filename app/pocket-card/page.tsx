@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PrintButton } from "@/components/PrintButton";
 import { ABBREVIATIONS } from "@/lib/dictionary";
 import { abbrevDisplay } from "@/lib/display";
@@ -51,6 +52,13 @@ export default function PocketCardPage() {
           <PrintButton />
           <span className="-rotate-1 font-hand text-2xl text-accent">prints at 4 × 6 inches, an index card</span>
         </div>
+        <p className="mt-4 text-muted">
+          Want your own medicines in plain English instead?{" "}
+          <Link href="/my-medicines" className="text-accent underline underline-offset-4">
+            Make a medicines card
+          </Link>
+          .
+        </p>
       </header>
 
       {/* The card itself: cream paper on screen, plain black on white when printed. */}

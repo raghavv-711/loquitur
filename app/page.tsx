@@ -204,6 +204,22 @@ export default function Home() {
           </div>
         )}
 
+        {/* Things to print and keep, for people who'd rather have paper. */}
+        {!result && !loading && (
+          <section className="mt-12 grid gap-8 border-t border-line pt-8 sm:grid-cols-2">
+            <Link href="/my-medicines" className="group">
+              <span className="font-serif text-2xl font-semibold group-hover:text-accent">My medicines card &rarr;</span>
+              <span className="mt-1 block text-muted">
+                Type in your labels and print a big, plain-English list for the fridge.
+              </span>
+            </Link>
+            <Link href="/pocket-card" className="group">
+              <span className="font-serif text-2xl font-semibold group-hover:text-accent">Pocket card &rarr;</span>
+              <span className="mt-1 block text-muted">Twenty label abbreviations on one index card for your wallet.</span>
+            </Link>
+          </section>
+        )}
+
         {result && (
           <section className="mt-12 grid items-start gap-10 border-t border-line pt-9 md:grid-cols-12">
             <div className="flex flex-col gap-6 md:col-span-7">
